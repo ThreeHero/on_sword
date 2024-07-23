@@ -1,0 +1,49 @@
+@import 'normalize.css';
+@import 'nprogress/nprogress.css';
+@import './styles/variable.less';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+
+  /* 滚动条 */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* 滑轨背景色 */
+  ::-webkit-scrollbar-track {
+    background-color: fade(@primaryColor, 20%);
+    opacity: 0.2;
+  }
+
+  /* 滑块颜色 */
+  ::-webkit-scrollbar-thumb {
+    background-color: @primaryColor;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.4) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0.4) 75%,
+      transparent 75%,
+      transparent
+    );
+    border-radius: 1em;
+  }
+
+  ::selection {
+    background-color: fade(@primaryColor, 20%);
+    color: lighten(@primaryColor, 10%);
+    // color: @primaryColor;
+  }
+}
