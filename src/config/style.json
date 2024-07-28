@@ -1,0 +1,10 @@
+{
+  "colorPrimary": "#39c5bb",
+  "colorInfo": "#39c5bb",
+  "colorError": "#ff4b2c",
+  "colorSuccess": "#8ee5c6",
+  "colorTextBase": "#0a2222",
+  "colorWarning": "#ffa500",
+
+  "fontFamily": "zhuziAwan"
+}

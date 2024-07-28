@@ -1,4 +1,5 @@
 import { MDEditor } from '@/components'
+import { Button } from 'antd'
 import { useState } from 'react'
 
 const Home = () => {
@@ -27,8 +28,15 @@ Chicken Chicken Chicken Chicken Chicken Chicken.`)
 
   return (
     <div style={{ width: '', display: 'flex' }}>
-      <MDEditor.Viewer value={value} onChange={setValue} />
-      <MDEditor.Navbar value={value} onChange={setValue} />
+      <Button type="primary">测试</Button>
+      <MDEditor.Viewer
+        value={value}
+        onChange={setValue}
+      />
+      <MDEditor.Navbar
+        value={value}
+        onChange={setValue}
+      />
     </div>
   )
 }
