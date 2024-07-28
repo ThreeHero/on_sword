@@ -89,14 +89,19 @@ function MdStyle(): BytemdPlugin {
       if (typeof file !== 'object') return
       const { frontmatter } = file || {}
       const { theme, highlight } = frontmatter || {}
-      if (highlight) {
-        const $style = document.createElement('style')
-        $style.innerHTML = require(`#/highLightStyles/${highlight}.css`)
-        markdownBody.appendChild($style)
-      }
       if (theme) {
         const $style = document.createElement('style')
         $style.innerHTML = require(`#/mdStyles/${themes[theme]?.path}`)
+        markdownBody.appendChild($style)
+      }
+
+      if (highlight) {
+        const $style = document.createElement('style')
+        $style.innerHTML = `
+          .markdown-body {
+            ${require(`#/highLightStyles/${highlight}.css`)}
+          }
+        `
         markdownBody.appendChild($style)
       }
     }
