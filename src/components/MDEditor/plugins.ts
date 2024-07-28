@@ -1,4 +1,6 @@
 import type { BytemdPlugin } from 'bytemd'
+// @ts-ignore
+import gfmZhHans from '@bytemd/plugin-gfm/locales/zh_Hans.json'
 
 import themes, { highlights, icons, mdThemes } from './theme'
 
@@ -91,15 +93,21 @@ function MdStyle(): BytemdPlugin {
       const { theme, highlight } = frontmatter || {}
       if (theme) {
         const $style = document.createElement('style')
-        $style.innerHTML = require(`#/mdStyles/${themes[theme]?.path}`)
+        if (themes[theme]?.path) $style.innerHTML = require(`#/mdStyles/${themes[theme]?.path}`)
         markdownBody.appendChild($style)
       }
 
       if (highlight) {
         const $style = document.createElement('style')
+        let styleContent = ''
+        try {
+          styleContent = require(`#/highLightStyles/${highlight}.css`)
+        } catch {
+          styleContent = require(`#/highLightStyles/default.css`)
+        }
         $style.innerHTML = `
           .markdown-body {
-            ${require(`#/highLightStyles/${highlight}.css`)}
+            ${styleContent}
           }
         `
         markdownBody.appendChild($style)
@@ -108,6 +116,6 @@ function MdStyle(): BytemdPlugin {
   }
 }
 
-export const plugins = [gfm(), frontmatter(), MdStyle(), gemoji(), highlight(), mediumZoom()]
+export const plugins = [gfm({ locale: gfmZhHans }), frontmatter(), MdStyle(), gemoji(), highlight(), mediumZoom()]
 
 // @ts-ignore

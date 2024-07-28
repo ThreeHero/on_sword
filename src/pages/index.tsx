@@ -27,13 +27,8 @@ Chicken Chicken Chicken Chicken Chicken.
 Chicken Chicken Chicken Chicken Chicken Chicken.`)
 
   return (
-    <div style={{ width: '', display: 'flex' }}>
-      <Button type="primary">测试</Button>
-      <MDEditor.Viewer
-        value={value}
-        onChange={setValue}
-      />
-      <MDEditor.Navbar
+    <div>
+      <MDEditor
         value={value}
         onChange={setValue}
       />
