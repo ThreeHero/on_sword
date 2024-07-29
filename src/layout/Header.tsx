@@ -1,4 +1,7 @@
+import { observer } from 'mobx-react'
+
+import styles from './index.less'
 const Header = () => {
-  return <div>12345</div>
+  return <div className={styles.header}>12345</div>
 }
-export default Header
+export default observer(Header)

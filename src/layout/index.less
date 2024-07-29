@@ -7,12 +7,23 @@
   position: relative;
   color: @color;
   background: @bg;
+  min-height: 100vh;
 }
 
 .header {
   height: @headerHeight;
+  width: 100%;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .tool-bar {
   position: fixed;
+  right: 0;
+  bottom: 0;
 }
