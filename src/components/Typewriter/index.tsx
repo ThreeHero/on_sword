@@ -60,10 +60,7 @@ const Typewriter: FC<IProps> = ({ value, speed = 300, onClick, className, noStyl
   }, speed)
 
   return (
-    <div
-      className={cls(className, { [styles.typewriter]: !noStyle })}
-      onClick={handleClick}
-    >
+    <div className={cls(className, { [styles.typewriter]: !noStyle })} onClick={handleClick}>
       {displayText}
     </div>
   )

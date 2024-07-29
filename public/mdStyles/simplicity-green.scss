@@ -1,4 +1,4 @@
-$monospace-font: Menlo, Monaco, Consolas, "Courier New", monospace;
+$monospace-font: Menlo, Monaco, Consolas, 'Courier New', monospace;
 $line-space: 1.6em;
 $color-primary: #42b983;
 
@@ -9,8 +9,8 @@ $color-primary: #42b983;
   font-size: 15px;
   overflow-x: hidden;
   color: #303133;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-  "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    '微软雅黑', Arial, sans-serif;
   h1,
   h2,
   h3,
@@ -80,7 +80,11 @@ $color-primary: #42b983;
   }
   .markdown-section > :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) code {
     font-size: 0.8rem;
-    font-family: Roboto Mono, Monaco, courier, monospace;
+    font-family:
+      Roboto Mono,
+      Monaco,
+      courier,
+      monospace;
   }
 
   pre {
@@ -145,7 +149,7 @@ $color-primary: #42b983;
     background-color: rgba($color: $color-primary, $alpha: 0.1);
     &::after {
       display: block;
-      content: "";
+      content: '';
     }
     & > p {
       margin: 10px 0;
@@ -187,7 +191,10 @@ $color-primary: #42b983;
       margin-right: 8px;
     }
     .katex {
-      font: normal 1.21 em KaTeX_Main, Times New Roman, serif;
+      font:
+        normal 1.21 em KaTeX_Main,
+        Times New Roman,
+        serif;
       line-height: 1.2;
       text-indent: 0;
       text-rendering: auto;
@@ -197,13 +204,13 @@ $color-primary: #42b983;
 
   .task-list-item {
     list-style: none;
-    & input[type="checkbox"] {
+    & input[type='checkbox'] {
       position: relative;
       border-radius: 2px;
       box-sizing: border-box;
       &::before,
       &::after {
-        content: "";
+        content: '';
         display: block;
         position: absolute;
         left: 0;
@@ -230,8 +237,9 @@ $color-primary: #42b983;
           border-color: $color-primary;
           box-sizing: border-box;
           background-color: $color-primary;
-          transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
-          background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
+          transition:
+            border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
+            background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
         }
         &::before {
           box-sizing: content-box;

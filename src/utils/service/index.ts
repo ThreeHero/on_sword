@@ -1,9 +1,9 @@
 import getInstance from '@/utils/service/instance'
 import httpConfig from './config'
-export const baseURL = 'https://localhost:30000';
+export const baseURL = 'https://localhost:30000'
 
 // 创建请求
-const http: any = (...arg) => getInstance(http)(...arg);
+const http: any = (...arg) => getInstance(http)(...arg)
 
 http.setConfig = config => {
   http.config = config
@@ -13,7 +13,6 @@ http.setConfig = config => {
 http.getConfig = () => {
   return getInstance(http).getConfig()
 }
-
 
 http.get = (...arg) => getInstance(http).get(...arg)
 http.post = (...arg) => getInstance(http).post(...arg)

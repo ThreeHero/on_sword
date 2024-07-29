@@ -116,6 +116,13 @@ function MdStyle(): BytemdPlugin {
   }
 }
 
-export const plugins = [gfm({ locale: gfmZhHans }), frontmatter(), MdStyle(), gemoji(), highlight(), mediumZoom()]
+export const plugins = [
+  gfm({ locale: gfmZhHans }),
+  frontmatter(),
+  MdStyle(),
+  gemoji(),
+  highlight(),
+  mediumZoom()
+]
 
 // @ts-ignore

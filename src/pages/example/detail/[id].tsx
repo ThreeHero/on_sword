@@ -18,10 +18,7 @@ const Home = () => {
   return (
     <>
       <div style={{ width: 980, margin: '0 auto' }}>
-        <MDEditor.Viewer
-          value={content}
-          onChange={setContent}
-        />
+        <MDEditor.Viewer value={content} onChange={setContent} />
       </div>
       <div style={{ position: 'fixed', top: 40, right: 10, width: 300 }}>
         <MDEditor.Navbar value={content} />

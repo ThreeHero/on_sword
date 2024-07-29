@@ -1,7 +1,9 @@
 import { AxiosInstance } from 'axios'
 import NProgress from 'nprogress'
 
-export function requestIntercept(http: AxiosInstance & {globalConfig: any, getConfig: () => any}) {
+export function requestIntercept(
+  http: AxiosInstance & { globalConfig: any; getConfig: () => any }
+) {
   http.interceptors.request.use(
     config => {
       NProgress.start()

@@ -1,28 +1,28 @@
-$monospace-font: -apple-system,
--apple-system-body,
-BlinkMacSystemFont,
-"Segoe UI",
-Helvetica,
-Arial,
-PingFang SC,
-"思源黑体 CN",
-"思源黑体",
-"JetBrains Mono",
-"Fira Code",
-Menlo,
-"Ubuntu Mono",
-Consolas,
-sans-serif;
+$monospace-font:
+  -apple-system,
+  -apple-system-body,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Helvetica,
+  Arial,
+  PingFang SC,
+  '思源黑体 CN',
+  '思源黑体',
+  'JetBrains Mono',
+  'Fira Code',
+  Menlo,
+  'Ubuntu Mono',
+  Consolas,
+  sans-serif;
 
-$baseColor: #f33b1f;        // 极光红
-$strongColor: #ee3f4d;      // 茶花红
-$darkBaseColor: #ac1f18;    // 覆盆子红
-$blockquoteColor: #f07c82;  // 香叶红
-$codeColor: #ee2746;        // 淡曙红
-$codeBgColor: #f9f1db;      // 蚌肉白
-$aColor: #1781b5;           // 釉蓝
+$baseColor: #f33b1f; // 极光红
+$strongColor: #ee3f4d; // 茶花红
+$darkBaseColor: #ac1f18; // 覆盆子红
+$blockquoteColor: #f07c82; // 香叶红
+$codeColor: #ee2746; // 淡曙红
+$codeBgColor: #f9f1db; // 蚌肉白
+$aColor: #1781b5; // 釉蓝
 $bgColor: #fff9f9;
-
 
 .markdown-body {
   word-break: break-word;
@@ -31,7 +31,6 @@ $bgColor: #fff9f9;
   font-size: 17px;
   overflow-x: hidden;
   color: black;
-
 
   // 粗体
   strong {
@@ -131,7 +130,7 @@ $bgColor: #fff9f9;
     position: relative;
     line-height: 1.75;
 
-    >code {
+    > code {
       margin: 12px 0 !important;
       border-radius: 3px;
       font-size: 15px;
@@ -172,7 +171,7 @@ $bgColor: #fff9f9;
       content: '';
     }
 
-    &>p {
+    & > p {
       margin: 6px 0;
     }
   }
@@ -199,7 +198,6 @@ $bgColor: #fff9f9;
     ol {
       margin-top: 6px;
     }
-
   }
 
   ol li {
@@ -218,11 +216,11 @@ $bgColor: #fff9f9;
   .task-list-item {
     list-style: none;
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       position: relative;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -237,7 +235,7 @@ $bgColor: #fff9f9;
 
       &:checked {
         &::after {
-          content: "\2713";
+          content: '\2713';
           position: absolute;
           top: -5px;
           left: 0;
@@ -252,7 +250,6 @@ $bgColor: #fff9f9;
         }
       }
     }
-
   }
 
   // 表格
@@ -291,12 +288,7 @@ $bgColor: #fff9f9;
     td {
       min-width: 120px;
     }
-
   }
-
-
-
-
 
   @media (max-width: 720px) {
     h1 {

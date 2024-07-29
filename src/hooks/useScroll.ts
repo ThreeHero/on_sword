@@ -4,7 +4,8 @@ const useScroll = () => {
   const [top, setTop] = useState(0)
 
   const calculateScrollPercentage = () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+    const scrollTop =
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
     const scrollHeight = Math.max(
       document.body.scrollHeight,
       document.documentElement.scrollHeight,

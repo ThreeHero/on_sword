@@ -1,5 +1,4 @@
-
-$monospace-font: Menlo, Monaco, Consolas, "Courier New", monospace;
+$monospace-font: Menlo, Monaco, Consolas, 'Courier New', monospace;
 $line-space: 22px;
 
 $color-theme: #3eaf7c;
@@ -32,7 +31,7 @@ $color-blockquote: #42b983;
       margin-bottom: 1rem;
     }
     &::before {
-      content: "#";
+      content: '#';
       display: inline-block;
       color: $color-theme;
       padding-right: 0.23em;
@@ -137,7 +136,7 @@ $color-blockquote: #42b983;
       border-bottom: 1.5px solid $color-theme;
     }
     &:before {
-      content: "⇲";
+      content: '⇲';
     }
   }
 
@@ -175,7 +174,7 @@ $color-blockquote: #42b983;
     background-color: #f8f8f8;
     &::after {
       display: block;
-      content: "";
+      content: '';
     }
     & > p {
       margin: 10px 0;
@@ -232,7 +231,7 @@ $color-blockquote: #42b983;
   ul li {
     list-style: none;
     &:before {
-      content: "•";
+      content: '•';
       margin-right: 4px;
       color: $color-theme;
     }

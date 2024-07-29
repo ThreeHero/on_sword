@@ -4,7 +4,7 @@ import { responseIntercept } from '@/utils/service/response'
 
 // 创建请求实例
 function createInstance(config?: any) {
-  const instance: any  =  axios.create()
+  const instance: any = axios.create()
   instance.defaults.timeout = 5000
   instance.defaults.baseURL = 'http://localhost:30000'
   instance.globalConfig = config
@@ -26,7 +26,6 @@ function getInstance(http: any) {
   if (http.instance) {
     return http.instance
   }
-
 
   return http.instance
 }
