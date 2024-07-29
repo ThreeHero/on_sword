@@ -1,1 +1,2 @@
-import baseUtils from './base'
+export { default as http } from './service'
+export * from './storage'
