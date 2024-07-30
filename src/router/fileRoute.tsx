@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-
+import { Inject } from '@/hoc'
 const replaceIndex = path => path.replaceAll('./', '').replace(/(\/?index)?\.[jt]sx?/g, '')
 const whiteRoute = ['api', 'components', 'store']
 
@@ -25,7 +25,7 @@ const routesFile = routes.map(file => {
   const path = '/' + file.replaceAll('/[', '[').replaceAll('[', '/:').replaceAll(']', '')
   return {
     path,
-    element: <Component />
+    element: Inject(Component)()
   }
 })
 

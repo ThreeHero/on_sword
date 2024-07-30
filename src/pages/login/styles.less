@@ -158,6 +158,9 @@
           }
         }
       }
+      .ant-statistic-content {
+        font-size: 14px;
+      }
     }
 
     .text {
@@ -171,5 +174,48 @@
         transform: scale(0.9);
       }
     }
+  }
+}
+
+.forgetModal {
+  :global {
+    .ant-form-item {
+      width: 100%;
+
+      .ant-input {
+        background: fade(#fff, 60%);
+        border-radius: 0;
+        letter-spacing: 2px;
+
+        &::placeholder {
+          color: #666;
+        }
+      }
+      .ant-input-password {
+        background: fade(#fff, 60%);
+        border-radius: 0;
+
+        .ant-input {
+          background: transparent;
+        }
+
+        &::placeholder {
+          color: #666;
+        }
+      }
+    }
+    .ant-statistic-content {
+      font-size: 14px;
+    }
+  }
+
+  .send-btn {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #d9d9d9;
+    user-select: none;
   }
 }

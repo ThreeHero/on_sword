@@ -8,6 +8,7 @@ const root = document.getElementById('root')
 // 捕捉全局未捕获的异常
 window.addEventListener('unhandledrejection', e => {
   e.preventDefault()
+  console.error(e.reason)
 })
 
 if (root) {

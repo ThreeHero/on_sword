@@ -1,0 +1,25 @@
+@import './variable.less';
+
+@bg: var(--current-bg);
+@color: var(--current-color);
+
+body {
+  .ant-modal {
+    .ant-modal-content {
+      background: @bg;
+      color: @color;
+      .ant-modal-header {
+        background: @bg;
+        color: @color;
+        .ant-modal-title {
+          color: @color;
+          text-align: center;
+          user-select: none;
+        }
+      }
+      .ant-modal-close-x {
+        color: @color;
+      }
+    }
+  }
+}

@@ -8,10 +8,12 @@ import MiddlePage from './MiddlePage'
 import { Form } from 'antd'
 import Store from './store'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router'
 
 const Index = () => {
   const [form] = Form.useForm()
-  const store = useMemo(() => new Store(form), [form])
+  const navigate = useNavigate()
+  const store = useMemo(() => new Store(form, navigate), [form])
 
   return (
     <div className={styles.container}>

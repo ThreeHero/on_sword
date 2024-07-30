@@ -1,5 +1,5 @@
 import { baseURL } from '@/utils/service'
-
+export * from './base'
 export { default as http, baseURL } from './service'
 export * from './storage'
 
