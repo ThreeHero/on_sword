@@ -39,13 +39,22 @@ const ForgetPassword = ({ store }) => {
       }
     >
       <Form.Item name={'forgetEmail'} rules={[validate.validateEmail]}>
-        <Input placeholder="请输入邮箱" />
+        <Input
+          placeholder="请输入邮箱"
+          onPressEnter={() => {
+            if (store.captchaCountdown) {
+              store.forgetPassword()
+            } else {
+              store.sendForgetCaptcha()
+            }
+          }}
+        />
       </Form.Item>
       <Form.Item name={'forgetCaptcha'} rules={[validate.validateCaptcha]}>
-        <SpaceInput placeholder="验证码" store={store} />
+        <SpaceInput placeholder="验证码" onPressEnter={store.forgetPassword} store={store} />
       </Form.Item>
       <Form.Item name={'forgetPassword'} rules={[validate.validatePassword]}>
-        <Input.Password placeholder="新密码" />
+        <Input.Password placeholder="新密码" onPressEnter={store.forgetPassword} />
       </Form.Item>
     </Modal>
   )

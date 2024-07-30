@@ -12,10 +12,10 @@ const Login = ({ store }) => {
       <div className={styles.form}>
         <h2 className={styles.title}>登录</h2>
         <Form.Item name={'loginAccount'} rules={[{ required: true, message: '请输入账号或邮箱' }]}>
-          <Input placeholder="账号/邮箱" />
+          <Input placeholder="账号/邮箱" onPressEnter={store.login} />
         </Form.Item>
         <Form.Item name={'loginPassword'} rules={[validate.validatePassword]}>
-          <Input.Password placeholder="密码" />
+          <Input.Password placeholder="密码" onPressEnter={store.login} />
         </Form.Item>
         <div className={styles.text} onClick={() => (store.openForgetModal = true)}>
           忘记密码

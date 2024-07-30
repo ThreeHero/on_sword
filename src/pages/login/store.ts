@@ -51,6 +51,7 @@ class Store {
       const msg = await Api.sendRegCaptcha({ email })
       message.success(msg)
     } catch (e) {
+      message.destroy()
       if (typeof e === 'string') return message.error(e)
       const errorFields = e.errorFields
       const errorMessage = errorFields[0].errors[0]
@@ -74,6 +75,7 @@ class Store {
       message.success(msg)
       this.changePage(true)
     } catch (e) {
+      message.destroy()
       if (typeof e === 'string') return message.error(e)
       const errorFields = e.errorFields
       const errorMessage = errorFields[0].errors[0]
@@ -90,6 +92,7 @@ class Store {
       const msg = await Api.sendForgetCaptcha({ email })
       message.success(msg)
     } catch (e) {
+      message.destroy()
       if (typeof e === 'string') return message.error(e)
       const errorFields = e.errorFields
       const errorMessage = errorFields[0].errors[0]
@@ -111,6 +114,7 @@ class Store {
       message.success(msg)
       this.openForgetModal = false
     } catch (e) {
+      message.destroy()
       if (typeof e === 'string') return message.error(e)
       const errorFields = e.errorFields
       const errorMessage = errorFields[0].errors[0]
@@ -130,6 +134,7 @@ class Store {
       message.success(msg)
       this.router('/')
     } catch (e) {
+      message.destroy()
       if (typeof e === 'string') return message.error(e)
       const errorFields = e.errorFields
       const errorMessage = errorFields?.[0]?.errors[0]

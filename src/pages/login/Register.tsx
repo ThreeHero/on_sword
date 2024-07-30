@@ -13,19 +13,28 @@ const Register = ({ store }) => {
         <h2 className={styles.title}>注册</h2>
         {/* 输入时检测 */}
         <Form.Item name={'account'} validateDebounce={300} rules={[validate.validateAccount]}>
-          <Input placeholder="账号" />
+          <Input placeholder="账号" onPressEnter={store.register} />
         </Form.Item>
         {/* 密码校验 */}
         <Form.Item name={'regPassword'} rules={[validate.validatePassword]}>
-          <Input.Password placeholder="密码" />
+          <Input.Password placeholder="密码" onPressEnter={store.register} />
         </Form.Item>
         {/* 邮箱校验 */}
         <Form.Item name={'email'} rules={[validate.validateEmail]}>
-          <Input placeholder="邮箱" />
+          <Input
+            placeholder="邮箱"
+            onPressEnter={() => {
+              if (store.captchaCountdown) {
+                store.register()
+              } else {
+                store.sendRegCaptcha()
+              }
+            }}
+          />
         </Form.Item>
         {/* 验证码校验 */}
         <Form.Item name={'captcha'} rules={[validate.validateCaptcha]}>
-          <Input placeholder="验证码" />
+          <Input placeholder="验证码" onPressEnter={store.register} />
         </Form.Item>
         <div className={styles.text} onClick={store.sendRegCaptcha}>
           {store.captchaCountdown ? (
