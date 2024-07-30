@@ -26,6 +26,7 @@ const SpaceInput = observer(({ store, ...rest }) => {
 const ForgetPassword = ({ store }) => {
   return (
     <Modal
+      maskClosable={false}
       title="找回密码"
       width={300}
       open={store.openForgetModal}

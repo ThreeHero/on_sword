@@ -18,7 +18,7 @@ const Index = () => {
   return (
     <div className={styles.container}>
       <img className="bg" src={require('@/assets/bg/login_bg.png')} />
-      <Form autoComplete="off" form={store.formInstance}>
+      <Form autoComplete="off" form={store.formInstance} preserve={false}>
         <div className={styles.box}>
           <div
             className={cls(styles['slider-page'], {
