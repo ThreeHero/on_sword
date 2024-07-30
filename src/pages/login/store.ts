@@ -1,8 +1,15 @@
+import { FormInstance } from 'antd'
 import { makeAutoObservable } from 'mobx'
 
 class Store {
-  constructor() {
+  /**
+   * 表单实例
+   */
+  formInstance = null
+
+  constructor(form: FormInstance) {
     makeAutoObservable(this)
+    this.formInstance = form
   }
 
   isLoginPage = true
@@ -12,4 +19,4 @@ class Store {
   }
 }
 
-export default new Store()
+export default Store

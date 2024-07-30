@@ -15,21 +15,56 @@
   .box {
     width: @panelWidth * 2;
     height: @containerHeight;
-    background-color: fade(@primaryColor, 20%);
+    background-color: fade(@primaryColor, 50%);
     border-radius: 16px;
     overflow: hidden;
-    opacity: 0.8;
+    // opacity: 0.8;
   }
 
   .slider-page {
     width: @panelWidth * 3;
     height: @containerHeight;
     transition: all 0.6s;
-    opacity: 0.8;
+    // opacity: 0.8;
     display: flex;
   }
   .is-login {
     transform: translateX(-@panelWidth);
+  }
+}
+
+@media (max-width: (2 * @panelWidth)) {
+  @panelWidth: 90vw;
+  .container {
+    .box {
+      width: @panelWidth;
+      height: @containerHeight * 1.2;
+
+      .page {
+        .form {
+          justify-content: space-evenly;
+          .title {
+            display: none;
+          }
+          :global {
+            .ant-form-item {
+              margin-bottom: 0;
+            }
+          }
+          .text {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .slider-page {
+      width: @panelWidth;
+      height: @containerHeight * 1.8;
+      flex-direction: column;
+    }
+    .is-login {
+      transform: translateY(-@containerHeight * 0.6);
+    }
   }
 }
 
@@ -42,9 +77,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: @auxiliaryColor1;
-  opacity: 0.6;
+  background: fade(@auxiliaryColor1, 60%);
+  user-select: none;
+  padding-bottom: 40px;
+  color: #fff;
+  // filter: contrast(15);
 
+  .desc {
+    margin-bottom: 40px;
+  }
   .btn {
     background: transparent;
     font-size: 16px;
@@ -54,10 +95,14 @@
     color: #fff;
     border-radius: 60px;
     user-select: none;
-    transition: all 0.6s cubic-bezier(0.075, 1.2, 0.665, 1);
+    transition:
+      transform 0.6s cubic-bezier(0.075, 1.2, 0.665, 1),
+      box-shadow 0.6s cubic-bezier(0.075, 1.2, 0.665, 1),
+      filter 0.2s;
 
     &:active {
       transform: scale(0.9);
+      filter: blur(4px);
     }
 
     &:hover {
@@ -74,14 +119,57 @@
 
   .form {
     height: 100%;
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     .title {
+      margin-bottom: 16px;
       user-select: none;
+    }
+
+    :global {
+      .ant-form-item {
+        width: 100%;
+
+        .ant-input {
+          background: fade(#fff, 60%);
+          border: none;
+          border-radius: 0;
+          letter-spacing: 2px;
+
+          &::placeholder {
+            color: #666;
+          }
+        }
+        .ant-input-password {
+          background: fade(#fff, 60%);
+          border: none;
+          border-radius: 0;
+
+          .ant-input {
+            background: transparent;
+          }
+
+          &::placeholder {
+            color: #666;
+          }
+        }
+      }
+    }
+
+    .text {
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      margin-bottom: 16px;
+      transition: transform 0.6s cubic-bezier(0.075, 1.2, 0.665, 1);
+
+      &:active {
+        transform: scale(0.9);
+      }
     }
   }
 }

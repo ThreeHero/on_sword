@@ -6,20 +6,26 @@ import Login from './Login'
 import Register from './Register'
 import MiddlePage from './MiddlePage'
 import { Form } from 'antd'
+import Store from './store'
+import { useMemo } from 'react'
 
 const Index = () => {
+  const [form] = Form.useForm()
+  const store = useMemo(() => new Store(form), [form])
+
   return (
     <div className={styles.container}>
-      <Form autoComplete="off">
+      <img className="bg" src={require('@/assets/bg/login_bg.png')} />
+      <Form autoComplete="off" form={store.formInstance}>
         <div className={styles.box}>
           <div
             className={cls(styles['slider-page'], {
               [styles['is-login']]: store.isLoginPage
             })}
           >
-            <Register />
-            <MiddlePage />
-            <Login />
+            <Register store={store} />
+            <MiddlePage store={store} />
+            <Login store={store} />
           </div>
         </div>
       </Form>
