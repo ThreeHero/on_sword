@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useScroll = () => {
+const useScroll = (isExact: boolean = true) => {
   const [top, setTop] = useState(0)
 
   const calculateScrollPercentage = () => {
@@ -15,8 +15,8 @@ const useScroll = () => {
       document.documentElement.clientHeight
     )
     const clientHeight = document.documentElement.clientHeight || window.innerHeight
-    const scrolled = Math.round((scrollTop / (scrollHeight - clientHeight)) * 100)
-    setTop(scrolled)
+    const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100
+    setTop(isExact ? Math.round(scrolled) : scrolled)
   }
 
   useEffect(() => {
@@ -28,7 +28,9 @@ const useScroll = () => {
     }
   }, [])
 
-  return top
+  return {
+    top
+  }
 }
 
 export default useScroll
