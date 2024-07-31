@@ -1,6 +1,4 @@
 @import '../styles/variable.less';
-@color: var(--current-color);
-@bg: var(--current-bg);
 
 @headerHeight: 60px;
 
@@ -59,13 +57,14 @@
 
   .scroll-height {
     cursor: pointer;
+    user-select: none;
   }
 
   .icon {
     font-size: 24px;
     color: @color;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: @transition;
 
     &:hover {
       color: @auxiliaryColor1;

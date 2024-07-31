@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import cls from 'classnames'
 import styles from './index.less'
-import { Logo } from './components'
+import { Logo, MenuGroup } from './components'
 import { useMouseWheel, useTranscend } from '@/hooks'
 import { useState } from 'react'
 
@@ -18,6 +18,7 @@ const Header = () => {
       })}
     >
       <Logo isBg={isBg} />
+      <MenuGroup />
     </div>
   )
 }

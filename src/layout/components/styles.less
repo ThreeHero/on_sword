@@ -11,11 +11,19 @@
     background: @primaryColor;
     background-clip: text;
     font-size: 24px;
-    transition: all 0.3s ease-in-out;
+    transition: @transition;
   }
 
   .is-bg {
     background: @color;
     background-clip: text;
   }
+}
+
+.menu-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
 }

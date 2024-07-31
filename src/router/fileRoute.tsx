@@ -9,8 +9,10 @@ const getRoutes = () => {
     .keys()
     .map((modulePath: string) => {
       const filePath = replaceIndex(modulePath)
-      if (whiteRoute.includes(filePath.split('/')?.[1])) {
-        return null
+      for (const file of filePath.split('/') || []) {
+        if (whiteRoute.includes(file)) {
+          return null
+        }
       }
       return filePath
     })

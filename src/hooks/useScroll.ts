@@ -15,8 +15,12 @@ const useScroll = (isExact: boolean = true) => {
       document.documentElement.clientHeight
     )
     const clientHeight = document.documentElement.clientHeight || window.innerHeight
-    const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100
-    setTop(isExact ? Math.round(scrolled) : scrolled)
+    if (scrollHeight - clientHeight <= 0) {
+      setTop(100)
+    } else {
+      const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100
+      setTop(isExact ? Math.round(scrolled) : scrolled)
+    }
   }
 
   useEffect(() => {

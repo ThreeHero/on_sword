@@ -1,6 +1,7 @@
 import { config } from '@/config'
 import cls from 'classnames'
 import styles from './styles.less'
+import { observer } from 'mobx-react'
 const Logo = ({ isBg }) => {
   return (
     <div className={styles.logo}>
@@ -15,4 +16,4 @@ const Logo = ({ isBg }) => {
   )
 }
 
-export default Logo
+export default observer(Logo)
