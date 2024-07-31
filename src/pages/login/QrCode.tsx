@@ -21,6 +21,7 @@ const QrCode = ({ children, store, hidden }) => {
         trigger="click"
         content={
           <QRCode
+            type={'svg'}
             value={store.uuid ?? ' '}
             bordered={false}
             status={store.qrStatus}

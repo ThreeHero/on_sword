@@ -34,7 +34,7 @@ const ForgetPassword = ({ store }) => {
       className={styles.forgetModal}
       destroyOnClose
       footer={
-        <Button block onClick={store.forgetPassword}>
+        <Button className={styles['submit-btn']} block ghost onClick={store.forgetPassword}>
           提交
         </Button>
       }
