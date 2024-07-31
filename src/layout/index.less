@@ -1,3 +1,4 @@
+@import '../styles/variable.less';
 @color: var(--current-color);
 @bg: var(--current-bg);
 
@@ -48,7 +49,22 @@
 
 .tool-bar {
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 3vmax;
+  bottom: 3vmax;
   z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 1vmax;
+
+  .icon {
+    font-size: 24px;
+    color: @color;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: @auxiliaryColor1;
+      transform: scale(1.1);
+    }
+  }
 }
