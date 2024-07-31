@@ -5,6 +5,9 @@ import styles from './styles.less'
 import { Button, Form, Input } from 'antd'
 import validate from '@/pages/login/validate'
 import ForgetPassword from './ForgetPassword'
+import QrCode from './QrCode'
+import { QrcodeOutlined } from '@ant-design/icons'
+import { detectDeviceType } from '@/utils/base'
 
 const Login = ({ store }) => {
   return (
@@ -23,6 +26,11 @@ const Login = ({ store }) => {
         <Button block ghost onClick={store.login}>
           登录
         </Button>
+        <QrCode store={store} hidden={detectDeviceType() === 'mobile'}>
+          <div className={styles['qr-box']} onClick={() => (store.isPolling = true)}>
+            <QrcodeOutlined />
+          </div>
+        </QrCode>
       </div>
       <ForgetPassword store={store} />
     </div>

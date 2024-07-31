@@ -22,5 +22,9 @@ export default {
   /**
    * 登录
    */
-  login: data => http.post('/users/login', data)
+  login: data => http.post('/users/login', data),
+  /**
+   * 轮训的二维码接口
+   */
+  qrcode: params => http.get('/qr/status', { params })
 }

@@ -2,7 +2,7 @@ import { FormInstance, message } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import Api from './api'
 import { debounce } from 'lodash-es'
-import { md5 } from '@/utils'
+import { md5, setToken, setUserinfo } from '@/utils'
 
 const tryCatchWrapper = (callBack: () => any) => {
   try {
@@ -22,6 +22,9 @@ class Store {
    * 表单实例
    */
   formInstance = null
+  /**
+   * 路由
+   */
   router = null
 
   constructor(form: FormInstance, router: any) {
@@ -30,17 +33,60 @@ class Store {
     this.router = router
   }
 
+  /**
+   * 是否登录页面
+   */
   isLoginPage = true
+  /**
+   * 切换登录注册页
+   */
+  changePage = (flag?: boolean) => {
+    this.isLoginPage = flag ?? !this.isLoginPage
+    this.isPolling = false
+    this.uuid = null
+    if (typeof this.qrCancel === 'function') {
+      this.qrCancel()
+    }
+  }
   /**
    * 忘记密码弹窗开关
    */
   openForgetModal = false
 
-  changePage = (flag?: boolean) => {
-    this.isLoginPage = flag ?? !this.isLoginPage
-  }
-
+  /**
+   * 验证码倒计时
+   */
   captchaCountdown = null
+
+  /**
+   * 二维码uuid
+   */
+  uuid = null
+  /**
+   * 是否开始轮询二维码状态
+   */
+  isPolling = false
+  /**
+   * 二维码状态
+   */
+  qrStatus: 'active' | 'expired' | 'loading' | 'scanned' = 'active'
+
+  /**
+   * 轮询定时器
+   */
+  qrTimer = null
+
+  /**
+   * 取消二维码轮训方法
+   */
+  qrCancel = (isCancel?: boolean) => {
+    if (this.qrTimer) {
+      clearInterval(this.qrTimer)
+      this.qrTimer = null
+    }
+    this.uuid = null
+    !isCancel && (this.isPolling = false)
+  }
 
   // 发送注册验证码
   sendRegCaptcha = debounce(async () => {
@@ -122,6 +168,9 @@ class Store {
     }
   }
 
+  /**
+   * 登录
+   */
   login = async () => {
     try {
       const namePath = ['loginAccount', 'loginPassword']
@@ -129,9 +178,12 @@ class Store {
       const params: any = {}
       params.password = md5(values.loginPassword)
       params.account = values.loginAccount
-      const msg = await Api.login(params)
+      const result = await Api.login(params)
+      const { token, ...userInfo } = result || {}
+      setToken(token)
+      setUserinfo(userInfo)
       this.formInstance.resetFields(namePath)
-      message.success(msg)
+      message.success('登录成功')
       this.router('/')
     } catch (e) {
       message.destroy()
@@ -142,6 +194,41 @@ class Store {
         message.error(errorMessage)
       }
     }
+  }
+
+  /**
+   * 二维码轮训方法
+   */
+  polling = async () => {
+    const res = await Api.qrcode({ uuid: this.uuid })
+    const { type, uuid } = res || {}
+    if (!this.uuid) {
+      this.uuid = uuid
+      this.qrStatus = 'active'
+    }
+    const map = {
+      INIT: () => {},
+      WAIT_SCAN: () => {},
+      WAIT_CONFIRM: () => (this.qrStatus = 'scanned'),
+      CONFIRMED: () => {
+        const { token, ...userInfo } = res || {}
+        setToken(token)
+        setUserinfo(userInfo)
+        this.qrCancel()
+        this.router('/')
+        message.success('登录成功')
+      },
+      CANCEL: () => {
+        message.info('取消登录')
+        this.qrCancel()
+      },
+      EXPIRE: () => {
+        this.qrStatus = 'expired'
+        this.qrCancel(true)
+      }
+    }
+
+    map[type]?.()
   }
 }
 
