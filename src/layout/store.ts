@@ -1,4 +1,4 @@
-import { getCache, setCache } from '@/utils'
+import { getCache, getToken, setCache } from '@/utils'
 import { makeAutoObservable } from 'mobx'
 import moment from 'moment'
 
@@ -14,7 +14,15 @@ const isWithinTimeRange = (startTime: string, endTime: string): boolean => {
 }
 
 class Store {
+  /**
+   * 是否夜间模式
+   */
   isDark = false
+
+  /**
+   * 是否登录
+   */
+  isLogin = false
 
   constructor() {
     makeAutoObservable(this)
@@ -26,6 +34,7 @@ class Store {
         this.toggleDark(!isWith)
       }
     }, 0)
+    this.isLogin = !!getToken()
   }
 
   /**

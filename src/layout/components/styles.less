@@ -26,4 +26,57 @@
   justify-content: center;
   height: 100%;
   gap: 16px;
+
+  .loginBtn {
+    color: #fff;
+    background: @primaryColor;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    transition: @transition;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    margin-left: 16px;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  .menuItem {
+    color: @auxiliaryColor1;
+    font-size: 16px;
+    cursor: pointer;
+    transform-origin: left bottom;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    letter-spacing: 2px;
+    user-select: none;
+
+    &::after {
+      content: ' ';
+      border-bottom: 5px solid @auxiliaryColor2;
+      position: absolute;
+      width: 0;
+      height: 5px;
+      bottom: 0;
+      left: 0;
+      transition: @transition;
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
 }

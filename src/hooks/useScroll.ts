@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const useScroll = (isExact: boolean = true) => {
-  const [top, setTop] = useState(0)
+  const [top, setTop] = useState(100)
 
   const calculateScrollPercentage = () => {
     const scrollTop =

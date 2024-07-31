@@ -37,6 +37,7 @@ export default Demo
 const switchContext = createContext()
 
 const Switch = ({ value: activeValue, onChange, children }) => {
+  children = Array.isArray(children) ? children : [children]
   activeValue ??= children?.[0]?.props?.value
   const result = children.map(item => {
     const value = item.props.value

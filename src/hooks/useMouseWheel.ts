@@ -8,8 +8,8 @@ function useMouseWheel(callback?: (isUp: boolean) => void) {
 
   useEffect(() => {
     setIsUp(oldY >= top)
-    setOldY(top)
     callback?.(oldY >= top)
+    setOldY(top)
   }, [top])
 
   return {

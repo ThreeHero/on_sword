@@ -3,6 +3,7 @@ import { makeAutoObservable } from 'mobx'
 import Api from './api'
 import { debounce } from 'lodash-es'
 import { md5, setToken, setUserinfo } from '@/utils'
+import globalStore from '@/layout/store'
 
 const tryCatchWrapper = (callBack: () => any) => {
   try {
@@ -184,6 +185,7 @@ class Store {
       setUserinfo(userInfo)
       this.formInstance.resetFields(namePath)
       message.success('登录成功')
+      globalStore.isLogin = true
       this.router('/')
     } catch (e) {
       message.destroy()
@@ -215,6 +217,7 @@ class Store {
         setToken(token)
         setUserinfo(userInfo)
         this.qrCancel()
+        globalStore.isLogin = true
         this.router('/')
         message.success('登录成功')
       },
