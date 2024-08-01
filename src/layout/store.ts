@@ -24,6 +24,11 @@ class Store {
    */
   isLogin = false
 
+  /**
+   * 移动端菜单栏抽屉开关
+   */
+  mobileMenu = false
+
   constructor() {
     makeAutoObservable(this)
     setTimeout(() => {

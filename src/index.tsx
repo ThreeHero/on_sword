@@ -11,6 +11,14 @@ window.addEventListener('unhandledrejection', e => {
   console.error(e.reason)
 })
 
+window.addEventListener('error', e => {
+  e.preventDefault()
+})
+
+// window.addEventListener('resize', e => {
+//   console.log(e)
+// })
+
 if (root) {
   createRoot(root).render(App)
 }
