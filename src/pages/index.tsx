@@ -6,7 +6,7 @@ const Home = () => {
   const store = useMemo(() => new Store(), [])
   return (
     <div>
-      <img className="bg" src={config.homeBg} alt="" style={{ height: '50%' }} />
+      <img className="bg" src={config.homeBg} alt="" style={{ height: '50vh' }} />
       <Header store={store} />
       <Content store={store} />
     </div>
