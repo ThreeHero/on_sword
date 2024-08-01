@@ -1,13 +1,27 @@
-import { getCache, getToken, setCache } from '@/utils'
+import { clearToken, clearUserinfo, getCache, getToken, getUserinfo, setCache } from '@/utils'
+import { message } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import moment from 'moment'
+
+interface UserInfo {
+  id: number
+  account: string
+  nickname: string
+  email: string
+  avatar?: string
+  identity: number
+  introduction?: string
+  createdAt: string
+  updatedAt: string
+  status: number
+}
 
 /**
  * 判断时间是否在范围内
  * @returns
  */
 const isWithinTimeRange = (startTime: string, endTime: string): boolean => {
-  const currentMoment = moment('HH:mm:ss')
+  const currentMoment = moment(new Date(), 'HH:mm:ss')
   const startMoment = moment(startTime, 'HH:mm:ss')
   const endMoment = moment(endTime, 'HH:mm:ss')
   return currentMoment.isSameOrAfter(startMoment) && currentMoment.isSameOrBefore(endMoment)
@@ -29,14 +43,30 @@ class Store {
    */
   mobileMenu = false
 
+  /**
+   * 有权限的页面
+   */
+  permissionPage = [
+    '/user' // 个人中心
+  ]
+
+  /**
+   * 当前登录用户信息
+   */
+  currentUser: UserInfo | {} = {}
+
   constructor() {
     makeAutoObservable(this)
+
     setTimeout(() => {
       if (getCache('isDark', false) != null) {
-        this.toggleDark(getCache('isDark', false))
+        this.toggleDark(getCache('isDark', false), false)
       } else {
         const isWith = isWithinTimeRange('09:00:00', '20:00:00')
-        this.toggleDark(!isWith)
+        this.toggleDark(!isWith, false)
+      }
+      if (getUserinfo()) {
+        this.currentUser = getUserinfo()
       }
     }, 0)
     this.isLogin = !!getToken()
@@ -45,7 +75,7 @@ class Store {
   /**
    * 切换主题
    */
-  toggleDark = (current?: boolean) => {
+  toggleDark = (current?: boolean, isCache = true) => {
     this.isDark = current ?? !this.isDark
     const root = document.documentElement
     const get = (key: string) => getComputedStyle(root).getPropertyValue(key)
@@ -58,7 +88,19 @@ class Store {
       set('--current-color', '--text-color')
     }
 
-    setCache('isDark', this.isDark, false)
+    isCache && setCache('isDark', this.isDark, false)
+  }
+
+  /**
+   * 退出登录
+   */
+  logout = (callback?) => {
+    this.isLogin = false
+    clearToken()
+    clearUserinfo()
+    this.mobileMenu = false
+    message.success('退出成功')
+    callback?.()
   }
 }
 

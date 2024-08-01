@@ -5,5 +5,7 @@ export default {
 
   loginBg: require('@/assets/bg/login_bg.png'),
   homeBg: require('@/assets/bg/home_bg.png'),
-  homeMenuBg: require('@/assets/bg/home_menu_bg.jpg')
+  homeMenuBg: require('@/assets/bg/home_menu_bg.png'),
+
+  defaultAvatar: require('@/assets/bg/avatar.jpeg')
 }

@@ -186,6 +186,7 @@ class Store {
       this.formInstance.resetFields(namePath)
       message.success('登录成功')
       globalStore.isLogin = true
+      globalStore.currentUser = userInfo
       this.router('/')
     } catch (e) {
       message.destroy()
@@ -218,6 +219,7 @@ class Store {
         setUserinfo(userInfo)
         this.qrCancel()
         globalStore.isLogin = true
+        globalStore.currentUser = userInfo
         this.router('/')
         message.success('登录成功')
       },

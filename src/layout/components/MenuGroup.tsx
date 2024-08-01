@@ -5,12 +5,12 @@ import { detectDeviceType } from '@/utils/base'
 import { useNavigate } from 'react-router'
 import { Fragment } from 'react'
 import { MenuOutlined } from '@ant-design/icons'
-import { Drawer } from 'antd'
+import { Avatar, Drawer } from 'antd'
 import { config } from '@/config'
 
 const menuList = [
   {
-    name: '随笔',
+    name: '📃 随笔',
     path: '/essay',
     hasLogin: false
   }
@@ -20,6 +20,12 @@ const menuList = [
  * 移动端菜单
  */
 const MobileMenu = observer(() => {
+  const navigate = useNavigate()
+
+  const jump = (path: string) => {
+    store.mobileMenu = false
+    navigate(path)
+  }
   return (
     <div className={styles.mobile}>
       <MenuOutlined className={styles.icon} onClick={() => (store.mobileMenu = true)} />
@@ -33,7 +39,41 @@ const MobileMenu = observer(() => {
         className={styles.mobileDrawer}
       >
         <img className={styles.bg} src={config.homeMenuBg} />
-        23
+        {menuList.map(menu => {
+          if (menu.hasLogin && !store.isLogin) {
+            return <Fragment key={menu.path} />
+          }
+          return (
+            <div className={styles.menuItem} key={menu.path} onClick={() => jump(menu.path)}>
+              {menu.name}
+            </div>
+          )
+        })}
+        {store.isLogin ? (
+          <>
+            <div className={styles.menuItem} onClick={() => jump('/user')}>
+              👤 个人中心
+            </div>
+            <div
+              className={styles.menuItem}
+              onClick={() => {
+                store.logout(() => {
+                  const pathname = window.location.pathname
+                  const path = pathname.split('/')?.[1]
+                  if (!path || store.permissionPage.includes(path)) {
+                    navigate('/')
+                  }
+                })
+              }}
+            >
+              ❌ 退出
+            </div>
+          </>
+        ) : (
+          <div className={styles.menuItem} onClick={() => jump('/login')}>
+            ✨ 登录
+          </div>
+        )}
       </Drawer>
     </div>
   )
@@ -59,11 +99,14 @@ const PCMenu = observer(() => {
         )
       })}
       {store.isLogin ? (
+        // @ts-ignore
+        <Avatar src={store.currentUser?.avatar?.resource()}>
+          <Avatar src={config.defaultAvatar} />
+        </Avatar>
+      ) : (
         <div className={styles.loginBtn} onClick={() => navigate('/login')}>
           登录
         </div>
-      ) : (
-        <div>图片</div>
       )}
     </>
   )

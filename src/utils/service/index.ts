@@ -1,6 +1,6 @@
 import getInstance from '@/utils/service/instance'
 import httpConfig from './config'
-export const baseURL = 'https://localhost:30000'
+export const baseURL = 'http://localhost:30000'
 
 // 创建请求
 const http: any = (...arg) => getInstance(http)(...arg)
