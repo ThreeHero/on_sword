@@ -2,6 +2,7 @@ import { clearToken, clearUserinfo, getCache, getToken, getUserinfo, setCache } 
 import { message } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import moment from 'moment'
+import Api from './api'
 
 interface UserInfo {
   id: number
@@ -55,6 +56,11 @@ class Store {
    */
   currentUser: UserInfo | {} = {}
 
+  /**
+   * 字典
+   */
+  dict = []
+
   constructor() {
     makeAutoObservable(this)
 
@@ -70,6 +76,15 @@ class Store {
       }
     }, 0)
     this.isLogin = !!getToken()
+    this.getDict()
+  }
+
+  /**
+   * 获取字典
+   */
+  getDict = async () => {
+    const res = await Api.getDict()
+    this.dict = res
   }
 
   /**
@@ -83,9 +98,11 @@ class Store {
     if (this.isDark) {
       set('--current-bg', '--bg-color2')
       set('--current-color', '--text-color2')
+      set('--current-border', '--border-color2')
     } else {
       set('--current-bg', '--bg-color')
       set('--current-color', '--text-color')
+      set('--current-border', '--border-color')
     }
 
     isCache && setCache('isDark', this.isDark, false)

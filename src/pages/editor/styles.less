@@ -1,0 +1,25 @@
+@import '../../styles/variable.less';
+
+@titleHeight: 64px;
+
+.placeholder {
+  height: @headerHeight;
+  width: 100%;
+  background: @bg;
+  transition: @transition;
+}
+
+.title {
+  height: @titleHeight;
+  background: @bg;
+  transition: @transition;
+  color: @color;
+}
+
+body {
+  :global {
+    .bytemd {
+      height: calc(100vh - @titleHeight - @headerHeight);
+    }
+  }
+}

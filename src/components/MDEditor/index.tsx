@@ -7,7 +7,7 @@ import { Editor } from '@bytemd/react'
 import { plugins } from './plugins'
 import { Image } from 'mdast'
 
-import './editor.css'
+import './editor.less'
 
 interface IProps {
   value?: string

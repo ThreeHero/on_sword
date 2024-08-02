@@ -14,6 +14,11 @@ const menuList = [
     name: '📃 随笔',
     path: '/essay',
     hasLogin: false
+  },
+  {
+    name: '📝 写文章',
+    path: '/editor',
+    hasLogin: true
   }
 ]
 

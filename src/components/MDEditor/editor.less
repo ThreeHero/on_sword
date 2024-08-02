@@ -1,0 +1,45 @@
+@import '../../styles/variable.less';
+
+.CodeMirror-code {
+  .CodeMirror-line {
+    .cm-header {
+      color: @primaryColor;
+    }
+  }
+}
+
+.bytemd {
+  height: 100vh;
+  transition: @transition;
+  background: @bg !important;
+  color: @color !important;
+  border-color: var(--current-border);
+}
+.bytemd-toolbar {
+  transition: @transition;
+  background: @bg !important;
+  color: @color !important;
+  border-color: var(--current-border);
+}
+
+.bytemd-preview {
+  transition: @transition;
+  border-color: var(--current-border) !important;
+}
+
+.CodeMirror-scroll {
+  transition: @transition;
+  background: @bg !important;
+  color: @color !important;
+}
+
+.bytemd-status {
+  transition: @transition;
+  border-color: var(--current-border) !important;
+}
+
+.CodeMirror-cursors {
+  .CodeMirror-cursor {
+    border-color: @color !important;
+  }
+}
