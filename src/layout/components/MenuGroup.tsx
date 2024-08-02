@@ -5,7 +5,7 @@ import { detectDeviceType } from '@/utils/base'
 import { useNavigate } from 'react-router'
 import { Fragment } from 'react'
 import { MenuOutlined } from '@ant-design/icons'
-import { Avatar, Drawer } from 'antd'
+import { Avatar, Drawer, Dropdown } from 'antd'
 import { config } from '@/config'
 import cls from 'classnames'
 
@@ -91,6 +91,33 @@ const MobileMenu = observer(() => {
 const PCMenu = observer(() => {
   const navigate = useNavigate()
 
+  const items = [
+    {
+      key: '/user',
+      label: '个人中心'
+    },
+    {
+      key: 'logout',
+      danger: true,
+      label: '退出登录'
+    }
+  ]
+
+  const handleClick = ({ key }) => {
+    if (key === 'logout') {
+      store.logout(() => {
+        const pathname = window.location.pathname
+        const path = pathname.split('/')?.[1]
+        if (!path || store.permissionPage.includes(path)) {
+          navigate('/')
+        }
+      })
+    }
+    if (key.startsWith('/')) {
+      navigate(key)
+    }
+  }
+
   return (
     <>
       {/* 菜单栏 */}
@@ -105,10 +132,12 @@ const PCMenu = observer(() => {
         )
       })}
       {store.isLogin ? (
-        // @ts-ignore
-        <Avatar src={store.currentUser?.avatar?.resource()}>
-          <Avatar src={config.defaultAvatar} />
-        </Avatar>
+        <Dropdown menu={{ items, onClick: handleClick }} trigger={['click']}>
+          {/* @ts-ignore */}
+          <Avatar src={store.currentUser?.avatar?.resource()}>
+            <Avatar src={config.defaultAvatar} />
+          </Avatar>
+        </Dropdown>
       ) : (
         <div className={styles.loginBtn} onClick={() => navigate('/login')}>
           登录
