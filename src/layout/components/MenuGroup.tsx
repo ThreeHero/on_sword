@@ -7,6 +7,7 @@ import { Fragment } from 'react'
 import { MenuOutlined } from '@ant-design/icons'
 import { Avatar, Drawer } from 'antd'
 import { config } from '@/config'
+import cls from 'classnames'
 
 const menuList = [
   {
@@ -38,7 +39,12 @@ const MobileMenu = observer(() => {
         title={config.mobileMenuTitle}
         className={styles.mobileDrawer}
       >
-        <img className={styles.bg} src={config.homeMenuBg} />
+        <img
+          className={cls(styles.bg, {
+            [styles.darkBg]: store.isDark
+          })}
+          src={config.homeMenuBg}
+        />
         {menuList.map(menu => {
           if (menu.hasLogin && !store.isLogin) {
             return <Fragment key={menu.path} />

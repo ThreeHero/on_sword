@@ -16,3 +16,38 @@
   --current-color: var(--text-color);
   --current-bg: var(--bg-color);
 }
+
+.img-bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  animation: 2s ease 0s 1 normal none running header-effect;
+  object-fit: cover;
+  user-select: none;
+  background: @bg;
+  transition: @transition;
+}
+.bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -2;
+  background: @bg;
+}
+.dark-bg {
+  filter: brightness(50%);
+}
+
+@keyframes header-effect {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

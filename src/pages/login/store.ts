@@ -5,19 +5,6 @@ import { debounce } from 'lodash-es'
 import { md5, setToken, setUserinfo } from '@/utils'
 import globalStore from '@/layout/store'
 
-const tryCatchWrapper = (callBack: () => any) => {
-  try {
-    callBack?.()
-  } catch (e) {
-    if (typeof e === 'string') return message.error(e)
-    const errorFields = e.errorFields
-    const errorMessage = errorFields?.[0]?.errors[0]
-    if (errorMessage) {
-      message.error(errorMessage)
-    }
-  }
-}
-
 class Store {
   /**
    * 表单实例
