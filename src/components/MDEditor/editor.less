@@ -5,6 +5,12 @@
     .cm-header {
       color: @primaryColor;
     }
+    .cm-atom {
+      color: @primaryColor;
+    }
+    .cm-def {
+      color: @color;
+    }
   }
 }
 
@@ -42,4 +48,10 @@
   .CodeMirror-cursor {
     border-color: @color !important;
   }
+}
+
+.tippy-box {
+  transition: @transition;
+  background: @bg !important;
+  color: @color !important;
 }
