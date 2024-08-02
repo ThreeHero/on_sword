@@ -65,7 +65,7 @@ body,
   z-index: 1000;
 }
 
-.bg {
+.img-bg {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -75,6 +75,14 @@ body,
   animation: 2s ease 0s 1 normal none running header-effect;
   object-fit: cover;
   user-select: none;
+  background: @bg;
+}
+.bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -2;
+  background: @bg;
 }
 
 @keyframes header-effect {

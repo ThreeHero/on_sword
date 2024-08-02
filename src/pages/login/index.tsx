@@ -10,6 +10,7 @@ import Store from './store'
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import { config } from '@/config'
+import { AnimationBg } from '@/components'
 
 const Index = () => {
   const [form] = Form.useForm()
@@ -18,7 +19,7 @@ const Index = () => {
 
   return (
     <div className={styles.container}>
-      <img className="bg" src={config.loginBg} />
+      <AnimationBg src={config.loginBg} />
       <Form autoComplete="off" form={store.formInstance} preserve={false}>
         <div className={styles.box}>
           <div
