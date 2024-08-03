@@ -1,8 +1,10 @@
-import { Button, Drawer, Form, Input, message, Radio, Select, Space, Switch, Tag } from 'antd'
+import { Button, Drawer, Form, Input, Radio, Select, Space, Switch, Tag, Upload } from 'antd'
 import { observer } from 'mobx-react'
 import globalStore from '@/layout/store'
 import styles from '../styles.less'
 import { FC, useEffect } from 'react'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import cls from 'classnames'
 
 interface IFormItemChild {
   value?: any
@@ -40,6 +42,38 @@ const ClassList: FC<IFormItemChild> = observer(({ value, onChange, store }) => {
   )
 })
 
+const Cover: FC<IFormItemChild> = observer(({ value, onChange, store }) => {
+  const handleUpload = f => {
+    onChange(f)
+    return false
+  }
+
+  if (value) {
+    const URL = window.URL
+    const src = URL.createObjectURL(value)
+    return (
+      <div className={styles.coverBox}>
+        <img
+          src={src}
+          alt=""
+          className={cls(styles.cover, {
+            [styles.darkImg]: globalStore.isDark
+          })}
+        />
+        <DeleteOutlined className={styles.delete} onClick={() => onChange(null)} />
+      </div>
+    )
+  }
+  return (
+    <Upload maxCount={1} beforeUpload={handleUpload} showUploadList={false}>
+      <div className={styles.upload}>
+        <PlusOutlined className={styles.plus} />
+        <div className={styles.explain}>上传封面</div>
+      </div>
+    </Upload>
+  )
+})
+
 const SubmitDrawer = ({ store }) => {
   useEffect(() => {
     if (store.submitDrawer) {
@@ -67,8 +101,11 @@ const SubmitDrawer = ({ store }) => {
         </Space>
       }
     >
+      <Form.Item name="id" hidden>
+        <Input />
+      </Form.Item>
       <Form.Item name="cover" label="封面">
-        <Input.Password />
+        <Cover store={store} />
       </Form.Item>
       <Form.Item name="classificationId" label="分类">
         <ClassList store={store} />

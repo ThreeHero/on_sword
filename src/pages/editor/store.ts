@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { FormInstance, message } from 'antd'
 import Api from './api'
+import globalStore from '@/layout/store'
 
 class Store {
   formInstance = null
@@ -34,7 +35,37 @@ class Store {
     const values = this.formInstance.getFieldsValue()
     if (!values.title) return message.error('请输入标题')
     if (!values.content) return message.error('请输入文章内容')
-    console.log(values)
+    if (!values.cover) return message.error('请上传封面')
+    if (!values.classificationId) return message.error('请选择分类')
+    if (!values.tagList || values.tagList.length === 0) return message.error('请选择标签')
+    if (
+      values.accessType ===
+        globalStore.getDictValue({
+          by: 'label',
+          value: '密码访问',
+          dict: 'accessType',
+          findField: 'value'
+        }) &&
+      !values.password
+    )
+      return message.error('请输入文章访问密码')
+
+    const formData = new FormData()
+    formData.append('file', values.cover)
+    // @ts-ignore
+    formData.append('path', 'article/' + globalStore.currentUser.account + '/cover')
+    const url = await Api.uploadFile(formData)
+    values.cover = url
+    values.tagList = values.tagList.join(',')
+    values.isComment = Number(values.isComment)
+    if (values.id) {
+      await Api.edit(values)
+    } else {
+      await Api.publish(values)
+    }
+    message.success('发布成功')
+    this.submitDrawer = false
+    this.router('/user')
   }
 }
 
