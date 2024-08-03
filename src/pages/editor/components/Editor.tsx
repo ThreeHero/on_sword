@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { MDEditor } from '@/components'
 import { Form, Input } from 'antd'
 import { FC, useEffect, useState } from 'react'
-import { getCache, setCache } from '@/utils'
+import { getCache, http, setCache } from '@/utils'
 import globalStore from '@/layout/store'
 
 /**
@@ -48,7 +48,27 @@ const FormEditor: FC<IProps> = ({ value, onChange, store }) => {
       setCache(globalStore.currentUser?.id + '_article', v, false)
     }
   }
-  return <MDEditor value={value ?? ''} onChange={handleChange} />
+
+  const handleUpload = async (files: File[]) => {
+    const pathList = []
+    for (const file of files) {
+      const formData = new FormData()
+      formData.append('file', file)
+      console.log(file)
+      // @ts-ignore
+      formData.append('path', 'article/' + globalStore.currentUser.account)
+      const path = await http.post('/file/upload', formData)
+      pathList.push({
+        url: path?.resource(),
+        alt: file.name,
+        title: file.name
+      })
+    }
+
+    return pathList
+  }
+
+  return <MDEditor value={value ?? ''} onChange={handleChange} uploadImages={handleUpload} />
 }
 
 const Editor = ({ store }) => {
