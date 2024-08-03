@@ -1,6 +1,5 @@
 import getInstance from '@/utils/service/instance'
 import httpConfig from './config'
-export const baseURL = 'http://localhost:30000'
 
 // 创建请求
 const http: any = (...arg) => getInstance(http)(...arg)
@@ -21,4 +20,6 @@ http.put = (...arg) => getInstance(http).put(...arg)
 
 http.setConfig(httpConfig)
 
+// export { baseURL } from './config'
+export const baseURL = httpConfig.baseUrl()
 export default http

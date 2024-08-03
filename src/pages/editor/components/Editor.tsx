@@ -35,12 +35,14 @@ function countWordsInMarkdown(text: string) {
 interface IProps {
   value?: string
   onChange?: (v: string) => void
+  store: any
 }
-const FormEditor: FC<IProps> = ({ value, onChange }) => {
+const FormEditor: FC<IProps> = ({ value, onChange, store }) => {
   const [_, refresh] = useState(false)
   const handleChange = (v: string) => {
     refresh(f => !f)
     onChange(v)
+    store.formInstance.setFieldValue('contentCount', countWordsInMarkdown(v))
     if (globalStore.currentUser) {
       // @ts-ignore
       setCache(globalStore.currentUser?.id + '_article', v, false)
@@ -64,18 +66,10 @@ const Editor = ({ store }) => {
   return (
     <>
       <Form.Item name="content">
-        <FormEditor />
+        <FormEditor store={store} />
       </Form.Item>
-      <Form.Item dependencies={['content']} noStyle>
-        {({ getFieldValue, setFieldValue }) => {
-          const totalCount = countWordsInMarkdown(getFieldValue('content'))
-          setFieldValue('contentCount', totalCount)
-          return (
-            <Form.Item name="contentCount" hidden>
-              <Input />
-            </Form.Item>
-          )
-        }}
+      <Form.Item name="contentCount" hidden>
+        <Input />
       </Form.Item>
     </>
   )

@@ -30,12 +30,25 @@ body {
       .ant-drawer-content {
         background: @bg;
         color: @color;
+        transition: @transition;
 
         .ant-drawer-header {
           border-bottom: none;
 
           &-title {
             text-align: center;
+          }
+        }
+
+        .ant-drawer-body {
+          .ant-form-item {
+            color: @color;
+            transition: @transition;
+
+            label {
+              color: @color;
+              transition: @transition;
+            }
           }
         }
       }
@@ -51,6 +64,23 @@ body {
         &:hover {
           background: fade(grey, 20%);
         }
+      }
+    }
+  }
+  .ant-select-dropdown {
+    background: @bg;
+    color: @color;
+    // transition: @transition;
+    .ant-select-item-option-active {
+      background: var(--current-border) !important;
+    }
+    .ant-select-item-option-content {
+      color: @color;
+    }
+    .ant-select-item-option-selected {
+      background: @bg !important;
+      .ant-select-item-option-content {
+        color: @primaryColor !important;
       }
     }
   }

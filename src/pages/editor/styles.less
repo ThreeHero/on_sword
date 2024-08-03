@@ -14,12 +14,104 @@
   background: @bg;
   transition: @transition;
   color: @color;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+
+  .titleInput {
+    border: none;
+    outline: none;
+    flex: 1;
+    height: 100%;
+    font-size: 24px;
+    background: transparent;
+    transition: @transition;
+
+    color: @color;
+    &::placeholder {
+      user-select: none;
+    }
+  }
+  .titleInfo {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 16px;
+
+    .tip {
+      color: var(--text-color1);
+      font-size: 12px;
+      user-select: none;
+    }
+  }
 }
 
 body {
   :global {
     .bytemd {
       height: calc(100vh - @titleHeight - @headerHeight);
+    }
+  }
+}
+
+@media (max-width: 801px) {
+  @titleHeight: 48px;
+
+  .title {
+    height: @titleHeight;
+  }
+
+  body {
+    :global {
+      .bytemd {
+        height: calc(100vh - @titleHeight - @headerHeight);
+      }
+    }
+  }
+}
+
+.submitDrawer {
+  :global {
+    .ant-input-password {
+      background: @bg;
+      transition: @transition;
+      color: @color;
+
+      &-icon {
+        background: @bg;
+        transition: @transition !important;
+        color: @color !important;
+      }
+    }
+    .ant-tag {
+      transition: @transition;
+      color: @color;
+    }
+    .ant-tag-checkable-checked {
+      color: #fff;
+    }
+    .ant-select {
+      .ant-select-selector {
+        background: @bg !important;
+        transition: @transition !important;
+        color: @color !important;
+        .ant-select-selection-placeholder {
+          color: @color !important;
+        }
+        .ant-select-selection-item {
+          background-color: var(--current-border);
+          transition: @transition !important;
+          .anticon {
+            color: @color;
+          }
+        }
+      }
+      .ant-select-arrow {
+        transition: @transition !important;
+        color: @color !important;
+      }
     }
   }
 }

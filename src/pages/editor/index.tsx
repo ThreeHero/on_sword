@@ -11,7 +11,15 @@ const Index = () => {
   const navigate = useNavigate()
   const store = useMemo(() => new Store(form, navigate), [])
   return (
-    <Form autoComplete="off" form={store.formInstance} preserve={false}>
+    <Form
+      autoComplete="off"
+      form={store.formInstance}
+      preserve={false}
+      initialValues={{
+        accessType: 0,
+        isComment: true
+      }}
+    >
       <div className={styles.placeholder} />
       <Title store={store} />
       <Editor store={store} />

@@ -1,10 +1,18 @@
-import { clearToken, clearUserinfo, getCache, getToken, getUserinfo, setCache } from '@/utils'
+import {
+  clearToken,
+  clearUserinfo,
+  getCache,
+  getToken,
+  getUserinfo,
+  setCache,
+  options
+} from '@/utils'
 import { message } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import moment from 'moment'
 import Api from './api'
 
-interface UserInfo {
+interface IUserInfo {
   id: number
   account: string
   nickname: string
@@ -15,6 +23,12 @@ interface UserInfo {
   createdAt: string
   updatedAt: string
   status: number
+}
+
+type Enum = { label: string; value: number | string; color?: string }
+
+interface IDict {
+  [key: string]: Enum[]
 }
 
 /**
@@ -54,12 +68,12 @@ class Store {
   /**
    * 当前登录用户信息
    */
-  currentUser: UserInfo | {} = {}
+  currentUser: IUserInfo | {} = {}
 
   /**
    * 字典
    */
-  dict = []
+  dict: IDict = {}
 
   constructor() {
     makeAutoObservable(this)
@@ -84,9 +98,22 @@ class Store {
    */
   getDict = async () => {
     const res = await Api.getDict()
-    this.dict = res
+    this.dict = { ...res, ...options }
   }
 
+  /**
+   * 根据字典值查询
+   * @param {object} param
+   * @param {string} param.by 字典字段
+   * @param {string | number} param.value 查询的值
+   * @param {string} param.dict 字典名称
+   * @param {string} param.findField 查询出的字段
+   * @returns
+   */
+  getDictValue = ({ by, value, dict, findField }: { by: string; value: string | number; dict: string; findField: string }) => {
+    const item = this.dict[dict]
+    return item?.find(item => item[by] === value)?.[findField]
+  }
   /**
    * 切换主题
    */

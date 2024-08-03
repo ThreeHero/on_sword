@@ -18,7 +18,8 @@ const menuList = [
   {
     name: '📝 写文章',
     path: '/editor',
-    hasLogin: true
+    hasLogin: true,
+    isPC: true
   }
 ]
 
@@ -52,6 +53,9 @@ const MobileMenu = observer(() => {
         />
         {menuList.map(menu => {
           if (menu.hasLogin && !store.isLogin) {
+            return <Fragment key={menu.path} />
+          }
+          if (menu.isPC) {
             return <Fragment key={menu.path} />
           }
           return (
