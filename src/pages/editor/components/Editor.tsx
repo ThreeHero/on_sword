@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react'
 import { MDEditor } from '@/components'
 import { Form, Input } from 'antd'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { getCache, setCache } from '@/utils'
+import globalStore from '@/layout/store'
 
 /**
  * 统计markdown中 有效字符
@@ -39,11 +41,26 @@ const FormEditor: FC<IProps> = ({ value, onChange }) => {
   const handleChange = (v: string) => {
     refresh(f => !f)
     onChange(v)
+    if (globalStore.currentUser) {
+      // @ts-ignore
+      setCache(globalStore.currentUser?.id + '_article', v, false)
+    }
   }
   return <MDEditor value={value ?? ''} onChange={handleChange} />
 }
 
 const Editor = ({ store }) => {
+  useEffect(() => {
+    if (globalStore.currentUser) {
+      // @ts-ignore
+      const content = getCache(globalStore.currentUser?.id + '_article', false)
+      if (content) {
+        store.formInstance.setFieldValue('content', content)
+        store.formInstance.setFieldValue('contentCount', countWordsInMarkdown(content))
+      }
+    }
+  }, [])
+
   return (
     <>
       <Form.Item name="content">
