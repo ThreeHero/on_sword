@@ -5,6 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
+  margin: 24px 0;
 }
 
 .loader {
@@ -32,6 +34,9 @@
   box-sizing: content-box;
   border-radius: 0 0 40% 40%;
   -webkit-mask:
+    linear-gradient(#000 0 0) bottom/4px 2px no-repeat,
+    linear-gradient(#000 0 0);
+  mask:
     linear-gradient(#000 0 0) bottom/4px 2px no-repeat,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: destination-out;

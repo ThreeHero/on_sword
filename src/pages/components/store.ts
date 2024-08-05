@@ -43,8 +43,12 @@ class Store {
   getArticleList = async (isMix = false) => {
     try {
       this.loadingArticle = true
+      if (!isMix) {
+        this.articleList = []
+      }
       const res = await Api.getArticleList({
         page: this.currentPage,
+        pageSize: 1,
         isMine: this.isMine,
         classificationId: this.activeClass === 'all' ? undefined : this.activeClass
       })
