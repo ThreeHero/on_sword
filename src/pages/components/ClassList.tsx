@@ -2,6 +2,7 @@ import { observer } from 'mobx-react'
 import styles from './styles.less'
 import { useEffect } from 'react'
 import cls from 'classnames'
+import { Switch } from 'antd'
 
 const ClassList = ({ store }) => {
   useEffect(() => {
@@ -9,13 +10,24 @@ const ClassList = ({ store }) => {
   }, [])
 
   const changeClass = key => {
-    store.activeClass = key
-    store.currentPage = 1
-    store.getArticleList()
+    if (key !== store.activeClass) {
+      store.activeClass = key
+      store.currentPage = 1
+      store.getArticleList()
+    }
   }
 
   return (
     <div className={styles.class}>
+      <div style={{ marginBottom: 16 }}>
+        <Switch
+          value={store.isMine}
+          onChange={v => (store.isMine = v)}
+          style={{ width: '100%' }}
+          checkedChildren="我可查看"
+          unCheckedChildren="全部文章"
+        />
+      </div>
       <div
         className={cls(styles.classItem, {
           [styles.activeClass]: 'all' === store.activeClass

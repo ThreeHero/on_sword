@@ -48,7 +48,6 @@ class Store {
       }
       const res = await Api.getArticleList({
         page: this.currentPage,
-        pageSize: 1,
         isMine: this.isMine,
         classificationId: this.activeClass === 'all' ? undefined : this.activeClass
       })
