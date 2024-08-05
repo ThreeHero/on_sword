@@ -5,17 +5,23 @@ body {
     .ant-modal-content {
       background: @bg;
       color: @color;
+      transition: @transition;
       .ant-modal-header {
         background: @bg;
+        transition: @transition;
+
         color: @color;
         .ant-modal-title {
           color: @color;
+          transition: @transition;
+
           text-align: center;
           user-select: none;
         }
       }
       .ant-modal-close-x {
         color: @color;
+        transition: @transition;
       }
     }
   }
@@ -81,6 +87,21 @@ body {
       background: @bg !important;
       .ant-select-item-option-content {
         color: @primaryColor !important;
+      }
+    }
+  }
+  .ant-tooltip {
+    .ant-tooltip-content {
+      .ant-tooltip-inner {
+        background: @bg;
+        transition: @transition;
+        color: @color;
+        padding: 8px 24px;
+        user-select: none;
+        box-shadow:
+          0 6px 16px 0 var(--current-border),
+          0 3px 6px -4px var(--current-border),
+          0 9px 28px 8px var(--current-border);
       }
     }
   }

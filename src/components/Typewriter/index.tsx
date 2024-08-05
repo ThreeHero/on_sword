@@ -9,8 +9,16 @@ interface IProps {
   className?: string
   noStyle?: boolean
   onClick?: () => void
+  style?: React.CSSProperties
 }
-const Typewriter: FC<IProps> = ({ value, speed = 300, onClick, className, noStyle = false }) => {
+const Typewriter: FC<IProps> = ({
+  value,
+  speed = 300,
+  onClick,
+  className,
+  noStyle = false,
+  style
+}) => {
   // 显示的文字
   const [displayText, setDisplayText] = useState<string>('')
   // 显示到的索引
@@ -60,7 +68,11 @@ const Typewriter: FC<IProps> = ({ value, speed = 300, onClick, className, noStyl
   }, speed)
 
   return (
-    <div className={cls(className, { [styles.typewriter]: !noStyle })} onClick={handleClick}>
+    <div
+      className={cls(className, { [styles.typewriter]: !noStyle })}
+      onClick={handleClick}
+      style={style}
+    >
       {displayText}
     </div>
   )

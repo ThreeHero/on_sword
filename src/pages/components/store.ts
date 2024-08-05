@@ -10,7 +10,6 @@ class Store {
 
   init = () => {
     this.toggleWriterValue()
-    this.getArticleList()
   }
 
   currentPage = 1
@@ -30,13 +29,31 @@ class Store {
    * 文章列表
    */
   articleList = []
+  loadingArticle = false
+  articleTotal = 0
+
+  /**
+   * 是否查看我可见的
+   */
+  isMine = true
 
   /**
    * 获取文章列表
    */
-  getArticleList = async () => {
-    const res = await Api.getArticleList({ page: this.currentPage })
-    this.articleList = res
+  getArticleList = async (isMix = false) => {
+    try {
+      this.loadingArticle = true
+      const res = await Api.getArticleList({ page: this.currentPage, isMine: this.isMine })
+      if (isMix) {
+        this.articleList = [...this.articleList, ...res.records]
+      } else {
+        this.articleList = res.records
+      }
+      this.articleTotal = res.total
+    } catch {
+    } finally {
+      this.loadingArticle = false
+    }
   }
 }
 
