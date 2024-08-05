@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { FormInstance, message } from 'antd'
 import Api from './api'
 import globalStore from '@/layout/store'
+import { clearCache } from '@/utils'
 
 class Store {
   formInstance = null
@@ -65,6 +66,10 @@ class Store {
     }
     message.success('发布成功')
     this.submitDrawer = false
+    // @ts-ignore
+    clearCache(globalStore.currentUser?.id + '_article', false)
+
+    this.formInstance.resetFields()
     this.router('/user')
   }
 }

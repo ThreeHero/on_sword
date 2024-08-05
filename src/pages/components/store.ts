@@ -43,7 +43,11 @@ class Store {
   getArticleList = async (isMix = false) => {
     try {
       this.loadingArticle = true
-      const res = await Api.getArticleList({ page: this.currentPage, isMine: this.isMine })
+      const res = await Api.getArticleList({
+        page: this.currentPage,
+        isMine: this.isMine,
+        classificationId: this.activeClass === 'all' ? undefined : this.activeClass
+      })
       if (isMix) {
         this.articleList = [...this.articleList, ...res.records]
       } else {
@@ -54,6 +58,20 @@ class Store {
     } finally {
       this.loadingArticle = false
     }
+  }
+
+  /**
+   * 分类列表
+   */
+  classList = []
+  activeClass: number | string = 'all'
+
+  /**
+   * 获取分类列表
+   */
+  getClassList = async () => {
+    const res = await Api.getClassList({ pageSize: 8 })
+    this.classList = res.records
   }
 }
 

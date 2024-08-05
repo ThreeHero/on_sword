@@ -33,8 +33,40 @@
     padding-top: 24px;
 
     .left {
-      width: 300px;
-      background: red;
+      max-width: 300px;
+      min-width: 100px;
+      flex-shrink: 0;
+
+      .class {
+        position: sticky;
+        top: 24px;
+        transition: @transition;
+        background: @bg;
+        overflow: hidden;
+        box-sizing: border-box;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 5px 10px 5px var(--current-border);
+
+        .classItem {
+          margin: 4px 0;
+          padding: 4px 8px;
+          width: 100%;
+          transition: @transition;
+          border-radius: 6px;
+          cursor: pointer;
+
+          &:hover {
+            background: @primaryColor;
+            color: #000;
+          }
+        }
+
+        .activeClass {
+          background: @primaryColor;
+          color: #000;
+        }
+      }
     }
     .right {
       flex: 1;
@@ -52,7 +84,8 @@
       flex-direction: column;
 
       .left {
-        width: 100%;
+        // width: 100%;
+        display: none;
       }
       .right {
         width: 100%;
