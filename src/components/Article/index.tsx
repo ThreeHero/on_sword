@@ -6,7 +6,6 @@ import globalStore from '@/layout/store'
 import { observer } from 'mobx-react-lite'
 import { Input, message, Modal, Tag, Tooltip } from 'antd'
 import { useNavigate } from 'react-router'
-import Icon from '../Icon'
 
 interface IProps {
   article: any
@@ -81,8 +80,13 @@ const Article: FC<IProps> = ({ article, index }) => {
                   已赞
                 </Tag>
               )}
+              {!!article.isCollect && (
+                <Tag color="error" bordered={false} style={{ marginRight: 0 }}>
+                  已收藏
+                </Tag>
+              )}
               {!!article.isRecommend && (
-                <Tag color="warning" bordered={false}>
+                <Tag color="warning" bordered={false} style={{ marginRight: 0 }}>
                   推荐
                 </Tag>
               )}

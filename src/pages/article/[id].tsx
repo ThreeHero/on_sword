@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useParams } from 'react-router'
 import Store from './store'
-import { AnimationBg, MDEditor } from '@/components'
+import { AnimationBg } from '@/components'
 import { useMemo } from 'react'
 import styles from './styles.less'
 import { Content } from './components'
@@ -21,8 +21,8 @@ const Index = () => {
             <div className={styles.toolBar}>
               <div>{articleInfo.userInfo?.nickname}</div>
               <div>{articleInfo.viewCount}热度</div>
-              <div>{articleInfo.likeCount}点赞</div>
               {articleInfo.classifications && <div>{articleInfo.classifications?.name}</div>}
+              <div>阅读{articleInfo.recommendTime}分钟</div>
             </div>
           </div>
         )}
