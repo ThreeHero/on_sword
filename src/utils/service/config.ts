@@ -2,7 +2,7 @@ import { message } from 'antd'
 import { AxiosError } from 'axios'
 import { getToken } from '@/utils'
 // export const baseURL = 'http://localhost:30000'
-export const baseURL = 'http://10.158.246.82:30000'
+export const baseURL = 'http://10.158.246.98:30000'
 
 const handleHttpError = res => {
   if (!res) {

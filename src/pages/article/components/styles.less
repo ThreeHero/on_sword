@@ -1,0 +1,27 @@
+@import '../../../styles/variable.less';
+
+.content {
+  // position: relative;
+  scroll-behavior: smooth;
+  height: 100%;
+  .navbar {
+    position: absolute;
+    top: calc(@headerHeight + 50vmin);
+    width: 200px;
+    right: 50px;
+    z-index: 1000;
+  }
+  .fixed {
+    position: fixed;
+    top: @headerHeight;
+    right: 50px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .content {
+    .navbar {
+      display: none;
+    }
+  }
+}

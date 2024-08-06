@@ -1,3 +1,5 @@
+@import './animation.less';
+
 :root {
   //亮色文字色
   --text-color: #0a2222;
@@ -50,22 +52,22 @@
   }
 }
 
-@keyframes header-effect {
-  from {
-    opacity: 0;
-    transform: translateY(-100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.containerBox {
+  width: min(80vw, 800px);
 }
 
-@keyframes shark-txt {
-  form {
-    background-position: -100%;
+.markdown-navigation {
+  .title-anchor {
+    color: @color !important;
+    &:hover {
+      background: transparent !important;
+      color: @auxiliaryColor1 !important;
+      transition: @transition !important;
+    }
   }
-  to {
-    background-position: 200%;
+  .active {
+    color: @primaryColor !important;
+    background: transparent !important;
+    transition: @transition !important;
   }
 }

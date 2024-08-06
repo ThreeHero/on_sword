@@ -17,6 +17,7 @@ class Store {
   articleInfo: any = {}
   getArticle = async () => {
     const res = await Api.getArticleInfo(this.id)
+    console.log(res)
     this.articleInfo = res
   }
 }

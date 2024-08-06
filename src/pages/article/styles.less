@@ -1,0 +1,61 @@
+@import '../../styles/animation.less';
+@import '../../styles/variable.less';
+
+.container {
+  .placeholder {
+    height: 50vmin;
+    width: 100%;
+    background: transparent;
+    transition: @transition;
+  }
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #fff;
+    z-index: -1;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    animation: 2s ease 0s 1 normal none running header-effect;
+
+    .containerBox {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .title {
+      font-size: 24px;
+      letter-spacing: 2px;
+      background-color: fade(@primaryColor, 90%);
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .toolBar {
+      background-color: var(--bg--transparent);
+      padding: 8px 16px;
+      border-radius: 8px;
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  .content {
+    background: @bg;
+    color: @color;
+    transition: @transition;
+    // margin-top: 50vmin;
+    min-height: calc(100vh - 50vmin);
+    display: flex;
+    justify-content: center;
+
+    .contentBox {
+      animation: 2s ease 0s 1 normal none running footer-effect;
+    }
+  }
+}

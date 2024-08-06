@@ -7,7 +7,7 @@ const Home = () => {
   const store = useMemo(() => new Store(), [])
   return (
     <div>
-      <AnimationBg src={config.homeBg} height="50vh" />
+      <AnimationBg src={config.homeBg} height="50vmin" />
       <Header store={store} />
       <Content store={store} />
     </div>
