@@ -6,8 +6,9 @@ import cls from 'classnames'
 import { Avatar } from 'antd'
 import { config } from '@/config'
 import { useNavigate } from 'react-router'
-import { LikeFilled, StarFilled } from '@ant-design/icons'
+import { LikeFilled, ProfileFilled, StarFilled } from '@ant-design/icons'
 import { debounce } from 'lodash-es'
+import Directory from './Directory'
 
 const FloatButton = observer(({ onClick, children }) => {
   return (
@@ -70,6 +71,35 @@ const Content = ({ store }) => {
           />
         </FloatButton>
       </div>
+      <div className={styles.placeholder} />
+      <div className={styles.footer}>
+        {!!store.articleInfo?.userInfo && (
+          <Avatar
+            src={store.articleInfo?.userInfo?.avatar?.resource()}
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/user/' + store.articleInfo?.userInfo?.id)}
+          >
+            <Avatar src={config.defaultAvatar} />
+          </Avatar>
+        )}
+        <ProfileFilled
+          className={cls(styles.icon)}
+          onClick={() => (store.mobileDrawerVisible = true)}
+        />
+        <LikeFilled
+          onClick={like}
+          className={cls(styles.icon, {
+            [styles.activeIcon]: store.isLike
+          })}
+        />
+        <StarFilled
+          onClick={collect}
+          className={cls(styles.icon, {
+            [styles.activeIcon]: store.isCollect
+          })}
+        />
+      </div>
+      <Directory store={store} />
     </div>
   )
 }

@@ -18,6 +18,12 @@ class Store {
   articleInfo: any = {}
   isLike = false
   isCollect = false
+
+  /**
+   * 移动端目录抽屉
+   */
+  mobileDrawerVisible = false
+
   getArticle = async () => {
     const res = await Api.getArticleInfo(this.id)
     this.articleInfo = res

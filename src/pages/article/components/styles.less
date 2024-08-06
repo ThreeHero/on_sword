@@ -4,6 +4,7 @@
   // position: relative;
   scroll-behavior: smooth;
   height: 100%;
+  overflow-x: hidden;
   .navbar {
     position: absolute;
     top: calc(@headerHeight + 50vmin);
@@ -59,12 +60,51 @@
     position: fixed;
     top: @headerHeight;
   }
+
+  .placeholder {
+    display: none;
+    width: 100%;
+    height: 60px;
+    background: transparent;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 60px;
+    background: @bg;
+    color: @color;
+    transition: @transition;
+    box-shadow: 0 -1px 2px var(--current-border);
+    display: none;
+
+    .icon {
+      transition: @transition;
+      font-size: 24px;
+      color: @color;
+    }
+    .activeIcon {
+      color: @primaryColor;
+    }
+  }
 }
 
 @media (max-width: 1000px) {
   .content {
     .navbar {
       display: none;
+    }
+    .placeholder {
+      display: block;
+    }
+    .footer {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      justify-content: space-evenly;
+      animation: 2s ease 0s 1 normal none running footer-effect;
     }
   }
 }
