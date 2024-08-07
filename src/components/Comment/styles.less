@@ -1,5 +1,6 @@
 @import '../../styles/variable.less';
 
+@leftWidth: 32px + 16px;
 .comment {
   margin-top: 24px;
   .top {
@@ -27,7 +28,7 @@
   }
   .bottom {
     margin-top: 16px;
-    margin-left: 48px;
+    margin-left: @leftWidth;
     background-color: var(--bg--transparent);
     padding: 16px;
     border-radius: 8px;
@@ -36,6 +37,10 @@
       font-size: 16px;
       letter-spacing: 2px;
       color: @color;
+      .replyName {
+        color: @primaryColor;
+        cursor: pointer;
+      }
     }
     .imgList {
       display: flex;
@@ -54,5 +59,10 @@
         filter: brightness(50%);
       }
     }
+  }
+  .more {
+    margin-top: 16px;
+    margin-left: @leftWidth;
+    color: @color;
   }
 }

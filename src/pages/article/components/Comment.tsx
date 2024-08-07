@@ -5,6 +5,7 @@ import { EditOutlined } from '@ant-design/icons'
 import { useEffect } from 'react'
 import { List } from 'antd'
 import globalStore from '@/layout/store'
+import ReplyModal from './ReplyModal'
 
 const Index = ({ store }) => {
   useEffect(() => {
@@ -24,11 +25,23 @@ const Index = ({ store }) => {
         />
       )}
       <List
+        style={{ marginBottom: 80 }}
         dataSource={store.rootCommentList}
         renderItem={item => {
-          return <Comment comment={item} />
+          return <Comment comment={item} onReply={store.reply} type="ARTICLE" />
+        }}
+        pagination={{
+          current: store.commentPage,
+          total: store.rootCommentTotal,
+          pageSize: store.commentPageSize,
+          showTotal: total => `共 ${total} 条`,
+          onChange: (page, pageSize) => {
+            store.commentPage = page
+            store.getRootCommentList()
+          }
         }}
       />
+      <ReplyModal store={store} />
     </div>
   )
 }

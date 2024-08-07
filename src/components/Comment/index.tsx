@@ -1,11 +1,12 @@
-import { emoji } from '@/utils'
+import { emoji, http } from '@/utils'
 import styles from './styles.less'
-import { Avatar, Button, Image } from 'antd'
+import { Avatar, Button, Divider, Image } from 'antd'
 import { config } from '@/config'
 import moment from 'moment'
 import cls from 'classnames'
 import globalStore from '@/layout/store'
 import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
 
 const parseContent = (content: string) => {
   const imgList: any[] = []
@@ -43,9 +44,29 @@ const parseContent = (content: string) => {
   return [content, imgList]
 }
 
-const Comment = ({ comment }) => {
-  console.log(comment)
+const Comment = ({ comment, onReply, type }) => {
+  const [loadMore, setLoadMore] = useState(false)
   const [content, imgList] = parseContent(comment.content)
+  const [childCommentList, setChildCommentList] = useState([])
+  const [page, setPage] = useState(1)
+  useEffect(() => {
+    if (loadMore) {
+      http
+        .get('/comments/list', {
+          params: {
+            page,
+            pageSize: 5,
+            type,
+            articleId: comment.articleId,
+            rootId: comment.id
+          }
+        })
+        .then(res => {
+          setChildCommentList(res.records)
+        })
+    }
+  }, [loadMore])
+
   return (
     <div className={styles.comment}>
       <div className={styles.top}>
@@ -62,12 +83,17 @@ const Comment = ({ comment }) => {
             </div>
           </div>
         </div>
-        <Button size="small" type="primary" ghost>
+        <Button size="small" type="primary" ghost onClick={() => onReply(comment)}>
           回复
         </Button>
       </div>
       <div className={styles.bottom}>
-        <div className={styles.content}>{content}</div>
+        <div className={styles.content}>
+          {comment.rootId !== comment.parentId && (
+            <span className={styles.replyName}>@{comment.parentComment.publisher?.nickname}: </span>
+          )}
+          {content}
+        </div>
         {/* 图片预览 */}
         <div className={styles.imgList}>
           {imgList.length > 0 &&
@@ -85,6 +111,34 @@ const Comment = ({ comment }) => {
             })}
         </div>
       </div>
+      {comment.childCommentCount > 0 && (
+        <div className={styles.more}>
+          {!loadMore ? (
+            <Divider plain>
+              <span
+                style={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setLoadMore(true)}
+              >
+                查看更多
+              </span>
+            </Divider>
+          ) : (
+            childCommentList.map(childComment => {
+              return (
+                <Comment
+                  key={childComment.id}
+                  comment={childComment}
+                  onReply={() => {
+                    onReply(childComment)
+                    setLoadMore(false)
+                  }}
+                  type="type"
+                />
+              )
+            })
+          )}
+        </div>
+      )}
     </div>
   )
 }

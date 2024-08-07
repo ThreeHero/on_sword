@@ -105,4 +105,36 @@ body {
       }
     }
   }
+  .ant-divider {
+    color: @color !important;
+
+    &::after,
+    &::before {
+      border-color: @color !important ;
+    }
+  }
+  .ant-pagination {
+    .ant-pagination-total-text,
+    .ant-pagination-prev,
+    .ant-pagination-next {
+      color: @color;
+      transition: @transition;
+      .ant-pagination-item-link {
+        color: @color;
+        transition: @transition;
+      }
+    }
+    .ant-pagination-item {
+      background: @bg;
+      transition: @transition;
+      color: @color;
+      > a {
+        color: @color;
+        transition: @transition;
+      }
+    }
+    .ant-pagination-item-active {
+      color: @primaryColor;
+    }
+  }
 }
