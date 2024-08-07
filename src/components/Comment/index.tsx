@@ -49,6 +49,7 @@ const Comment = ({ comment, onReply, type }) => {
   const [content, imgList] = parseContent(comment.content)
   const [childCommentList, setChildCommentList] = useState([])
   const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
   useEffect(() => {
     if (loadMore) {
       http
@@ -62,10 +63,16 @@ const Comment = ({ comment, onReply, type }) => {
           }
         })
         .then(res => {
-          setChildCommentList(res.records)
+          setChildCommentList(l => {
+            if (!l.find(item => res.records.map(i => i.id).includes(item.id))) {
+              return [...l, ...res.records]
+            }
+            return l
+          })
+          setTotal(res.total)
         })
     }
-  }, [loadMore])
+  }, [loadMore, page])
 
   return (
     <div className={styles.comment}>
@@ -123,19 +130,31 @@ const Comment = ({ comment, onReply, type }) => {
               </span>
             </Divider>
           ) : (
-            childCommentList.map(childComment => {
-              return (
-                <Comment
-                  key={childComment.id}
-                  comment={childComment}
-                  onReply={() => {
-                    onReply(childComment)
-                    setLoadMore(false)
-                  }}
-                  type="type"
-                />
-              )
-            })
+            <>
+              {childCommentList.map(childComment => {
+                return (
+                  <Comment
+                    key={childComment.id}
+                    comment={childComment}
+                    onReply={() => {
+                      onReply(childComment)
+                      setLoadMore(false)
+                    }}
+                    type="type"
+                  />
+                )
+              })}
+              {total > page * 5 && (
+                <Divider plain>
+                  <span
+                    style={{ cursor: 'pointer', userSelect: 'none' }}
+                    onClick={() => setPage(p => p + 1)}
+                  >
+                    查看更多
+                  </span>
+                </Divider>
+              )}
+            </>
           )}
         </div>
       )}
