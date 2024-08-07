@@ -39,6 +39,10 @@ const Content = ({ store }) => {
   return (
     <div className={styles.content}>
       <MDEditor.Viewer value={store.articleInfo.content || ''} />
+      <div className={styles.time}>
+        <div>文章发布于 {store.articleInfo.createdAt}</div>
+        <div>最后更新于 {store.articleInfo.updatedAt}</div>
+      </div>
       <div
         className={cls(styles.navbar, {
           [styles.fixed]: isFixed
