@@ -25,9 +25,10 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
     }
   }
 
-  const handleUpload = file => {
-    const blob = new Blob(file)
+  const handleUpload = ({ file }) => {
     console.log(file)
+    // 手动上传 获取到 资源地址
+    // (name)[url]
     return false
   }
 
@@ -69,13 +70,13 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
             className={cls(styles.icon, { [styles.active]: isEmojiOpen })}
             onClick={() => setIsEmojiOpen(!isEmojiOpen)}
           />
-          todo 上传文件解析
+          {/* todo 上传文件解析 */}
           <Upload
             maxCount={1}
-            beforeUpload={handleUpload}
+            beforeUpload={() => false}
             showUploadList={false}
             fileList={[]}
-            action={''}
+            onChange={handleUpload}
           >
             <PictureOutlined className={styles.icon} />
           </Upload>
