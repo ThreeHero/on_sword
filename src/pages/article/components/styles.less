@@ -1,20 +1,25 @@
 @import '../../../styles/variable.less';
+@import '../../../styles/animation.less';
 
 .content {
   // position: relative;
   scroll-behavior: smooth;
   height: 100%;
   overflow-x: hidden;
+  .articleContent {
+    animation: 2s ease 0s 1 normal none running footer-effect;
 
-  .time {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 16px 0;
-    color: var(--text-color1);
-    font-size: 12px;
-    user-select: none;
+    .time {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 16px 0;
+      color: var(--text-color1);
+      font-size: 12px;
+      user-select: none;
+    }
   }
+
   .navbar {
     position: absolute;
     top: calc(@headerHeight + 50vmin);
@@ -86,9 +91,10 @@
     height: 60px;
     background: @bg;
     color: @color;
-    transition: @transition;
+    // transition: @transition;
     box-shadow: 0 -1px 2px var(--current-border);
     display: none;
+    z-index: -100;
 
     .icon {
       transition: @transition;
@@ -110,11 +116,14 @@
       display: block;
     }
     .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       display: flex;
       align-items: center;
       padding: 0 16px;
       justify-content: space-evenly;
-      animation: 2s ease 0s 1 normal none running footer-effect;
+      z-index: 1;
     }
   }
 }

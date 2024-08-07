@@ -1,0 +1,78 @@
+@import '../../styles/variable.less';
+
+.commentInput {
+  width: 100%;
+  color: @color;
+  transition: @transition;
+  margin-bottom: 50vh;
+
+  .textarea {
+    width: 100%;
+    height: 44px;
+    background: transparent;
+    resize: none;
+    outline: none;
+    border: 1px solid var(--current-border);
+    transition: @transition;
+    padding: 12px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+    color: @color;
+
+    &:focus {
+      background: @bg;
+      height: 120px;
+      border-color: @primaryColor;
+
+      &:focus + .toolBar {
+        transition: @transition;
+        border-color: @primaryColor;
+      }
+    }
+
+    // &::placeholder {
+    //   color: @color;
+    // }
+  }
+  .focus {
+    background: @bg;
+    height: 120px;
+    border-color: @primaryColor;
+  }
+
+  .toolBar {
+    border-radius: 0 0 4px 4px;
+    border: 1px solid var(--current-border);
+    border-top: none;
+    margin-top: -8px;
+    padding: 4px 12px;
+    display: flex;
+    opacity: 1;
+    transition: @transition;
+    align-items: center;
+    justify-content: space-between;
+
+    .tool {
+      display: flex;
+      gap: 16px;
+
+      .icon {
+        font-size: 18px;
+        cursor: pointer;
+        transition: @transition;
+      }
+      .active {
+        color: @primaryColor;
+      }
+    }
+    .submit {
+      color: @primaryColor;
+      transition: @transition;
+      cursor: pointer;
+    }
+  }
+
+  .focusTool {
+    border-color: @primaryColor;
+  }
+}

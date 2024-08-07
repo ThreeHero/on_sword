@@ -42,6 +42,15 @@ class Store {
     this.isCollect = !this.isCollect
     message.success(msg)
   }
+
+  /**
+   * 评论内容
+   */
+  commentValue = ''
+  setCommentValue = (value: string) => {
+    this.commentValue = value
+  }
+  submitComment = () => {}
 }
 
 export default Store

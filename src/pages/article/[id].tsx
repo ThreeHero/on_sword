@@ -4,7 +4,7 @@ import Store from './store'
 import { AnimationBg } from '@/components'
 import { useMemo } from 'react'
 import styles from './styles.less'
-import { Content } from './components'
+import { Content, Comment } from './components'
 
 const Index = () => {
   const params = useParams()
@@ -32,6 +32,11 @@ const Index = () => {
         <div className={`containerBox ${styles.contentBox}`}>
           <Content store={store} />
         </div>
+        {!!articleInfo.isComment && (
+          <div className={`containerBox ${styles.commentBox}`}>
+            <Comment store={store} />
+          </div>
+        )}
       </div>
     </div>
   )

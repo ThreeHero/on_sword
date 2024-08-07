@@ -10,6 +10,7 @@ import { EditFilled, LikeFilled, ProfileFilled, StarFilled } from '@ant-design/i
 import { debounce } from 'lodash-es'
 import Directory from './Directory'
 import globalStore from '@/layout/store'
+import moment from 'moment'
 
 const FloatButton = observer(({ onClick, children }) => {
   return (
@@ -38,11 +39,14 @@ const Content = ({ store }) => {
 
   return (
     <div className={styles.content}>
-      <MDEditor.Viewer value={store.articleInfo.content || ''} />
-      <div className={styles.time}>
-        <div>文章发布于 {store.articleInfo.createdAt}</div>
-        <div>最后更新于 {store.articleInfo.updatedAt}</div>
+      <div className={styles.articleContent}>
+        <MDEditor.Viewer value={store.articleInfo.content || ''} />
+        <div className={styles.time}>
+          <div>文章发布于 {moment(store.articleInfo.createdAt).format('YYYY-MM-DD')}</div>
+          <div>最后更新于 {moment(store.articleInfo.updatedAt).format('YYYY-MM-DD')}</div>
+        </div>
       </div>
+
       <div
         className={cls(styles.navbar, {
           [styles.fixed]: isFixed
@@ -85,7 +89,7 @@ const Content = ({ store }) => {
           </FloatButton>
         )}
       </div>
-      <div className={styles.placeholder} />
+      {!store.articleInfo.isComment && <div className={styles.placeholder} />}
       <div className={styles.footer}>
         {!!store.articleInfo?.userInfo && (
           <Avatar
