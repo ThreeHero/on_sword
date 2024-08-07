@@ -66,7 +66,7 @@ class Store {
       const formData = new FormData()
       formData.append('file', values.cover)
       // @ts-ignore
-      formData.append('path', 'article/' + globalStore.currentUser.account + '/cover')
+      formData.append('path', globalStore.currentUser.account + '/article/cover')
       const url = await Api.uploadFile(formData)
       values.cover = url
     }

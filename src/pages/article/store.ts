@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import Api from './api'
 import { message } from 'antd'
+import globalStore from '@/layout/store'
 
 class Store {
   id
@@ -50,7 +51,29 @@ class Store {
   setCommentValue = (value: string) => {
     this.commentValue = value
   }
-  submitComment = () => {}
+  submitComment = async (parentId?) => {
+    if (!globalStore.currentUser?.id) return message.error('请先登录')
+    await Api.addComment({
+      articleId: this.id,
+      content: this.commentValue,
+      type: 'ARTICLE',
+      parentId
+    })
+    this.setCommentValue('')
+    this.getRootCommentList()
+  }
+
+  /**
+   * 根评论列表
+   */
+  rootCommentList = []
+  getRootCommentList = async () => {
+    const res = await Api.getCommentList({
+      articleId: this.id,
+      type: 'ARTICLE'
+    })
+    this.rootCommentList = res.records
+  }
 }
 
 export default Store

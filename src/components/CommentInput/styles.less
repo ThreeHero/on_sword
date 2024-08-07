@@ -4,7 +4,6 @@
   width: 100%;
   color: @color;
   transition: @transition;
-  margin-bottom: 50vh;
 
   .textarea {
     width: 100%;
@@ -100,11 +99,22 @@
     .tool {
       display: flex;
       gap: 16px;
+      :global {
+        .ant-upload-wrapper {
+          display: flex;
+          align-items: center;
+          .ant-upload {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
 
       .icon {
         font-size: 18px;
         cursor: pointer;
         transition: @transition;
+        color: @color;
       }
       .active {
         color: @primaryColor;

@@ -4,32 +4,40 @@ import { PictureOutlined, SmileOutlined } from '@ant-design/icons'
 import { useRef, useState } from 'react'
 import cls from 'classnames'
 import { Button, Upload } from 'antd'
-import { emoji } from '@/utils'
+import { emoji, http } from '@/utils'
+import globalStore from '@/layout/store'
 
 const CommentInput = ({ value = '', onChange, onSubmit }) => {
   const [isEmojiOpen, setIsEmojiOpen] = useState(false)
   const ref = useRef()
 
-  const addEmoji = emojiItem => {
+  const insert = (v: string) => {
     const textarea: any = ref.current
     if (textarea) {
-      const emojiValue = `[${emojiItem.title}]`
       const start = textarea.selectionStart
-      onChange(value.slice(0, start) + emojiValue + value.slice(start))
+      onChange(value.slice(0, start) + v + value.slice(start))
 
       setTimeout(() => {
         textarea.focus()
-        textarea.selectionStart = start + emojiValue.length
-        textarea.selectionEnd = start + emojiValue.length
+        textarea.selectionStart = start + v.length
+        textarea.selectionEnd = start + v.length
       }, 0)
     }
   }
 
-  const handleUpload = ({ file }) => {
-    console.log(file)
-    // 手动上传 获取到 资源地址
-    // (name)[url]
-    return false
+  const addEmoji = emojiItem => {
+    const emojiValue = `[${emojiItem.title}]`
+    insert(emojiValue)
+  }
+
+  const handleUpload = async ({ file }) => {
+    const name = file.name
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('path', globalStore.currentUser.account + '/comment')
+    const url = await http.post('/file/upload', formData)
+    const fileValue = `![${name}](${url})`
+    insert(fileValue)
   }
 
   return (
@@ -70,7 +78,6 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
             className={cls(styles.icon, { [styles.active]: isEmojiOpen })}
             onClick={() => setIsEmojiOpen(!isEmojiOpen)}
           />
-          {/* todo 上传文件解析 */}
           <Upload
             maxCount={1}
             beforeUpload={() => false}

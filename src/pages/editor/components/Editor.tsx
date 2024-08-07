@@ -55,7 +55,7 @@ const FormEditor: FC<IProps> = ({ value, onChange, store }) => {
       const formData = new FormData()
       formData.append('file', file)
       // @ts-ignore
-      formData.append('path', 'article/' + globalStore.currentUser.account)
+      formData.append('path', globalStore.currentUser.account + '/article')
       const path = await http.post('/file/upload', formData)
       pathList.push({
         url: path?.resource(),
