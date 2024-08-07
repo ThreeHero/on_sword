@@ -6,9 +6,10 @@ import cls from 'classnames'
 import { Avatar } from 'antd'
 import { config } from '@/config'
 import { useNavigate } from 'react-router'
-import { LikeFilled, ProfileFilled, StarFilled } from '@ant-design/icons'
+import { EditFilled, LikeFilled, ProfileFilled, StarFilled } from '@ant-design/icons'
 import { debounce } from 'lodash-es'
 import Directory from './Directory'
+import globalStore from '@/layout/store'
 
 const FloatButton = observer(({ onClick, children }) => {
   return (
@@ -30,6 +31,10 @@ const Content = ({ store }) => {
   const collect = debounce(() => {
     store.collect()
   }, 300)
+
+  const edit = () => {
+    navigate('/editor/' + store.articleInfo?.id)
+  }
 
   return (
     <div className={styles.content}>
@@ -70,6 +75,11 @@ const Content = ({ store }) => {
             })}
           />
         </FloatButton>
+        {store.articleInfo?.userInfo?.id === globalStore.currentUser.id && (
+          <FloatButton onClick={edit}>
+            <EditFilled className={cls(styles.icon)} />
+          </FloatButton>
+        )}
       </div>
       <div className={styles.placeholder} />
       <div className={styles.footer}>

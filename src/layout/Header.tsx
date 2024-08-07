@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <div
       className={cls(styles.header, {
-        [styles.hidden]: hidden,
+        [styles.hidden]: hidden && isBg,
         [styles['has-bg']]: isBg
       })}
     >

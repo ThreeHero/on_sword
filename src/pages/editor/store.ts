@@ -11,6 +11,17 @@ class Store {
     makeAutoObservable(this)
     this.formInstance = form
     this.router = router
+    this.getTagList()
+  }
+
+  // 请求文章信息
+  getArticleInfo = async (id: number) => {
+    const res = await Api.getArticleInfo(id)
+
+    this.formInstance.setFieldsValue({
+      ...res,
+      tagList: res.tagList.map(x => x.id)
+    })
   }
 
   /**
@@ -51,12 +62,15 @@ class Store {
     )
       return message.error('请输入文章访问密码')
 
-    const formData = new FormData()
-    formData.append('file', values.cover)
-    // @ts-ignore
-    formData.append('path', 'article/' + globalStore.currentUser.account + '/cover')
-    const url = await Api.uploadFile(formData)
-    values.cover = url
+    if (typeof values.cover !== 'string') {
+      const formData = new FormData()
+      formData.append('file', values.cover)
+      // @ts-ignore
+      formData.append('path', 'article/' + globalStore.currentUser.account + '/cover')
+      const url = await Api.uploadFile(formData)
+      values.cover = url
+    }
+
     values.tagList = values.tagList.join(',')
     values.isComment = Number(values.isComment)
     if (values.id) {
@@ -66,7 +80,6 @@ class Store {
     }
     message.success('发布成功')
     this.submitDrawer = false
-    // @ts-ignore
     clearCache(globalStore.currentUser?.id + '_article', false)
 
     this.formInstance.resetFields()

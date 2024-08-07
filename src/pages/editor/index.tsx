@@ -1,15 +1,18 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
 import Store from './store'
-import { useMemo } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router'
 import { Editor, Title } from './components'
 import styles from './styles.less'
 
-const Index = () => {
+const Index: FC<{ params?: any }> = ({ params = {} }) => {
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const store = useMemo(() => new Store(form, navigate), [])
+  useEffect(() => {
+    params.id && store.getArticleInfo(params.id)
+  }, [params.id])
   return (
     <Form
       autoComplete="off"

@@ -49,8 +49,14 @@ const Cover: FC<IFormItemChild> = observer(({ value, onChange, store }) => {
   }
 
   if (value) {
-    const URL = window.URL
-    const src = URL.createObjectURL(value)
+    let src = ''
+    if (typeof value === 'string') {
+      // @ts-ignore
+      src = value.resource()
+    } else {
+      const URL = window.URL
+      src = URL.createObjectURL(value)
+    }
     return (
       <div className={styles.coverBox}>
         <img
@@ -78,7 +84,7 @@ const SubmitDrawer = ({ store }) => {
   useEffect(() => {
     if (store.submitDrawer) {
       store.getClassList()
-      store.getTagList()
+      // store.getTagList()
     }
   }, [store.submitDrawer])
   return (
@@ -104,6 +110,9 @@ const SubmitDrawer = ({ store }) => {
       <Form.Item name="id" hidden>
         <Input />
       </Form.Item>
+      <Form.Item name="publisherId" hidden>
+        <Input />
+      </Form.Item>
       <Form.Item name="cover" label="封面">
         <Cover store={store} />
       </Form.Item>
@@ -112,6 +121,12 @@ const SubmitDrawer = ({ store }) => {
       </Form.Item>
       <Form.Item noStyle dependencies={['classificationId']}>
         {({ getFieldValue }) => {
+          console.log(
+            store.tagList.filter(
+              (t: any) => +t.classificationId === getFieldValue('classificationId')
+            ),
+            getFieldValue('tagList')
+          )
           if (!getFieldValue('classificationId')) return null
           return (
             <Form.Item name="tagList" label="标签">
@@ -120,7 +135,7 @@ const SubmitDrawer = ({ store }) => {
                 maxCount={3}
                 mode="multiple"
                 options={store.tagList.filter(
-                  t => +t.classificationId === getFieldValue('classificationId')
+                  (t: any) => +t.classificationId === getFieldValue('classificationId')
                 )}
                 fieldNames={{
                   label: 'name',

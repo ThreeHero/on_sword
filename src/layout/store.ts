@@ -68,7 +68,7 @@ class Store {
   /**
    * 当前登录用户信息
    */
-  currentUser: IUserInfo | {} = {}
+  currentUser: IUserInfo | {} | any = {}
 
   /**
    * 字典
@@ -110,7 +110,17 @@ class Store {
    * @param {string} param.findField 查询出的字段
    * @returns
    */
-  getDictValue = ({ by, value, dict, findField }: { by: string; value: string | number; dict: string; findField: string }) => {
+  getDictValue = ({
+    by,
+    value,
+    dict,
+    findField
+  }: {
+    by: string
+    value: string | number
+    dict: string
+    findField: string
+  }) => {
     const item = this.dict[dict]
     return item?.find(item => item[by] === value)?.[findField]
   }
