@@ -7,6 +7,7 @@ import cls from 'classnames'
 import globalStore from '@/layout/store'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import ImagePreview from '../ImagePreview'
 
 const parseContent = (content: string) => {
   const imgList: any[] = []
@@ -50,6 +51,8 @@ const Comment = ({ comment, onReply, type }) => {
   const [childCommentList, setChildCommentList] = useState([])
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+  const [selectedImgList, setSelectedImgList] = useState([])
+  const [imgPreview, setImgPreview] = useState(false)
   useEffect(() => {
     if (loadMore) {
       http
@@ -109,10 +112,16 @@ const Comment = ({ comment, onReply, type }) => {
               return (
                 <img
                   src={img.url}
+                  key={img.url}
                   title={img.name}
                   className={cls(styles.img, {
                     [styles.darkImg]: globalStore.isDark
                   })}
+                  onClick={() => {
+                    // @ts-ignore
+                    setSelectedImgList(imgList)
+                    setImgPreview(true)
+                  }}
                 />
               )
             })}
@@ -158,6 +167,11 @@ const Comment = ({ comment, onReply, type }) => {
           )}
         </div>
       )}
+      <ImagePreview
+        imgList={selectedImgList}
+        visible={imgPreview}
+        onCancel={() => setImgPreview(false)}
+      />
     </div>
   )
 }
