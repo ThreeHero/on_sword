@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
 import styles from './styles.less'
-import { detectDeviceType } from '@/utils/base'
 import cls from 'classnames'
 import globalStore from '@/layout/store'
 import { observer } from 'mobx-react-lite'
 import { Input, message, Modal, Tag, Tooltip } from 'antd'
 import { useNavigate } from 'react-router'
+import moment from 'moment'
 
 interface IProps {
   article: any
@@ -48,6 +48,7 @@ const Article: FC<IProps> = ({ article, index }) => {
     }
     navigate(`/article/${article.id}`)
   }
+
   return (
     <div
       className={cls(styles.article, {
@@ -61,12 +62,28 @@ const Article: FC<IProps> = ({ article, index }) => {
             <div className={styles.publishInfo}>
               <div>
                 <span>发布于</span>
-                {article.createdAt}
+                {moment(article.createdAt).format('YYYY-MM-DD')}
               </div>
               <div>
                 <span>发布人</span>
                 {article.userInfo?.nickname ?? '未知'}
               </div>
+              <Tag
+                bordered={false}
+                color={globalStore.getDictValue({
+                  by: 'value',
+                  value: article.accessType,
+                  dict: 'accessType',
+                  findField: 'color'
+                })}
+              >
+                {globalStore.getDictValue({
+                  by: 'value',
+                  value: article.accessType,
+                  dict: 'accessType',
+                  findField: 'label'
+                })}
+              </Tag>
             </div>
             <Tooltip title={article.title} arrow={false}>
               <div className={styles.title}>{article.title}</div>
