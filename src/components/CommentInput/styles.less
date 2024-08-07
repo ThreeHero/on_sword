@@ -18,6 +18,8 @@
     border-radius: 4px 4px 0 0;
     border-bottom: none;
     color: @color;
+    font-size: 14px;
+    letter-spacing: 2px;
 
     &:focus {
       background: @bg;
@@ -38,6 +40,49 @@
     background: @bg;
     height: 120px;
     border-color: @primaryColor;
+  }
+
+  .emoji {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    border: 1px solid @primaryColor;
+    border-top: none;
+    border-bottom: none;
+    padding: 4px 12px;
+    gap: 12px;
+    font-size: 20px;
+
+    .emojiItem {
+      font-size: 20px;
+      cursor: pointer;
+      transition: @transition;
+      user-select: none;
+      &:hover {
+        transform: scale(1.2);
+      }
+      &[data-title]:hover::after {
+        text-align: center;
+        content: attr(data-title);
+        width: 50px;
+        display: block;
+        transition: @transition;
+        background-color: @bg;
+        box-shadow:
+          0 6px 16px 0 var(--current-border),
+          0 3px 6px -4px var(--current-border),
+          0 9px 28px 8px var(--current-border);
+        color: @color;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 12px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        // transform: translateX(-50%);
+      }
+    }
   }
 
   .toolBar {

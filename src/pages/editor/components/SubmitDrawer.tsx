@@ -121,12 +121,6 @@ const SubmitDrawer = ({ store }) => {
       </Form.Item>
       <Form.Item noStyle dependencies={['classificationId']}>
         {({ getFieldValue }) => {
-          console.log(
-            store.tagList.filter(
-              (t: any) => +t.classificationId === getFieldValue('classificationId')
-            ),
-            getFieldValue('tagList')
-          )
           if (!getFieldValue('classificationId')) return null
           return (
             <Form.Item name="tagList" label="标签">

@@ -70,6 +70,7 @@ const Article: FC<IProps> = ({ article, index }) => {
               </div>
               <Tag
                 bordered={false}
+                style={{ filter: `brightness(${globalStore.isDark ? 0.5 : 1})`, marginRight: 0 }}
                 color={globalStore.getDictValue({
                   by: 'value',
                   value: article.accessType,
@@ -93,17 +94,29 @@ const Article: FC<IProps> = ({ article, index }) => {
               <div>{article.commentCount}评论</div>
               <div>{article.likeCount}点赞</div>
               {!!article.isLike && (
-                <Tag color="processing" bordered={false} style={{ marginRight: 0 }}>
+                <Tag
+                  color="processing"
+                  bordered={false}
+                  style={{ filter: `brightness(${globalStore.isDark ? 0.5 : 1})`, marginRight: 0 }}
+                >
                   已赞
                 </Tag>
               )}
               {!!article.isCollect && (
-                <Tag color="error" bordered={false} style={{ marginRight: 0 }}>
+                <Tag
+                  color="error"
+                  bordered={false}
+                  style={{ filter: `brightness(${globalStore.isDark ? 0.5 : 1})`, marginRight: 0 }}
+                >
                   已收藏
                 </Tag>
               )}
               {!!article.isRecommend && (
-                <Tag color="warning" bordered={false} style={{ marginRight: 0 }}>
+                <Tag
+                  color="warning"
+                  bordered={false}
+                  style={{ filter: `brightness(${globalStore.isDark ? 0.5 : 1})`, marginRight: 0 }}
+                >
                   推荐
                 </Tag>
               )}

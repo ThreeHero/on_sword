@@ -54,7 +54,6 @@ const FormEditor: FC<IProps> = ({ value, onChange, store }) => {
     for (const file of files) {
       const formData = new FormData()
       formData.append('file', file)
-      console.log(file)
       // @ts-ignore
       formData.append('path', 'article/' + globalStore.currentUser.account)
       const path = await http.post('/file/upload', formData)
