@@ -83,6 +83,7 @@ const MobileMenu = observer(() => {
                   if (!path || store.permissionPage.includes(path)) {
                     navigate('/')
                   }
+                  window.location.reload()
                 })
               }}
             >
@@ -125,6 +126,7 @@ const PCMenu = observer(() => {
         if (!path || store.permissionPage.includes(path)) {
           navigate('/')
         }
+        window.location.reload()
       })
     }
     if (key.startsWith('/')) {
