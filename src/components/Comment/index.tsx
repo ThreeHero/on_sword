@@ -1,4 +1,4 @@
-import { emoji, http } from '@/utils'
+import { http, parseContent } from '@/utils'
 import styles from './styles.less'
 import { Avatar, Button, Divider, Image } from 'antd'
 import { config } from '@/config'
@@ -8,42 +8,6 @@ import globalStore from '@/layout/store'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import ImagePreview from '../ImagePreview'
-
-const parseContent = (content: string) => {
-  const imgList: any[] = []
-
-  // 1. 解析图片集
-  const imgReg = /!\[(.*?)\]\((.*?)\)/g
-  const imgMatch = content.match(imgReg)
-  if (imgMatch) {
-    const roundBracketRegex = /\(([^()]*)\)/g
-    const squareBracketRegex = /\[([^[\]]*)\]/g
-    imgMatch.map(item => {
-      const name = item.match(squareBracketRegex)
-      const url = item.match(roundBracketRegex)
-      imgList.push({
-        name: name[0].replace(/\[|\]/g, ''),
-        // @ts-ignore
-        url: url[0].replace(/\(|\)/g, '').resource()
-      })
-    })
-    content = content.replace(imgReg, '')
-  }
-  // 2. 解析emoji
-  const emojiReg = /\[([^\]]*)\]/g
-  const emojiMatch = content.match(emojiReg)
-  if (emojiMatch) {
-    emojiMatch.map(item => {
-      const currentEmoji = emoji.find(
-        e => e.title === item.replace('[', '').replace(']', '')
-      )?.emoji
-      if (currentEmoji) {
-        content = content.replace(item, currentEmoji)
-      }
-    })
-  }
-  return [content, imgList]
-}
 
 const Comment = ({ comment, onReply, type }) => {
   const [loadMore, setLoadMore] = useState(false)

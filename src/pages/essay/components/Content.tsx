@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import styles from './styles.less'
 import cls from 'classnames'
-import { CommentInput, Comment } from '@/components'
+import { CommentInput, EssayItem } from '@/components'
 import { useEffect } from 'react'
 import { List } from 'antd'
 import { config } from '@/config'
@@ -21,7 +21,7 @@ const Content = ({ store }) => {
         <List
           dataSource={store.essayList}
           renderItem={item => {
-            return <div>1</div>
+            return <EssayItem essay={item} />
           }}
           locale={{
             emptyText: config.emptyText
