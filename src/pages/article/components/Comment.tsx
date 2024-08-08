@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { List } from 'antd'
 import globalStore from '@/layout/store'
 import ReplyModal from './ReplyModal'
+import { config } from '@/config'
 
 const Index = ({ store }) => {
   useEffect(() => {
@@ -29,6 +30,9 @@ const Index = ({ store }) => {
         dataSource={store.rootCommentList}
         renderItem={item => {
           return <Comment comment={item} onReply={store.reply} type="ARTICLE" />
+        }}
+        locale={{
+          emptyText: config.emptyText
         }}
         pagination={{
           hideOnSinglePage: true,

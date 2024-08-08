@@ -1,4 +1,5 @@
 @import '../../styles/variable.less';
+@import '../../styles/animation.less';
 
 .CodeMirror-code {
   .CodeMirror-line {
@@ -22,6 +23,7 @@
   border-color: var(--current-border);
   position: relative;
   z-index: 1000;
+  animation: 2s ease 0s 1 normal none running header-effect;
 }
 .bytemd-toolbar {
   transition: @transition;
