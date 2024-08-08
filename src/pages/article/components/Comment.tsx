@@ -31,6 +31,7 @@ const Index = ({ store }) => {
           return <Comment comment={item} onReply={store.reply} type="ARTICLE" />
         }}
         pagination={{
+          hideOnSinglePage: true,
           current: store.commentPage,
           total: store.rootCommentTotal,
           pageSize: store.commentPageSize,

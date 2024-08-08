@@ -44,7 +44,7 @@ const ImagePreview = ({ imgList, visible, onCancel }) => {
   //   a.click()
   // }
   return (
-    <Modal open={visible} onCancel={onCancel} width={'80vw'} footer={false} closable={false}>
+    <Modal open={visible} onCancel={onCancel} width={'90vw'} footer={false} closable={false}>
       <div className={styles['preview-image-container']}>
         <img
           key={imgIndex}

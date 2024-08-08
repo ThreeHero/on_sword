@@ -3,7 +3,7 @@ import styles from './styles.less'
 import { PictureOutlined, SmileOutlined } from '@ant-design/icons'
 import { useRef, useState } from 'react'
 import cls from 'classnames'
-import { Button, Upload } from 'antd'
+import { Button, message, Upload } from 'antd'
 import { emoji, http } from '@/utils'
 import globalStore from '@/layout/store'
 
@@ -31,6 +31,9 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
   }
 
   const handleUpload = async ({ file }) => {
+    if (!['jpg', 'jpeg', 'png'].includes(file.name.split('.').pop())) {
+      return message.error('请上传图片')
+    }
     const name = file.name
     const formData = new FormData()
     formData.append('file', file)
@@ -38,6 +41,15 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
     const url = await http.post('/file/upload', formData)
     const fileValue = `![${name}](${url})`
     insert(fileValue)
+  }
+
+  const handleEnter = e => {
+    if (e.code === 'Enter') {
+      if (!e.shiftKey) {
+        e.preventDefault()
+        value.length > 0 && onSubmit?.()
+      }
+    }
   }
 
   return (
@@ -50,6 +62,7 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
         })}
         value={value}
         onChange={e => onChange(e.target.value)}
+        onKeyDown={handleEnter}
       />
       {isEmojiOpen && (
         <div className={styles.emoji}>
@@ -79,6 +92,7 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
             onClick={() => setIsEmojiOpen(!isEmojiOpen)}
           />
           <Upload
+            accept=".jpg,.jpeg,.png"
             maxCount={1}
             beforeUpload={() => false}
             showUploadList={false}
