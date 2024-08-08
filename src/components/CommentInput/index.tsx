@@ -52,6 +52,28 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
     }
   }
 
+  /**
+   * 粘贴图片
+   * @param e
+   * @returns
+   */
+  const handlePaste = e => {
+    const items = e.clipboardData?.items
+    if (!items) return null
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].kind === 'file') {
+        const file = items[i].getAsFile()
+        e.preventDefault()
+        if (file && file.type.startsWith('image/')) {
+          handleUpload({ file })
+          // 在这里可以处理图片文件，例如上传到服务器
+        } else {
+          return message.error('只能粘贴图片')
+        }
+      }
+    }
+  }
+
   return (
     <div className={styles.commentInput}>
       <textarea
@@ -63,6 +85,7 @@ const CommentInput = ({ value = '', onChange, onSubmit }) => {
         value={value}
         onChange={e => onChange(e.target.value)}
         onKeyDown={handleEnter}
+        onPaste={handlePaste}
       />
       {isEmojiOpen && (
         <div className={styles.emoji}>
