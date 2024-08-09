@@ -18,7 +18,7 @@ const CommentModal = ({ store }) => {
       width={'80vw'}
       title="评论"
       maskClosable={false}
-      closable={false}
+      footer={false}
       className={styles.commentModal}
       destroyOnClose
       onCancel={() => {
