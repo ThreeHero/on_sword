@@ -38,9 +38,14 @@ class Store {
   isMine = true
 
   /**
+   * 关键词搜索
+   */
+  keyword = ''
+
+  /**
    * 获取文章列表
    */
-  getArticleList = async (isMix = false) => {
+  getArticleList = async (isMix = false, search = false) => {
     try {
       this.loadingArticle = true
       if (!isMix) {
@@ -49,7 +54,8 @@ class Store {
       const res = await Api.getArticleList({
         page: this.currentPage,
         isMine: this.isMine,
-        classificationId: this.activeClass === 'all' ? undefined : this.activeClass
+        classificationId: this.activeClass === 'all' ? undefined : this.activeClass,
+        keyword: search && this.keyword ? this.keyword : undefined
       })
       if (isMix) {
         this.articleList = [...this.articleList, ...res.records]

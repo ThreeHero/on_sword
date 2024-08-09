@@ -10,11 +10,11 @@ import { config } from '@/config'
 import cls from 'classnames'
 
 const menuList = [
-  {
-    name: '🔍 搜索',
-    path: '/search',
-    hasLogin: false
-  },
+  // {
+  //   name: '🔍 搜索',
+  //   path: '/search',
+  //   hasLogin: false
+  // },
   {
     name: '📃 随笔',
     path: '/essay',

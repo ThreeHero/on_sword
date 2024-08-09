@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import styles from './styles.less'
 import { useEffect } from 'react'
 import cls from 'classnames'
-import { Switch } from 'antd'
+import { Input, Switch } from 'antd'
 
 const ClassList = ({ store }) => {
   useEffect(() => {
@@ -19,6 +19,17 @@ const ClassList = ({ store }) => {
 
   return (
     <div className={styles.class}>
+      <div style={{ marginBottom: 16 }}>
+        <Input
+          className={styles.keyword}
+          style={{ width: '100%' }}
+          placeholder="关键词"
+          size="small"
+          value={store.keyword}
+          onChange={e => (store.keyword = e.target.value)}
+          onPressEnter={() => store.getArticleList(false, true)}
+        />
+      </div>
       <div style={{ marginBottom: 16 }}>
         <Switch
           value={store.isMine}
