@@ -5,7 +5,6 @@ import { EditOutlined } from '@ant-design/icons'
 import { useEffect } from 'react'
 import { List } from 'antd'
 import globalStore from '@/layout/store'
-import ReplyModal from './ReplyModal'
 import { config } from '@/config'
 
 const Index = ({ store }) => {
@@ -29,7 +28,14 @@ const Index = ({ store }) => {
         style={{ marginBottom: 80 }}
         dataSource={store.rootCommentList}
         renderItem={item => {
-          return <Comment comment={item} onReply={store.reply} type="ARTICLE" />
+          return (
+            <Comment
+              key={(item as any).id}
+              comment={item}
+              callback={store.getRootCommentList}
+              type="ARTICLE"
+            />
+          )
         }}
         locale={{
           emptyText: config.emptyText
@@ -46,7 +52,6 @@ const Index = ({ store }) => {
           }
         }}
       />
-      <ReplyModal store={store} />
     </div>
   )
 }

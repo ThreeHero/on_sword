@@ -1,49 +1,68 @@
 import { http, parseContent } from '@/utils'
 import styles from './styles.less'
-import { Avatar, Button, Divider, Image } from 'antd'
+import { Avatar, Button, Divider, Image, message } from 'antd'
 import { config } from '@/config'
 import moment from 'moment'
 import cls from 'classnames'
 import globalStore from '@/layout/store'
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import ImagePreview from '../ImagePreview'
+import Reply from './Reply'
 
-const Comment = ({ comment, onReply, type }) => {
-  const [loadMore, setLoadMore] = useState(false)
+interface IProps {
+  comment: any
+  callback?: () => void
+  type: string
+  isRoot?: boolean
+}
+
+const Comment: FC<IProps> = ({ comment, type, callback, isRoot = true }) => {
   const [content, imgList] = parseContent(comment.content)
+
+  const [loadMore, setLoadMore] = useState(false)
   const [childCommentList, setChildCommentList] = useState([])
-  const [page, setPage] = useState(1)
+
+  const [pageSize, setPageSize] = useState(5)
   const [total, setTotal] = useState(0)
+
   const [selectedImgList, setSelectedImgList] = useState([])
   const [imgPreview, setImgPreview] = useState(false)
-  const loadData = async () => {
-    http
-      .get('/comments/list', {
-        params: {
-          page,
-          pageSize: 5,
-          type,
-          articleId: comment.articleId,
-          rootId: comment.id
-        }
-      })
-      .then(res => {
-        console.log(res)
-        setChildCommentList(l => {
-          if (!l.find(item => res.records.map(i => i.id).includes(item.id))) {
-            return [...l, ...res.records]
-          }
-          return l
-        })
-        setTotal(res.total)
-      })
+
+  const [replyOpen, setReplyOpen] = useState(false)
+
+  const handleSubmit = async value => {
+    await http.post('/comments', {
+      articleId: comment.articleId,
+      content: value,
+      type,
+      parentId: comment.id
+    })
+    setReplyOpen(false)
+    message.success('回复成功')
+    !comment.childCommentCount && isRoot && callback?.()
+    isRoot ? loadData() : callback?.()
   }
+
+  const loadData = async () => {
+    const res = await http.get('/comments/list', {
+      params: {
+        page: 1,
+        pageSize,
+        type,
+        articleId: comment.articleId,
+        rootId: comment.id
+      }
+    })
+    setChildCommentList(res.records)
+    setTotal(res.total)
+  }
+
   useEffect(() => {
     if (loadMore) {
       loadData()
     }
-  }, [loadMore, page])
+  }, [loadMore, pageSize])
 
   return (
     <div className={styles.comment} key={comment.id}>
@@ -61,7 +80,14 @@ const Comment = ({ comment, onReply, type }) => {
             </div>
           </div>
         </div>
-        <Button size="small" type="primary" ghost onClick={() => onReply(comment)}>
+        <Button
+          size="small"
+          type="primary"
+          ghost
+          onClick={() => {
+            setReplyOpen(true)
+          }}
+        >
           回复
         </Button>
       </div>
@@ -113,18 +139,17 @@ const Comment = ({ comment, onReply, type }) => {
                   <Comment
                     key={childComment.id}
                     comment={childComment}
-                    onReply={() => {
-                      onReply(childComment)
-                    }}
+                    callback={loadData}
                     type={type}
+                    isRoot={false}
                   />
                 )
               })}
-              {total > page * 5 && (
+              {total > pageSize && (
                 <Divider plain>
                   <span
                     style={{ cursor: 'pointer', userSelect: 'none' }}
-                    onClick={() => setPage(p => p + 1)}
+                    onClick={() => setPageSize(p => p + 5)}
                   >
                     查看更多
                   </span>
@@ -138,6 +163,13 @@ const Comment = ({ comment, onReply, type }) => {
         imgList={selectedImgList}
         visible={imgPreview}
         onCancel={() => setImgPreview(false)}
+      />
+      <Reply
+        open={replyOpen}
+        onCancel={() => {
+          setReplyOpen(false)
+        }}
+        onSubmit={handleSubmit}
       />
     </div>
   )

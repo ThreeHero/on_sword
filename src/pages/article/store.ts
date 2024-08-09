@@ -80,31 +80,6 @@ class Store {
     this.rootCommentTotal = res.total
     this.rootCommentList = res.records
   }
-
-  replyId = null
-  replyVisible = false
-  replyValue = ''
-  setReplyValue = (value: string) => {
-    this.replyValue = value
-  }
-  reply = comment => {
-    if (!globalStore.currentUser?.id) return message.error('请先登录')
-    this.replyId = comment.id
-    this.replyVisible = true
-  }
-  replyComment = async () => {
-    if (!globalStore.currentUser?.id) return message.error('请先登录')
-    await Api.addComment({
-      articleId: this.id,
-      content: this.replyValue,
-      type: 'ARTICLE',
-      parentId: this.replyId
-    })
-    this.setReplyValue('')
-    this.replyVisible = false
-    message.success('回复成功')
-    this.getRootCommentList()
-  }
 }
 
 export default Store

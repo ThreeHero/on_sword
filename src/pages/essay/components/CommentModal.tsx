@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import { CommentInput, Comment } from '@/components'
 import globalStore from '@/layout/store'
-import ReplyModal from './ReplyModal'
 import { config } from '@/config'
 import styles from './styles.less'
 
@@ -38,7 +37,12 @@ const CommentModal = ({ store }) => {
         dataSource={store.rootCommentList}
         renderItem={item => {
           return (
-            <Comment key={(item as any).id} comment={item} onReply={store.reply} type="ESSAY" />
+            <Comment
+              callback={store.getRootCommentList}
+              key={(item as any).id}
+              comment={item}
+              type="ESSAY"
+            />
           )
         }}
         locale={{
@@ -56,7 +60,6 @@ const CommentModal = ({ store }) => {
           }
         }}
       />
-      <ReplyModal store={store} />
     </Modal>
   )
 }
