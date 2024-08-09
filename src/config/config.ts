@@ -9,6 +9,7 @@ export default {
   homeBg: require('@/assets/bg/home_bg.png'),
   homeMenuBg: require('@/assets/bg/home_menu_bg.png'),
   essayBg: require('@/assets/bg/essay_bg.jpg'),
+  userBg: require('@/assets/bg/user_bg.jpg'),
 
   defaultAvatar: require('@/assets/bg/avatar.jpeg'),
   commentPlaceholder: '快来留言吧~'

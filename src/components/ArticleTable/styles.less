@@ -1,0 +1,41 @@
+@import '../../styles/variable.less';
+
+.table {
+  background: transparent;
+
+  :global {
+    .ant-table {
+      background: transparent !important;
+      color: #fff;
+    }
+    .ant-table-placeholder {
+      background: transparent !important;
+      .ant-table-cell {
+        background: transparent !important;
+      }
+      .ant-empty-description {
+        color: var(--text-color1) !important;
+      }
+      &:hover {
+        background: transparent !important;
+      }
+    }
+    .ant-table-content {
+      > table {
+        border-radius: 0;
+      }
+
+      .ant-table-cell-row-hover {
+        background: transparent !important;
+        cursor: pointer;
+      }
+      .ant-table-cell {
+        border-bottom: none;
+      }
+      .ant-table-cell-fix-left {
+        background: transparent !important;
+        cursor: pointer;
+      }
+    }
+  }
+}
