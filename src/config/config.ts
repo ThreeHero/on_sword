@@ -11,5 +11,5 @@ export default {
   essayBg: require('@/assets/bg/essay_bg.jpg'),
 
   defaultAvatar: require('@/assets/bg/avatar.jpeg'),
-  commentPlaceholder: '快来评论吧~'
+  commentPlaceholder: '快来留言吧~'
 }

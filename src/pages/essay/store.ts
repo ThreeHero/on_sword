@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import Api from './api'
 import { debounce } from 'lodash-es'
-import { message } from 'antd'
+import { message, Modal } from 'antd'
 import globalStore from '@/layout/store'
 
 class Store {
@@ -49,6 +49,87 @@ class Store {
     })
     this.essayList = res.records.map(item => ({ ...item, essay: true }))
     this.essayTotal = res.total
+  }
+
+  removeEssay = (id: number) => {
+    Modal.confirm({
+      title: '确定删除吗？',
+      onOk: async () => {
+        await Api.removeEssay(id)
+        this.getEssayList()
+        message.success('删除成功')
+      }
+    })
+  }
+
+  currentShowEssayId = null
+  commentModal = false
+
+  showComment = (id: number) => {
+    this.currentShowEssayId = id
+    this.commentModal = true
+  }
+
+  commentPage = 1
+  commentPageSize = 10
+
+  /**
+   * 评论内容
+   */
+  commentValue = ''
+  setCommentValue = (value: string) => {
+    this.commentValue = value
+  }
+  submitComment = async () => {
+    if (!globalStore.currentUser?.id) return message.error('请先登录')
+    await Api.addComment({
+      articleId: this.currentShowEssayId,
+      content: this.commentValue,
+      type: 'ESSAY'
+    })
+    this.setCommentValue('')
+    this.getRootCommentList()
+  }
+
+  /**
+   * 根评论列表
+   */
+  rootCommentList = []
+  rootCommentTotal = 0
+  getRootCommentList = async () => {
+    const res = await Api.getCommentList({
+      articleId: this.currentShowEssayId,
+      type: 'ESSAY',
+      page: this.commentPage,
+      pageSize: this.commentPageSize
+    })
+    this.rootCommentTotal = res.total
+    this.rootCommentList = res.records
+  }
+
+  replyId = null
+  replyVisible = false
+  replyValue = ''
+  setReplyValue = (value: string) => {
+    this.replyValue = value
+  }
+  reply = comment => {
+    if (!globalStore.currentUser?.id) return message.error('请先登录')
+    this.replyId = comment.id
+    this.replyVisible = true
+  }
+  replyComment = async () => {
+    if (!globalStore.currentUser?.id) return message.error('请先登录')
+    await Api.addComment({
+      articleId: this.currentShowEssayId,
+      content: this.replyValue,
+      type: 'ESSAY',
+      parentId: this.replyId
+    })
+    this.setReplyValue('')
+    this.replyVisible = false
+    message.success('回复成功')
+    // this.getRootCommentList()
   }
 }
 

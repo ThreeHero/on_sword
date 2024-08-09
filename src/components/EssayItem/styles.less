@@ -2,4 +2,85 @@
 
 .essay {
   margin-top: 24px;
+  display: flex;
+  gap: 16px;
+
+  .avatar {
+    flex-shrink: 0;
+    width: 32px;
+  }
+  .right {
+    flex: 1;
+    flex-shrink: 0;
+    .top {
+      .name {
+        color: @auxiliaryColor1;
+      }
+    }
+    .content {
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: @color;
+      transition: @transition;
+      margin: 16px 0;
+      .imgList {
+        display: flex;
+        gap: 16px;
+
+        .img {
+          width: 30%;
+          // flex: 1;
+          flex-shrink: 0;
+          object-fit: cover;
+          cursor: pointer;
+          transition: @transition;
+          user-select: none;
+        }
+        .darkImg {
+          filter: brightness(50%);
+        }
+      }
+    }
+    .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .subInfo {
+        font-size: 12px;
+        color: var(--text-color1);
+        display: flex;
+        gap: 8px;
+        user-select: none;
+      }
+      .action {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .comment {
+          color: @primaryColor;
+          font-size: 12px;
+          cursor: pointer;
+          transition: @transition;
+          background: fade(@primaryColor, 10%);
+          padding: 4px 8px;
+          border-radius: 4px;
+          &:hover {
+            background: fade(@primaryColor, 20%);
+          }
+        }
+        .delete {
+          color: @errorColor;
+          font-size: 12px;
+          cursor: pointer;
+          transition: @transition;
+          background: fade(@errorColor, 10%);
+          padding: 4px 8px;
+          border-radius: 4px;
+          &:hover {
+            background: fade(@errorColor, 20%);
+          }
+        }
+      }
+    }
+  }
 }

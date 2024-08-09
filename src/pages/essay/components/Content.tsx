@@ -5,6 +5,7 @@ import { CommentInput, EssayItem } from '@/components'
 import { useEffect } from 'react'
 import { List } from 'antd'
 import { config } from '@/config'
+import CommentModal from './CommentModal'
 
 const Content = ({ store }) => {
   useEffect(() => {
@@ -21,7 +22,9 @@ const Content = ({ store }) => {
         <List
           dataSource={store.essayList}
           renderItem={item => {
-            return <EssayItem essay={item} />
+            return (
+              <EssayItem essay={item} remove={store.removeEssay} showComment={store.showComment} />
+            )
           }}
           locale={{
             emptyText: config.emptyText
@@ -39,6 +42,7 @@ const Content = ({ store }) => {
           }}
         />
       </div>
+      <CommentModal store={store} />
     </div>
   )
 }

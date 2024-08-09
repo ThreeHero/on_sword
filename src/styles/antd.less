@@ -2,6 +2,13 @@
 
 body {
   .ant-modal {
+    .ant-modal-confirm-paragraph {
+      .ant-modal-confirm-title {
+        background: @bg;
+        color: @color;
+        transition: @transition;
+      }
+    }
     .ant-modal-content {
       background: @bg;
       color: @color;
@@ -24,7 +31,37 @@ body {
         transition: @transition;
       }
     }
+    .ant-modal-confirm-btns,
+    .ant-modal-footer {
+      .ant-btn-default {
+        color: @color !important;
+        background-color: @bg !important;
+        box-shadow: none;
+        transition: @transition;
+        border: none;
+        &:hover {
+          box-shadow:
+            0 6px 16px 0 var(--current-border),
+            0 3px 6px -4px var(--current-border),
+            0 9px 28px 8px var(--current-border);
+        }
+      }
+      .ant-btn-primary {
+        color: @primaryColor !important;
+        background-color: @bg !important;
+        box-shadow: none;
+        transition: @transition;
+
+        &:hover {
+          box-shadow:
+            0 6px 16px 0 fade(@primaryColor, 20%),
+            0 3px 6px -4px fade(@primaryColor, 20%),
+            0 9px 28px 8px fade(@primaryColor, 20%);
+        }
+      }
+    }
   }
+
   .ant-popover {
     .ant-popover-inner {
       background: @bg;

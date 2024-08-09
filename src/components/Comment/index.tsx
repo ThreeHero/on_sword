@@ -17,32 +17,36 @@ const Comment = ({ comment, onReply, type }) => {
   const [total, setTotal] = useState(0)
   const [selectedImgList, setSelectedImgList] = useState([])
   const [imgPreview, setImgPreview] = useState(false)
+  const loadData = async () => {
+    http
+      .get('/comments/list', {
+        params: {
+          page,
+          pageSize: 5,
+          type,
+          articleId: comment.articleId,
+          rootId: comment.id
+        }
+      })
+      .then(res => {
+        console.log(res)
+        setChildCommentList(l => {
+          if (!l.find(item => res.records.map(i => i.id).includes(item.id))) {
+            return [...l, ...res.records]
+          }
+          return l
+        })
+        setTotal(res.total)
+      })
+  }
   useEffect(() => {
     if (loadMore) {
-      http
-        .get('/comments/list', {
-          params: {
-            page,
-            pageSize: 5,
-            type,
-            articleId: comment.articleId,
-            rootId: comment.id
-          }
-        })
-        .then(res => {
-          setChildCommentList(l => {
-            if (!l.find(item => res.records.map(i => i.id).includes(item.id))) {
-              return [...l, ...res.records]
-            }
-            return l
-          })
-          setTotal(res.total)
-        })
+      loadData()
     }
   }, [loadMore, page])
 
   return (
-    <div className={styles.comment}>
+    <div className={styles.comment} key={comment.id}>
       <div className={styles.top}>
         <div className={styles.user}>
           <Avatar src={comment.publisher?.avatar?.resource()} shape="square">
@@ -111,9 +115,8 @@ const Comment = ({ comment, onReply, type }) => {
                     comment={childComment}
                     onReply={() => {
                       onReply(childComment)
-                      setLoadMore(false)
                     }}
-                    type="type"
+                    type={type}
                   />
                 )
               })}

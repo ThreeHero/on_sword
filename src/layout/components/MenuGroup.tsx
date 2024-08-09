@@ -80,10 +80,11 @@ const MobileMenu = observer(() => {
                 store.logout(() => {
                   const pathname = window.location.pathname
                   const path = pathname.split('/')?.[1]
-                  if (!path || store.permissionPage.includes(path)) {
+                  if (store.permissionPage.includes(path)) {
                     navigate('/')
+                  } else {
+                    window.location.reload()
                   }
-                  window.location.reload()
                 })
               }}
             >
@@ -123,10 +124,11 @@ const PCMenu = observer(() => {
       store.logout(() => {
         const pathname = window.location.pathname
         const path = pathname.split('/')?.[1]
-        if (!path || store.permissionPage.includes(path)) {
+        if (store.permissionPage.includes(path)) {
           navigate('/')
+        } else {
+          window.location.reload()
         }
-        window.location.reload()
       })
     }
     if (key.startsWith('/')) {

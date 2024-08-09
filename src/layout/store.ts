@@ -62,7 +62,8 @@ class Store {
    * 有权限的页面
    */
   permissionPage = [
-    '/user' // 个人中心
+    'user', // 个人中心
+    'editor'
   ]
 
   /**
@@ -150,11 +151,11 @@ class Store {
    */
   logout = (callback?) => {
     this.isLogin = false
+    callback?.()
     clearToken()
     clearUserinfo()
     this.mobileMenu = false
     message.success('退出成功')
-    callback?.()
   }
 }
 

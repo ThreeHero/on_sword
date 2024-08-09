@@ -40,3 +40,17 @@
     padding: 24px;
   }
 }
+
+.commentModal {
+  :global {
+    .ant-modal-body {
+      .ant-list-items {
+        max-height: 50vh;
+        overflow-y: scroll;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}
