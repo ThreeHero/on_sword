@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { List } from 'antd'
 import { config } from '@/config'
 import CommentModal from './CommentModal'
+import globalStore from '@/layout/store'
 
 const Content = ({ store }) => {
   useEffect(() => {
@@ -14,11 +15,13 @@ const Content = ({ store }) => {
   return (
     <div className={styles.content}>
       <div className={cls('containerBox', styles.container)}>
-        <CommentInput
-          value={store.essayValue}
-          onChange={store.setEssayValue}
-          onSubmit={store.submitEssay}
-        />
+        {globalStore.currentUser?.id && (
+          <CommentInput
+            value={store.essayValue}
+            onChange={store.setEssayValue}
+            onSubmit={store.submitEssay}
+          />
+        )}
         <List
           dataSource={store.essayList}
           renderItem={item => {

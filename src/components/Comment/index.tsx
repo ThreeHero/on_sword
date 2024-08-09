@@ -80,16 +80,18 @@ const Comment: FC<IProps> = ({ comment, type, callback, isRoot = true }) => {
             </div>
           </div>
         </div>
-        <Button
-          size="small"
-          type="primary"
-          ghost
-          onClick={() => {
-            setReplyOpen(true)
-          }}
-        >
-          回复
-        </Button>
+        {globalStore.currentUser?.id && (
+          <Button
+            size="small"
+            type="primary"
+            ghost
+            onClick={() => {
+              setReplyOpen(true)
+            }}
+          >
+            回复
+          </Button>
+        )}
       </div>
       <div className={styles.bottom}>
         <div className={styles.content}>

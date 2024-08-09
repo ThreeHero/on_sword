@@ -2,10 +2,11 @@ import { FC, useState } from 'react'
 import styles from './styles.less'
 import cls from 'classnames'
 import globalStore from '@/layout/store'
-import { observer } from 'mobx-react-lite'
+import { observer } from 'mobx-react'
 import { Input, message, Modal, Tag, Tooltip } from 'antd'
 import { useNavigate } from 'react-router'
 import moment from 'moment'
+import { detectDeviceType } from '@/utils'
 
 interface IProps {
   article: any
@@ -31,9 +32,11 @@ const Article: FC<IProps> = ({ article, index }) => {
   const [passwordOpen, setPasswordOpen] = useState(false)
   const navigate = useNavigate()
   const handleClick = () => {
-    // 1. 私密类型
-    // @ts-ignore
+    if (article.contentCount > 5000 && detectDeviceType() === 'mobile')
+      return message.error('文章内容过长，请使用PC端查看')
     if (globalStore.currentUser?.id !== article.publisher && article.accessType === 3) {
+      // 1. 私密类型
+      // @ts-ignore
       return message.error('访问失败，该文章为私密文章')
     }
     // 2. 密码访问
