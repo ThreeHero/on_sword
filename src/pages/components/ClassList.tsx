@@ -30,11 +30,11 @@ const ClassList = ({ store }) => {
           onPressEnter={() => store.getArticleList(false, true)}
         />
       </div>
-      <div style={{ marginBottom: 16 }}>
+      <div style={{ marginBottom: 16, textAlign: 'center' }}>
         <Switch
           value={store.isMine}
           onChange={v => (store.isMine = v)}
-          style={{ width: '100%' }}
+          style={{ width: 100 }}
           checkedChildren="我可查看"
           unCheckedChildren="全部文章"
         />

@@ -6,6 +6,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: @transition;
+
+    :global {
+      .ant-space-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
 
     .logo {
       user-select: none;
@@ -19,24 +28,46 @@
         transition: @transition;
       }
     }
+    .icon {
+      font-size: 24px;
+      color: @color;
+      cursor: pointer;
+      transition: @transition;
+
+      &:hover {
+        color: @auxiliaryColor1;
+        transform: scale(1.1);
+      }
+    }
+    .nickname {
+      cursor: default;
+      color: @color;
+      transition: @transition;
+      user-select: none;
+    }
   }
 
   .sider {
     background: @bg;
+    transition: @transition;
 
     .menu {
       background: @bg;
       color: @color;
+      transition: @transition;
       :global {
         .ant-menu-item {
           .ant-menu-inline-collapsed-noicon {
             color: @color;
+            transition: @transition;
           }
         }
         .ant-menu-submenu-title {
           color: @color;
+          transition: @transition;
         }
         .ant-menu-title-content {
+          transition: @transition;
           color: @color;
         }
         .ant-menu-item-group-title {
@@ -66,9 +97,11 @@
     &-sider {
       .ant-layout-sider-trigger {
         background: @bg !important;
+        transition: @transition;
 
         .anticon {
           color: @color;
+          transition: @transition;
         }
       }
     }
