@@ -25,6 +25,13 @@ const menuList = [
     path: '/editor',
     hasLogin: true,
     isPC: true
+  },
+  {
+    name: '💻 后台',
+    path: '/admin',
+    hasLogin: true,
+    isPC: true,
+    isAuth: true
   }
 ]
 
@@ -140,6 +147,9 @@ const PCMenu = observer(() => {
     <>
       {/* 菜单栏 */}
       {menuList.map(menu => {
+        if (menu.isAuth && store.currentUser?.identity >= 0) {
+          return <Fragment key={menu.path} />
+        }
         if (menu.hasLogin && !store.isLogin) {
           return <Fragment key={menu.path} />
         }

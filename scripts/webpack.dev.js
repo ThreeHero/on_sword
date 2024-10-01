@@ -21,6 +21,7 @@ module.exports = merge(baseConfig, {
       logging: 'none'
     }
   },
+  target: 'web',
   plugins: [
     new ReactRefreshWebpackPlugin({
       overlay: { entry: false }

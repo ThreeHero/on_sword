@@ -1,0 +1,16 @@
+[
+  {
+    "key": "/",
+    "label": "首页"
+  },
+  {
+    "key": "test",
+    "label": "用户",
+    "children": [
+      {
+        "key": "/test/user",
+        "label": "用户列表"
+      }
+    ]
+  }
+]
