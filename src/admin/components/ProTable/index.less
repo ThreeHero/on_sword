@@ -1,0 +1,39 @@
+@import '../../../styles/variable.less';
+
+.searchBar {
+  .foldTitle {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 4px 16px;
+    border-radius: 16px;
+    color: var(--text-color1);
+    transition: @transition;
+    font-size: 12px;
+    user-select: none;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .searchRow {
+    :global {
+      .ant-form-item {
+        &-label {
+          color: @color;
+          background: @bg;
+          transition: @transition;
+          & > label {
+            color: @color;
+            background: @bg;
+            transition: @transition;
+          }
+        }
+      }
+    }
+  }
+}

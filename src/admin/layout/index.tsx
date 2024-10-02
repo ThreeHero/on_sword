@@ -28,6 +28,15 @@ const Layout: FC = () => {
 
   useTitle(config.appName + '后台管理系统')
 
+  useEffect(() => {
+    const shield = e => e.preventDefault()
+    document.addEventListener('contextmenu', shield)
+
+    return () => {
+      document.removeEventListener('contextmenu', shield)
+    }
+  }, [])
+
   return (
     <AntdLayout className={styles.layout}>
       <Header />

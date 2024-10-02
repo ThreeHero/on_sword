@@ -4,13 +4,23 @@
     "label": "首页"
   },
   {
-    "key": "test",
-    "label": "用户",
-    "children": [
-      {
-        "key": "/test/user",
-        "label": "用户列表"
-      }
-    ]
+    "key": "/classifications",
+    "label": "分类管理"
+  },
+  {
+    "key": "/tags",
+    "label": "标签管理"
+  },
+  {
+    "key": "/articles",
+    "label": "文章管理"
+  },
+  {
+    "key": "/essays",
+    "label": "随笔管理"
+  },
+  {
+    "key": "/user",
+    "label": "用户管理"
   }
 ]

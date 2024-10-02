@@ -1,0 +1,18 @@
+@import '../../../styles/variable.less';
+
+@pageMargin: 8px;
+
+.page {
+  background: @bg;
+  transition: @transition;
+  color: @color;
+  margin: @pageMargin;
+  padding: 16px;
+  height: 100%;
+}
+
+:global {
+  .ant-app {
+    height: calc(100% - @pageMargin * 2);
+  }
+}

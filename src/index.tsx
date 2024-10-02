@@ -1,4 +1,6 @@
 import { createRoot } from 'react-dom/client'
+import { configure } from 'mobx'
+
 import App from './App'
 import './utils'
 import './app.less'
@@ -14,7 +16,10 @@ window.addEventListener('unhandledrejection', e => {
 window.addEventListener('error', e => {
   e.preventDefault()
 })
-
+// 消除mobx警告
+configure({
+  enforceActions: 'never'
+})
 // window.addEventListener('resize', e => {
 //   console.log(e)
 // })

@@ -23,7 +23,7 @@ const DarkIcon = observer(({ onClick }) => {
   return globalStore.isDark ? (
     <MoonOutlined className={styles.icon} onClick={onClick} />
   ) : (
-    <SunOutlined className={styles.icon} spin onClick={onClick} />
+    <SunOutlined className={styles.icon} onClick={onClick} />
   )
 })
 
