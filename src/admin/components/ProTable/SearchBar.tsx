@@ -1,37 +1,30 @@
 import { observer } from 'mobx-react'
-import { FC, useMemo, useState } from 'react'
-import { IColumn, SearchType, findValue } from './proStore'
+import { FC, forwardRef, useMemo, useState } from 'react'
+import { IColumn, FormItemType, findValue } from './proStore'
 import { Button, Col, DatePicker, Divider, Flex, Form, Input, Row, Select, Space } from 'antd'
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons'
+import type Store from './proStore'
 import styles from './index.less'
+import React from 'react'
+import Add from './Add'
+import FormRow from './FormRow'
 
 interface IProps {
-  store: any
+  store: Store
   columns: IColumn[]
   span?: number // 每行表单项的数量 默认3
+  actions?: React.ReactNode[] // 操作区按钮
 }
 
-const { Item: FormItem } = Form
-
-const FormItemMap = {
-  input: Input,
-  select: Select,
-  dateRange: DatePicker.RangePicker
-}
-
-const getComponent = (type: string) => {
-  const Component = FormItemMap[type] || Input
-  return Component
-}
-
-const SearchBar: FC<IProps> = ({ store, columns, span = 3 }) => {
-  const [fold, setFold] = useState(true) // 默认是折叠状态
+const SearchBar = forwardRef<any, IProps>(({ store, columns, span = 3, actions }, ref) => {
+  // const [fold, setFold] = useState(true) // 默认是折叠状态
+  const { fold, setFold } = store
 
   const searchColumns = useMemo(() => {
     return columns
       .filter(column => !!column.search)
       .map(column => {
-        const search = column.search as SearchType
+        const search = column.search as FormItemType
         const options = search.options
         return {
           ...search,
@@ -43,60 +36,59 @@ const SearchBar: FC<IProps> = ({ store, columns, span = 3 }) => {
       })
   }, [columns])
 
-  const FormRow: FC<{ wrap: boolean; start: number; end?: number }> = ({ wrap, start, end }) => {
-    return (
-      <Row wrap={wrap} gutter={8} className={styles.searchRow}>
-        {searchColumns.slice(start, end).map(column => {
-          const Component =
-            typeof column.render === 'function' ? column.render() : getComponent(column.type)
-          return (
-            <Col span={24 / span} key={column.key}>
-              <FormItem name={column.name} label={column.label} style={{ marginBottom: 0 }}>
-                <Component
-                  style={{ width: '100%' }}
-                  placeholder={(column.options ? '请选择' : '请输入') + column.label}
-                  allowClear
-                  {...column}
-                  key={null}
-                  onChange={store.searchList}
-                />
-              </FormItem>
-            </Col>
-          )
-        })}
-      </Row>
-    )
-  }
+  const actionList = useMemo(() => {
+    if (!actions) {
+      return [<Add store={store} key={'add'} />]
+    }
+    return actions
+  }, [actions])
 
   // 上下布局
   return (
-    <Flex vertical className={styles.searchBar} gap={16}>
-      <FormRow wrap={false} start={0} end={span} />
-      {searchColumns.length > span && (
-        <>
-          {!fold && <FormRow wrap start={span} />}
-          <Divider dashed style={{ margin: '0' }}>
-            <div className={styles.foldTitle} onClick={() => setFold(!fold)}>
-              {fold ? '展开' : '折叠'}
-            </div>
-          </Divider>
-        </>
-      )}
-      <Row wrap={false} align="middle" style={{ marginBottom: 16 }}>
-        <Col flex={'auto'}>
-          <Space>操作区域</Space>
-        </Col>
-        <Space>
-          <Button type={'primary'} icon={<SearchOutlined />} onClick={store.searchList}>
-            搜索
-          </Button>
-          <Button icon={<ReloadOutlined />} onClick={store.reload}>
-            重置
-          </Button>
-        </Space>
-      </Row>
-    </Flex>
+    <div ref={ref}>
+      <Flex vertical className={styles.searchBar} gap={16}>
+        <FormRow
+          wrap={false}
+          start={0}
+          end={span}
+          list={searchColumns}
+          onChange={store.searchList}
+          span={span}
+        />
+        {searchColumns.length > span && (
+          <>
+            {!fold && (
+              <FormRow
+                wrap
+                start={span}
+                list={searchColumns}
+                onChange={store.searchList}
+                span={span}
+              />
+            )}
+            <Divider dashed style={{ margin: '0' }}>
+              <div className={styles.foldTitle} onClick={() => setFold(!fold)}>
+                {fold ? '展开' : '折叠'}
+              </div>
+            </Divider>
+          </>
+        )}
+        <Row wrap={false} align="middle" style={{ marginBottom: 16 }}>
+          <Col flex={'auto'}>
+            <Space>{actionList.map(action => action)}</Space>
+          </Col>
+          <Space>
+            <Button type={'primary'} icon={<SearchOutlined />} onClick={store.searchList}>
+              搜索
+            </Button>
+            <Button icon={<ReloadOutlined />} onClick={store.reload}>
+              重置
+            </Button>
+          </Space>
+        </Row>
+      </Flex>
+    </div>
   )
-}
+})
 
 export default observer(SearchBar)

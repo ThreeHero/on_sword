@@ -6,22 +6,24 @@ import { TableProps } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FormInstance } from 'antd/lib'
 
-export type SearchType = {
-  title?: string // 搜索条标题
-  options?: any[] // 搜索选项
-  type?: 'input' | 'select' | 'date' | 'range' | 'switch' | 'cascader' | 'treeSelect'
+export type FormItemType = {
+  title?: string // 表单项标题
+  options?: any[] // 下拉框选项
+  type?: 'input' | 'select' | 'dateRange'
   render?: () => React.ReactNode
 }
 
 export interface IColumn extends ColumnType<any> {
   ignore?: boolean // 是否忽略表格显示
-  search?: SearchType | false
+  search?: FormItemType
+  model?: FormItemType
 }
 
 export interface IProps extends TableProps {
   api?: string // 请求 结果放到 dataSource中
   columns?: IColumn[]
   span?: number // 每行表单项的数量 默认3
+  actions?: React.ReactNode | React.ReactNode[] // 操作区按钮 false 不显示 默认显示新增
 }
 
 export const findValue = (fieldList: any[], obj: any) => {
@@ -33,10 +35,12 @@ class Store {
   props: IProps = {}
   dataSource = []
   formInstance: FormInstance = null
-  constructor(props: IProps, form: FormInstance) {
+  modalFormInstance: FormInstance = null
+  constructor(props: IProps, form: FormInstance, modalForm: FormInstance) {
     makeAutoObservable(this)
     this.props = props
     this.formInstance = form
+    this.modalFormInstance = modalForm
     this.getList()
   }
 
@@ -46,6 +50,7 @@ class Store {
 
   page = 1
   pageSize = 10
+  total = 0
 
   changePage = (page: number, pageSize: number) => {
     this.page = page
@@ -64,13 +69,18 @@ class Store {
           params: { ...params, page: this.page, pageSize: this.pageSize }
         })
         this.dataSource = res.records
+        this.total = res.total
       } else {
         this.dataSource = [...(this.props.dataSource || [])]
+        this.total = this.dataSource.length
       }
     } finally {
       this.loading = false
     }
   }
+
+  fold = true // 搜索条是否折叠
+  setFold = (v: boolean) => (this.fold = v)
 
   // 搜索条变化时 进行重新请求分页
   searchList = debounce(() => {
@@ -81,6 +91,16 @@ class Store {
     this.formInstance.resetFields()
     this.getList()
   }, 300)
+
+  modalOpen = false
+
+  add = async () => {
+    const { api } = this.props
+    const values = await this.modalFormInstance.validateFields()
+    await http.post(`/${api}`, values)
+    this.modalOpen = false
+    this.reload()
+  }
 }
 
 export default Store

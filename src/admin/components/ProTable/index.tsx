@@ -1,15 +1,21 @@
 import { observer } from 'mobx-react'
-import { FC, forwardRef, useImperativeHandle, useMemo } from 'react'
+import { FC, forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import { Form, Table } from 'antd'
 import Store, { IProps, findValue } from './proStore'
 import SearchBar from './SearchBar'
+import useCalcTableHeight from './useCalcTableHeight'
 
 const ProTable = (props: IProps, ref: any) => {
-  const { columns, dataSource, span, ...rest } = props
+  const { columns, dataSource, span, actions, ...rest } = props
   const [form] = Form.useForm()
+  const [modalForm] = Form.useForm()
   const store = useMemo(() => {
-    return new Store(props, form)
+    return new Store(props, form, modalForm)
   }, [])
+
+  const SearchBarRef = useRef()
+
+  const tableHeight = useCalcTableHeight(SearchBarRef, [store.fold])
 
   const tableColumns = useMemo(() => {
     return columns
@@ -32,12 +38,35 @@ const ProTable = (props: IProps, ref: any) => {
     getStore: () => store
   }))
 
+  const actionList = useMemo(() => {
+    if (actions === false) return []
+    if (!actions) return null
+    return Array.isArray(actions) ? actions : [actions]
+  }, [actions])
+
   return (
     <Form form={form} autoComplete="off">
-      <SearchBar store={store} columns={columns} span={span} />
+      <SearchBar
+        store={store}
+        columns={columns}
+        span={span}
+        actions={actionList}
+        ref={SearchBarRef}
+      />
       <Table
         bordered
         rowKey={'id'}
+        scroll={{
+          y: tableHeight
+        }}
+        pagination={{
+          current: store.page,
+          pageSize: store.pageSize,
+          total: store.total,
+          showSizeChanger: true,
+          showTotal: total => `共 ${total} 条`,
+          onChange: store.changePage
+        }}
         {...rest}
         columns={tableColumns}
         loading={store.loading}

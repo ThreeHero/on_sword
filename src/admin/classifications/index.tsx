@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react'
 import { ProTable, Page } from '../components'
+import { Button } from 'antd'
 
 const Index = () => {
   const columns = [
     {
       title: '分类名',
       dataIndex: 'name',
-      search: {}
+      search: {},
+      model: {}
     },
     {
       title: '包含标签数量',

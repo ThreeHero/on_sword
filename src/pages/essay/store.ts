@@ -23,7 +23,6 @@ class Store {
 
   essayValue = ''
   setEssayValue = (value: string) => {
-    console.log(value)
     this.essayValue = value
   }
 
