@@ -2,12 +2,13 @@ import React from 'react'
 import { makeAutoObservable } from 'mobx'
 import { http } from '@/utils'
 import { debounce } from 'lodash-es'
-import { TableProps } from 'antd'
+import { message, TableProps } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FormInstance } from 'antd/lib'
 
 export type FormItemType = {
   title?: string // 表单项标题
+  name?: string // 表单项字段名
   options?: any[] // 下拉框选项
   type?: 'input' | 'select' | 'dateRange'
   render?: () => React.ReactNode
@@ -24,6 +25,7 @@ export interface IProps extends TableProps {
   columns?: IColumn[]
   span?: number // 每行表单项的数量 默认3
   actions?: React.ReactNode | React.ReactNode[] // 操作区按钮 false 不显示 默认显示新增
+  searchTransform?: (values: any) => any // 搜索条搜索之前参数 转换处理
 }
 
 export const findValue = (fieldList: any[], obj: any) => {
@@ -84,7 +86,10 @@ class Store {
 
   // 搜索条变化时 进行重新请求分页
   searchList = debounce(() => {
-    this.getList(this.formInstance.getFieldsValue())
+    let values = this.formInstance.getFieldsValue()
+    values =
+      typeof this.props.searchTransform === 'function' ? this.props.searchTransform(values) : values
+    this.getList(values)
   }, 300)
 
   reload = debounce(() => {
@@ -100,6 +105,7 @@ class Store {
     await http.post(`/${api}`, values)
     this.modalOpen = false
     this.reload()
+    message.success('新增成功')
   }
 }
 

@@ -168,6 +168,12 @@ body {
           0 9px 28px 8px var(--current-border);
       }
     }
+    .ant-tooltip-arrow {
+      &::before {
+        background: @bg;
+        transition: @transition;
+      }
+    }
   }
   .ant-divider {
     color: @color !important;
@@ -348,6 +354,29 @@ body {
           background: fade(@primaryColor, 30%);
         }
       }
+    }
+  }
+  .ant-typography {
+    transition: @transition;
+    color: @color;
+  }
+
+  .ant-input {
+    color: @color;
+    background: @bg;
+    transition:
+      background 0.3s,
+      color 0.3s;
+    border-color: @border;
+    &::placeholder {
+      color: var(--text-color1);
+    }
+
+    &:hover,
+    &:focus {
+      color: @color;
+      background: @bg;
+      border-color: @border;
     }
   }
 }

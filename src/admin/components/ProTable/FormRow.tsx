@@ -28,21 +28,24 @@ const FormRow: FC<{
     <Row wrap={wrap} gutter={[16, 16]} className={styles.searchRow}>
       {list.slice(start, end).map(column => {
         const Component =
-          typeof column.render === 'function' ? column.render() : getComponent(column.type)
+          typeof column.render === 'function' ? column.render : getComponent(column.type)
+        const { item = {}, ...rest } = column
         return (
           <Col span={24 / span} key={column.key}>
             <FormItem
+              {...item}
               name={column.name}
               label={column.label}
               style={{ marginBottom: 0 }}
-              rules={column.rules}
+              labelCol={{ span: 6 }}
+              labelAlign="left"
             >
               <Component
                 style={{ width: '100%' }}
                 placeholder={(column.options ? '请选择' : '请输入') + column.label}
                 allowClear
-                // onPressEnter={column.type === 'input' && (() => onOk())}
-                {...column}
+                onPressEnter={column.type === 'input' && (() => onOk())}
+                {...rest}
                 key={null}
                 onChange={onChange}
               />

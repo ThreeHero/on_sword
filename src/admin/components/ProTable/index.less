@@ -22,20 +22,6 @@
 
   .searchRow {
     user-select: none;
-    // :global {
-    //   .ant-form-item {
-    //     &-label {
-    //       color: @color;
-    //       background: @bg;
-    //       transition: @transition;
-    //       & > label {
-    //         color: @color;
-    //         background: @bg;
-    //         transition: @transition;
-    //       }
-    //     }
-    //   }
-    // }
   }
 }
 
@@ -44,5 +30,10 @@
     .ant-table-body {
       overflow-y: auto !important;
     }
+  }
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

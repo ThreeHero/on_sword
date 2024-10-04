@@ -1,15 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Modal } from 'antd'
 import { observer } from 'mobx-react'
-import { useState, useMemo, FC } from 'react'
+import { useMemo, FC } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import type Store from './proStore'
-import { FormItemType, findValue } from './proStore'
+import { FormItemType, IColumn, findValue } from './proStore'
 import FormRow from './FormRow'
 
-const Add: FC<{ store: Store }> = observer(({ store }) => {
+const Add: FC<{ store: Store; columns: IColumn[] }> = observer(({ store, columns }) => {
   const modalColumns = useMemo(() => {
-    return store.props.columns
+    return columns
       .filter(column => !!column.model)
       .map(column => {
         const model = column.model as FormItemType
@@ -18,11 +18,11 @@ const Add: FC<{ store: Store }> = observer(({ store }) => {
           ...model,
           type: model.type || (!!options ? 'select' : 'input'),
           label: model.title || findValue(['label', 'title'], column),
-          name: findValue(['dataIndex', 'name', 'key', 'value'], column),
+          name: model.name || findValue(['dataIndex', 'name', 'key', 'value'], column),
           key: findValue(['dataIndex', 'name', 'key', 'value'], column)
         }
       })
-  }, [store.props.columns])
+  }, [columns])
 
   return (
     <Fragment key="add">

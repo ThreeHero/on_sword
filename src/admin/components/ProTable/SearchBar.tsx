@@ -30,7 +30,7 @@ const SearchBar = forwardRef<any, IProps>(({ store, columns, span = 3, actions }
           ...search,
           type: search.type || (!!options ? 'select' : 'input'),
           label: search.title || findValue(['label', 'title'], column),
-          name: findValue(['dataIndex', 'name', 'key', 'value'], column),
+          name: search.name || findValue(['dataIndex', 'name', 'key', 'value'], column),
           key: findValue(['dataIndex', 'name', 'key', 'value'], column)
         }
       })
@@ -38,10 +38,10 @@ const SearchBar = forwardRef<any, IProps>(({ store, columns, span = 3, actions }
 
   const actionList = useMemo(() => {
     if (!actions) {
-      return [<Add store={store} key={'add'} />]
+      return [<Add store={store} key={'add'} columns={columns} />]
     }
     return actions
-  }, [actions])
+  }, [actions, columns])
 
   // 上下布局
   return (

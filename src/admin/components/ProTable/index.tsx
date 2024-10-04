@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
-import { Form, Table } from 'antd'
+import { Form, Table, Tooltip, Typography } from 'antd'
 import Store, { IProps, findValue } from './proStore'
 import SearchBar from './SearchBar'
 import useCalcTableHeight from './useCalcTableHeight'
@@ -13,13 +13,20 @@ const ProTable = (props: IProps, ref: any) => {
   const [modalForm] = Form.useForm()
   const store = useMemo(() => {
     return new Store(props, form, modalForm)
-  }, [])
+  }, [props])
 
   const SearchBarRef = useRef()
 
   const tableHeight = useCalcTableHeight(SearchBarRef, [store.fold])
 
   const tableColumns = useMemo(() => {
+    const render = (val: any, record: any, index: number) => {
+      return (
+        <Tooltip title={<Typography.Text copyable>{val}</Typography.Text>}>
+          <Typography.Text ellipsis>{val}</Typography.Text>
+        </Tooltip>
+      )
+    }
     return columns
       .filter(column => !column.ignore)
       .map(column => {
@@ -28,7 +35,7 @@ const ProTable = (props: IProps, ref: any) => {
           title: findValue(['label', 'title'], column),
           dataIndex: findValue(['dataIndex', 'name', 'key', 'value'], column),
           key: findValue(['dataIndex', 'name', 'key', 'value'], column),
-          render: typeof column.render === 'function' ? column.render : undefined
+          render: typeof column.render === 'function' ? column.render : render
         }
       })
   }, [columns])
