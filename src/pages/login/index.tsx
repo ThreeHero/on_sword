@@ -5,7 +5,7 @@ import styles from './styles.less'
 import Login from './Login'
 import Register from './Register'
 import MiddlePage from './MiddlePage'
-import { Form } from 'antd'
+import { ConfigProvider, Form } from 'antd'
 import Store from './store'
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router'
@@ -18,22 +18,24 @@ const Index = () => {
   const store = useMemo(() => new Store(form, navigate), [form])
 
   return (
-    <div className={styles.container}>
-      <AnimationBg src={config.loginBg} />
-      <Form autoComplete="off" form={store.formInstance} preserve={false}>
-        <div className={styles.box}>
-          <div
-            className={cls(styles['slider-page'], {
-              [styles['is-login']]: store.isLoginPage
-            })}
-          >
-            <Register store={store} />
-            <MiddlePage store={store} />
-            <Login store={store} />
+    <ConfigProvider prefixCls="login">
+      <div className={styles.container}>
+        <AnimationBg src={config.loginBg} />
+        <Form autoComplete="off" form={store.formInstance} preserve={false}>
+          <div className={styles.box}>
+            <div
+              className={cls(styles['slider-page'], {
+                [styles['is-login']]: store.isLoginPage
+              })}
+            >
+              <Register store={store} />
+              <MiddlePage store={store} />
+              <Login store={store} />
+            </div>
           </div>
-        </div>
-      </Form>
-    </div>
+        </Form>
+      </div>
+    </ConfigProvider>
   )
 }
 
