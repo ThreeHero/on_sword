@@ -106,9 +106,31 @@ class Store {
     const { api } = this.props
     const values = await this.modalFormInstance.validateFields()
     await http.post(`/${api}`, values)
-    this.modalOpen = false
     this.reload()
+    this.modalOpen = false
     message.success('新增成功')
+  }
+
+  edit = async () => {
+    const { api } = this.props
+    const values = await this.modalFormInstance.validateFields()
+    await http.put(`/${api}`, values)
+    this.reload()
+    this.modalOpen = false
+    message.success('修改成功')
+  }
+
+  rowRecord: { [props: string]: any } = {}
+  setRowRecord = (record: any) => {
+    this.rowRecord = record
+  }
+
+  remove = async () => {
+    const { api } = this.props
+    const { rowRecord } = this
+    await http.delete(`/${api}/${(rowRecord as any).id}`)
+    this.reload()
+    message.success('删除成功')
   }
 }
 

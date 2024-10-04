@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
-import { FC, forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useMemo } from 'react'
 import { IColumn, FormItemType, findValue } from './proStore'
-import { Button, Col, DatePicker, Divider, Flex, Form, Input, Row, Select, Space } from 'antd'
-import { ReloadOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Col, Divider, Flex, Row, Space } from 'antd'
+import { ReloadOutlined, SearchOutlined, PlusOutlined } from '@ant-design/icons'
 import type Store from './proStore'
 import styles from './index.less'
 import React from 'react'
-import Add from './Add'
 import FormRow from './FormRow'
 
 interface IProps {
@@ -38,7 +37,19 @@ const SearchBar = forwardRef<any, IProps>(({ store, columns, span = 3, actions }
 
   const actionList = useMemo(() => {
     if (!actions) {
-      return [<Add store={store} key={'add'} columns={columns} />]
+      return [
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => {
+            store.rowRecord = {}
+            store.modalOpen = true
+          }}
+          key="ADD"
+        >
+          新增
+        </Button>
+      ]
     }
     return actions
   }, [actions, columns])

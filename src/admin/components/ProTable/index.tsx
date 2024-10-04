@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react'
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
-import { Dropdown, Form, Table, Tooltip, Typography } from 'antd'
+import { Dropdown, Form, Modal, Table, Tooltip, Typography } from 'antd'
 import Store, { IProps, findValue } from './proStore'
 import SearchBar from './SearchBar'
 import useCalcTableHeight from './useCalcTableHeight'
 import cls from 'classnames'
 import styles from './index.less'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import ActionModal from './ActionModal'
 
 const ProTable = (props: IProps, ref: any) => {
   const {
@@ -78,7 +79,6 @@ const ProTable = (props: IProps, ref: any) => {
         actions={actionList}
         ref={SearchBarRef}
       />
-      {/* TODO 右键获取行数据 */}
       <Table
         bordered
         rowKey={'id'}
@@ -94,6 +94,13 @@ const ProTable = (props: IProps, ref: any) => {
           onChange: store.changePage
         }}
         className={cls(className, styles.table)}
+        onRow={(record, rowIndex) => {
+          return {
+            onContextMenu: e => {
+              store.setRowRecord(record)
+            }
+          }
+        }}
         components={{
           body: {
             row: (props: any) => {
@@ -104,22 +111,32 @@ const ProTable = (props: IProps, ref: any) => {
                     items: [
                       contextMenus !== false && {
                         label: '编辑',
-                        key: 'edit',
+                        key: 'EDIT',
                         icon: <EditOutlined />
                       },
                       ...contextMenuList,
                       contextMenus !== false && {
                         label: '删除',
-                        key: 'delete',
+                        key: 'DELETE',
                         danger: true,
                         icon: <DeleteOutlined />
                       }
                     ],
                     onClick: ({ key }) => {
-                      // TODO 编辑和删除处理
-                      console.log(key)
+                      if (key === 'EDIT') {
+                        store.modalOpen = true
+                      }
+                      if (key === 'DELETE') {
+                        const name = ['nickname', 'title', 'name']
+                        return Modal.confirm({
+                          title: `确定删除${store.rowRecord[name.find(item => !!store.rowRecord[item])]}吗`,
+                          okText: '确定',
+                          cancelText: '取消',
+                          onOk: store.remove
+                        })
+                      }
                       if (typeof contextClickMap[key] === 'function') {
-                        contextClickMap[key]({}) // params 参数传 行数据
+                        return contextClickMap[key](store.rowRecord)
                       }
                     }
                   }}
@@ -135,6 +152,7 @@ const ProTable = (props: IProps, ref: any) => {
         loading={store.loading}
         dataSource={store.dataSource}
       />
+      <ActionModal store={store} columns={columns} />
     </Form>
   )
 }
