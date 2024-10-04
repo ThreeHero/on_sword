@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { ProTable, Page } from '../components'
-import { Input } from 'antd'
+import { options } from '@/utils'
 
 const Index = () => {
   const columns = [
@@ -8,7 +8,9 @@ const Index = () => {
       title: '文章标题',
       dataIndex: 'title',
       width: 140,
-      search: {}
+      search: {
+        name: 'keyword'
+      }
     },
     {
       title: '发布人',
@@ -16,6 +18,14 @@ const Index = () => {
       width: 140,
       render(v) {
         return v?.nickname
+      }
+    },
+    {
+      title: '访问权限',
+      name: 'accessType',
+      width: 140,
+      render(v) {
+        return options.accessType.find(item => item.value === v)?.label || '-'
       }
     },
     {
@@ -41,9 +51,12 @@ const Index = () => {
     <Page>
       <ProTable
         api="articles"
+        params={{
+          isMine: false
+        }}
         columns={columns}
         actions={false}
-        contextMenus={[]}
+        contextMenus={[{ label: '查看文章', key: 'show' }]}
         searchTransform={values => {
           const timeFieldList = ['createdRange', 'updatedRange']
           let res = { ...values }
