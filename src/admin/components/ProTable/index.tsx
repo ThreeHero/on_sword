@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react'
-import { FC, forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import { Form, Table } from 'antd'
 import Store, { IProps, findValue } from './proStore'
 import SearchBar from './SearchBar'
 import useCalcTableHeight from './useCalcTableHeight'
+import cls from 'classnames'
+import styles from './index.less'
 
 const ProTable = (props: IProps, ref: any) => {
-  const { columns, dataSource, span, actions, ...rest } = props
+  const { columns, dataSource, span, actions, className, ...rest } = props
   const [form] = Form.useForm()
   const [modalForm] = Form.useForm()
   const store = useMemo(() => {
@@ -63,10 +65,11 @@ const ProTable = (props: IProps, ref: any) => {
           current: store.page,
           pageSize: store.pageSize,
           total: store.total,
-          showSizeChanger: true,
+          // showSizeChanger: true,
           showTotal: total => `共 ${total} 条`,
           onChange: store.changePage
         }}
+        className={cls(className, styles.table)}
         {...rest}
         columns={tableColumns}
         loading={store.loading}

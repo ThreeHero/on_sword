@@ -113,7 +113,7 @@ body {
   .ant-select-dropdown {
     background: @bg;
     color: @color;
-    // transition: @transition;
+    transition: background 0.3s;
     .ant-select-item-option-active {
       background: var(--current-border) !important;
     }
@@ -177,6 +177,130 @@ body {
   .ant-list-empty-text {
     color: var(--text-color1) !important;
   }
-  .ant-table {
+  .ant-form-item {
+    .ant-form-item-label {
+      color: @color;
+      transition: @transition;
+      > label {
+        color: @color;
+        transition: @transition;
+      }
+    }
+    .ant-form-item-control {
+      background: @bg;
+      transition: @transition;
+
+      .ant-form-item-control-input {
+        background: @bg;
+        transition: @transition;
+
+        .ant-form-item-control-input-content {
+          background: @bg;
+          transition: @transition;
+
+          > span,
+          div {
+            background: @bg;
+            transition: @transition;
+            border-color: @border;
+
+            input {
+              color: @color;
+              transition: @transition;
+              &::placeholder {
+                color: var(--text-color1);
+              }
+            }
+            .ant-select-selection-placeholder {
+              color: var(--text-color1);
+            }
+            .ant-select-selection-item {
+              color: @color;
+              transition: @transition;
+            }
+          }
+          [class$='-suffix'] {
+            // color: @color;
+            transition: @transition;
+            color: var(--text-color1);
+          }
+        }
+      }
+    }
+  }
+  .ant-picker-dropdown {
+    // background: @bg;
+    // color: @color;
+    // transition: background 0.3s;
+    .ant-picker-range-wrapper {
+      // background: @bg;
+      // color: @color;
+      // transition: @transition;
+      .ant-picker-range-arrow {
+        &::before {
+          transition: @transition;
+          background: @bg;
+        }
+      }
+      .ant-picker-panel-container {
+        background: @bg;
+        // color: @color;
+        transition: @transition;
+
+        .ant-picker-header {
+          .ant-picker-header-super-prev-btn,
+          .ant-picker-header-prev-btn,
+          .ant-picker-header-next-btn,
+          .ant-picker-header-super-next-btn {
+            color: var(--text-color1);
+            transition: @transition;
+
+            &:hover {
+              color: @color;
+            }
+          }
+          .ant-picker-header-view {
+            .ant-picker-year-btn,
+            .ant-picker-month-btn {
+              color: @color;
+              transition: @transition;
+
+              &:hover {
+                color: @primaryColor;
+              }
+            }
+          }
+        }
+
+        .ant-picker-content {
+          > thead > tr > th {
+            color: @color;
+            transition: @transition;
+          }
+          .ant-picker-cell {
+            color: var(--text-color1);
+          }
+          .ant-picker-cell-in-view {
+            color: @color;
+            transition: @transition;
+          }
+        }
+      }
+    }
+  }
+  .ant-table-wrapper {
+    .ant-table {
+      scrollbar-color: fade(@primaryColor, 30%) transparent;
+      scrollbar-width: thin;
+
+      background: @bg;
+      transition: @transition;
+
+      .ant-table-container {
+        background: @bg;
+        color: @color;
+        transition: @transition;
+      }
+    }
   }
 }

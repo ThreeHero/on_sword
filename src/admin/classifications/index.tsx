@@ -21,7 +21,10 @@ const Index = () => {
       title: '包含文章数量',
       dataIndex: 'articleCount',
       search: {
-        options: [{ label: 1, value: 1 }]
+        options: [
+          { label: '到底是啥', value: 1 },
+          { label: '到底是啥2', value: 2 }
+        ]
       }
     }
   ]
