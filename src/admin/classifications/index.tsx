@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { ProTable, Page } from '../components'
-import { Button, Input, InputNumber } from 'antd'
+import { Input } from 'antd'
 
 const Index = () => {
   const columns = [
