@@ -344,6 +344,18 @@ body {
             }
           }
         }
+        .ant-table-placeholder {
+          background: @bg;
+          transition: @transition;
+          color: var(--text-color1);
+
+          &:hover > td {
+            background: @bg;
+          }
+          .ant-empty-description {
+            color: var(--text-color1);
+          }
+        }
         .ant-table-cell {
           border-color: @border !important;
           transition: @transition;
