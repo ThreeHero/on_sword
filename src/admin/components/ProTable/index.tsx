@@ -128,7 +128,7 @@ const ProTable = (props: IProps, ref: any) => {
                       if (key === 'DELETE') {
                         const name = ['nickname', 'title', 'name']
                         return Modal.confirm({
-                          title: `确定删除${store.rowRecord[name.find(item => !!store.rowRecord[item])]}吗`,
+                          title: `确定删除${store.rowRecord[name.find(item => !!store.rowRecord[item])] ?? '该条数据'}吗`,
                           okText: '确定',
                           cancelText: '取消',
                           onOk: store.remove
