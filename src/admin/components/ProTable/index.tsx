@@ -1,14 +1,24 @@
 import { observer } from 'mobx-react'
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
-import { Form, Table, Tooltip, Typography } from 'antd'
+import { Dropdown, Form, Table, Tooltip, Typography } from 'antd'
 import Store, { IProps, findValue } from './proStore'
 import SearchBar from './SearchBar'
 import useCalcTableHeight from './useCalcTableHeight'
 import cls from 'classnames'
 import styles from './index.less'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 
 const ProTable = (props: IProps, ref: any) => {
-  const { columns, dataSource, span, actions, className, ...rest } = props
+  const {
+    columns,
+    dataSource,
+    span,
+    actions,
+    contextMenus,
+    contextClickMap = {},
+    className,
+    ...rest
+  } = props
   const [form] = Form.useForm()
   const [modalForm] = Form.useForm()
   const store = useMemo(() => {
@@ -53,6 +63,12 @@ const ProTable = (props: IProps, ref: any) => {
     return Array.isArray(actions) ? actions : [actions]
   }, [actions])
 
+  const contextMenuList = useMemo(() => {
+    if (contextMenus === false) return []
+    if (!contextMenus) return []
+    return Array.isArray(contextMenus) ? contextMenus : [contextMenus]
+  }, [contextMenus])
+
   return (
     <Form form={form} autoComplete="off">
       <SearchBar
@@ -62,6 +78,7 @@ const ProTable = (props: IProps, ref: any) => {
         actions={actionList}
         ref={SearchBarRef}
       />
+      {/* TODO 右键获取行数据 */}
       <Table
         bordered
         rowKey={'id'}
@@ -77,6 +94,42 @@ const ProTable = (props: IProps, ref: any) => {
           onChange: store.changePage
         }}
         className={cls(className, styles.table)}
+        components={{
+          body: {
+            row: (props: any) => {
+              return (
+                <Dropdown
+                  trigger={['contextMenu']}
+                  menu={{
+                    items: [
+                      contextMenus !== false && {
+                        label: '编辑',
+                        key: 'edit',
+                        icon: <EditOutlined />
+                      },
+                      ...contextMenuList,
+                      contextMenus !== false && {
+                        label: '删除',
+                        key: 'delete',
+                        danger: true,
+                        icon: <DeleteOutlined />
+                      }
+                    ],
+                    onClick: ({ key }) => {
+                      // TODO 编辑和删除处理
+                      console.log(key)
+                      if (typeof contextClickMap[key] === 'function') {
+                        contextClickMap[key]({}) // params 参数传 行数据
+                      }
+                    }
+                  }}
+                >
+                  <tr {...props} />
+                </Dropdown>
+              )
+            }
+          }
+        }}
         {...rest}
         columns={tableColumns}
         loading={store.loading}

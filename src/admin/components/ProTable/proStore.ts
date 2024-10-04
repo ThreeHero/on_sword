@@ -5,6 +5,7 @@ import { debounce } from 'lodash-es'
 import { message, TableProps } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import type { FormInstance } from 'antd/lib'
+import { MenuItemType } from 'antd/es/menu/interface'
 
 export type FormItemType = {
   title?: string // 表单项标题
@@ -25,6 +26,8 @@ export interface IProps extends TableProps {
   columns?: IColumn[]
   span?: number // 每行表单项的数量 默认3
   actions?: React.ReactNode | React.ReactNode[] // 操作区按钮 false 不显示 默认显示新增
+  contextMenus?: MenuItemType | MenuItemType[] | false // 右键菜单
+  contextClickMap?: { [props: string]: (params: any) => void } // 右键菜单点击事件 字典 key: 事件
   searchTransform?: (values: any) => any // 搜索条搜索之前参数 转换处理
 }
 
