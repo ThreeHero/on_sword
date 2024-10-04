@@ -65,8 +65,20 @@ const ProTable = (props: IProps, ref: any) => {
   }, [actions])
 
   const contextMenuList = useMemo(() => {
-    if (contextMenus === false) return []
-    if (!contextMenus) return []
+    if (!contextMenus)
+      return [
+        {
+          label: '编辑',
+          key: 'EDIT',
+          icon: <EditOutlined />
+        },
+        {
+          label: '删除',
+          key: 'DELETE',
+          danger: true,
+          icon: <DeleteOutlined />
+        }
+      ]
     return Array.isArray(contextMenus) ? contextMenus : [contextMenus]
   }, [contextMenus])
 
@@ -108,20 +120,7 @@ const ProTable = (props: IProps, ref: any) => {
                 <Dropdown
                   trigger={['contextMenu']}
                   menu={{
-                    items: [
-                      contextMenus !== false && {
-                        label: '编辑',
-                        key: 'EDIT',
-                        icon: <EditOutlined />
-                      },
-                      ...contextMenuList,
-                      contextMenus !== false && {
-                        label: '删除',
-                        key: 'DELETE',
-                        danger: true,
-                        icon: <DeleteOutlined />
-                      }
-                    ],
+                    items: contextMenuList,
                     onClick: ({ key }) => {
                       if (key === 'EDIT') {
                         store.modalOpen = true

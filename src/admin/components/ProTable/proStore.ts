@@ -23,10 +23,11 @@ export interface IColumn extends ColumnType<any> {
 
 export interface IProps extends TableProps {
   api?: string // 请求 结果放到 dataSource中
+  params?: any // 请求分页参数
   columns?: IColumn[]
   span?: number // 每行表单项的数量 默认3
   actions?: React.ReactNode | React.ReactNode[] // 操作区按钮 false 不显示 默认显示新增
-  contextMenus?: MenuItemType | MenuItemType[] | false // 右键菜单
+  contextMenus?: MenuItemType | MenuItemType[] // 右键菜单
   contextClickMap?: { [props: string]: (params: any) => void } // 右键菜单点击事件 字典 key: 事件
   searchTransform?: (values: any) => any // 搜索条搜索之前参数 转换处理
 }
@@ -71,7 +72,12 @@ class Store {
       if (typeof api === 'string') {
         this.loading = true
         const res = await http.get(`/${api}/list`, {
-          params: { ...params, page: this.page, pageSize: this.pageSize }
+          params: {
+            ...(this.props.params || {}),
+            ...params,
+            page: this.page,
+            pageSize: this.pageSize
+          }
         })
         this.dataSource = res.records
         this.total = res.total
