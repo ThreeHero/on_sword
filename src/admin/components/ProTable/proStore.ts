@@ -50,6 +50,14 @@ class Store {
     this.getList()
   }
 
+  getDataList = () => {
+    return this.dataSource
+  }
+
+  setDataList = (list: any[]) => {
+    this.dataSource = list
+  }
+
   getFormInstance() {
     return this.formInstance
   }

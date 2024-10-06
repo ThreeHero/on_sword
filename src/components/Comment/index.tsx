@@ -1,6 +1,6 @@
 import { http, parseContent } from '@/utils'
 import styles from './styles.less'
-import { Avatar, Button, Divider, Image, message } from 'antd'
+import { Avatar, Button, Divider, message } from 'antd'
 import { config } from '@/config'
 import moment from 'moment'
 import cls from 'classnames'
@@ -126,9 +126,9 @@ const Comment: FC<IProps> = ({ comment, type, callback, isRoot = true }) => {
       {comment.childCommentCount > 0 && (
         <div className={styles.more}>
           {!loadMore ? (
-            <Divider plain>
+            <Divider plain style={{ borderColor: 'var(--text-color1)' }}>
               <span
-                style={{ cursor: 'pointer', userSelect: 'none' }}
+                style={{ cursor: 'pointer', userSelect: 'none', color: 'var(--text-color1)' }}
                 onClick={() => setLoadMore(true)}
               >
                 查看更多
@@ -148,9 +148,9 @@ const Comment: FC<IProps> = ({ comment, type, callback, isRoot = true }) => {
                 )
               })}
               {total > pageSize && (
-                <Divider plain>
+                <Divider plain style={{ borderColor: 'var(--text-color1)' }}>
                   <span
-                    style={{ cursor: 'pointer', userSelect: 'none' }}
+                    style={{ cursor: 'pointer', userSelect: 'none', color: 'var(--text-color1)' }}
                     onClick={() => setPageSize(p => p + 5)}
                   >
                     查看更多

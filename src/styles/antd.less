@@ -180,7 +180,7 @@ body {
 
     &::after,
     &::before {
-      border-color: @color !important ;
+      border-color: @border !important ;
     }
   }
   .ant-pagination {
@@ -328,6 +328,12 @@ body {
 
       background: @bg;
       transition: @transition;
+      .ant-table-title {
+        background: @bg;
+        transition: @transition;
+        border-color: @border !important;
+        color: @color;
+      }
 
       .ant-table-container {
         background: @bg;
@@ -364,6 +370,16 @@ body {
         }
         .ant-table-cell-row-hover {
           background: fade(@primaryColor, 30%);
+        }
+      }
+
+      .ant-table-thead {
+        .ant-table-cell {
+          background: @bg;
+          transition: @transition;
+          &::before {
+            background: @border !important;
+          }
         }
       }
     }

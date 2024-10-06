@@ -42,7 +42,7 @@ const FormRow: FC<{
               labelAlign="left"
             >
               {typeof column.render === 'function' && React.isValidElement(column.render()) ? (
-                column.render()
+                column.render(onChange)
               ) : (
                 <Component
                   style={{ width: '100%' }}

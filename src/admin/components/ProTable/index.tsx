@@ -55,6 +55,8 @@ const ProTable = (props: IProps, ref: any) => {
     search: store.getList,
     changePage: store.changePage,
     getFormInstance: store.getFormInstance,
+    getList: store.getDataList,
+    setList: store.setDataList,
     getStore: () => store
   }))
 
