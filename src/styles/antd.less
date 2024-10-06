@@ -177,10 +177,12 @@ body {
   }
   .ant-divider {
     color: @color !important;
+    transition: @transition;
 
     &::after,
     &::before {
-      border-color: @border !important ;
+      border-color: @border !important;
+      transition: @transition;
     }
   }
   .ant-pagination {
@@ -405,6 +407,12 @@ body {
       color: @color;
       background: @bg;
       border-color: @border;
+    }
+  }
+  .ant-spin-blur {
+    &::after {
+      background: transparent;
+      opacity: 0 !important;
     }
   }
 }
