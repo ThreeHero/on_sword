@@ -409,10 +409,36 @@ body {
       border-color: @border;
     }
   }
+  .ant-select {
+    transition: @transition;
+    color: @color;
+    background: @bg;
+    .ant-select-selector {
+      transition: @transition !important;
+      color: @color;
+      background: @bg !important;
+      // border-color: @primaryColor !important;
+    }
+    .ant-select-arrow {
+      color: var(--text-color1);
+    }
+    .ant-select-selection-placeholder {
+      color: var(--text-color1);
+    }
+    .ant-select-selection-item {
+      color: @color;
+      transition: @transition;
+    }
+  }
   .ant-spin-blur {
     &::after {
       background: transparent;
       opacity: 0 !important;
     }
+  }
+
+  .ant-tag {
+    transition: @transition;
+    user-select: none;
   }
 }

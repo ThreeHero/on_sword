@@ -101,6 +101,12 @@ class Store {
     const res = await Api.getDict()
     this.dict = { ...res, ...options }
   }
+  /**
+   * 获取字典项
+   */
+  getDictItem = (dict: string) => {
+    return this.dict[dict]
+  }
 
   /**
    * 根据字典值查询
@@ -112,18 +118,22 @@ class Store {
    * @returns
    */
   getDictValue = ({
-    by,
+    by = 'value',
     value,
     dict,
     findField
   }: {
-    by: string
+    by?: string
     value: string | number
     dict: string
-    findField: string
+    findField?: string
   }) => {
     const item = this.dict[dict]
-    return item?.find(item => item[by] === value)?.[findField]
+    if (findField) {
+      return item?.find(item => item[by] === value)?.[findField]
+    } else {
+      return item?.find(item => item[by] === value)
+    }
   }
   /**
    * 切换主题

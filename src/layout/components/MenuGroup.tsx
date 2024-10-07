@@ -147,7 +147,8 @@ const PCMenu = observer(() => {
     <>
       {/* 菜单栏 */}
       {menuList.map(menu => {
-        if (menu.isAuth && store.currentUser?.identity >= 0) {
+        // 只有0为普通用户
+        if (menu.isAuth && store.currentUser?.identity === 0) {
           return <Fragment key={menu.path} />
         }
         if (menu.hasLogin && !store.isLogin) {

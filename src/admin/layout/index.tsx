@@ -18,7 +18,7 @@ const Layout: FC = () => {
 
     const { identity } = userInfo || {}
     const isMobile = detectDeviceType() === 'mobile'
-    if (identity >= 0 || isMobile) {
+    if (identity === 0 || isMobile) {
       message.info('暂不支持访问管理系统')
       navigate('/', {
         replace: true

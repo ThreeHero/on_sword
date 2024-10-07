@@ -52,7 +52,7 @@ const ProTable = (props: IProps, ref: any) => {
   }, [columns])
 
   useImperativeHandle(ref, () => ({
-    search: store.getList,
+    search: store.searchList,
     changePage: store.changePage,
     getFormInstance: store.getFormInstance,
     getList: store.getDataList,

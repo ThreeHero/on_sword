@@ -48,7 +48,8 @@ const FormRow: FC<{
                   style={{ width: '100%' }}
                   placeholder={(column.options ? '请选择' : '请输入') + column.label}
                   allowClear
-                  onPressEnter={column.type === 'input' && (() => onOk())}
+                  onKeyDown={e => e.key === 'Enter' && onOk()}
+                  // onPressEnter={column.type === 'input' && (() => onOk())}
                   {...rest}
                   key={null}
                   onChange={onChange}

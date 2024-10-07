@@ -1,7 +1,7 @@
-import React from 'react'
+import { Page } from './components'
 
 function Index() {
-  return <div>Index</div>
+  return <Page>首页</Page>
 }
 
 export default Index
