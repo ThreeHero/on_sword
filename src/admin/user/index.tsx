@@ -107,7 +107,21 @@ function Index() {
       title: '设置为...',
       content: (
         <Select
-          options={typeList.filter(item => item.value > user.identity || user.identity === -100)}
+          options={typeList
+            .filter(item => item.value > user.identity || user.identity === -100)
+            .map(item => {
+              if (item.value === user.identity) {
+                return {
+                  value: item.value,
+                  label: item.label,
+                  disabled: true
+                }
+              }
+              return {
+                value: item.value,
+                label: item.label
+              }
+            })}
           style={{ width: '100%' }}
           defaultValue={identity}
           onChange={v => (identity = v)}
