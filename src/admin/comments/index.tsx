@@ -78,6 +78,15 @@ const Comments = () => {
     },
     { title: '回复数量', dataIndex: 'childCommentCount', width: 100 },
     {
+      title: '回复页数',
+      dataIndex: 'subPage',
+      width: 100,
+      render(v, r) {
+        if (v !== 0 && !v) return ''
+        return `${v} / ${Math.ceil(r.childCommentCount / 5)}`
+      }
+    },
+    {
       title: '创建时间',
       dataIndex: 'createdAt',
       width: 200
@@ -89,8 +98,13 @@ const Comments = () => {
         return (
           <Space size={0}>
             {r.childCommentCount > 0 && (
-              <Button type="link" onClick={() => store.showMore(r.id, r.subPage)}>
-                查看更多
+              <Button type="link" onClick={() => store.showMore(r.id, r.subPage - 1)}>
+                上一页回复
+              </Button>
+            )}
+            {r.childCommentCount > 0 && (
+              <Button type="link" onClick={() => store.showMore(r.id, r.subPage + 1)}>
+                下一页回复
               </Button>
             )}
             <Popconfirm title="确定删除？" onConfirm={() => store.remove(r.id)}>

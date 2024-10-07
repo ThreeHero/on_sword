@@ -26,7 +26,7 @@ class Store {
     this.dataSource = res.records.map(item => ({
       ...item,
       children: item.childCommentCount > 0 ? [] : undefined,
-      subPage: 1
+      subPage: 0
     }))
     this.total = res.total
     this.loading = false
@@ -50,13 +50,20 @@ class Store {
       pageSize: 5
     })
     const list = res.records
-    const current = this.dataSource.find(item => item.id === rootId)
-    if (list.length > 0) {
-      current.children = list
-      current.subPage = page + 1
-    } else {
-      message.warning('没有更多了！')
+    if (page > res.pages || page < 0) {
+      this.loading = false
+      return message.warning('没有更多了！')
     }
+
+    const current = this.dataSource.find(item => item.id === rootId)
+    if (page <= 0) {
+      current.children = []
+      current.subPage = 0
+      this.loading = false
+      return
+    }
+    current.children = list
+    current.subPage = page
 
     this.loading = false
   }

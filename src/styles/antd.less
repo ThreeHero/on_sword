@@ -93,6 +93,18 @@ body {
     .ant-popover-inner {
       background: @bg;
       color: @color;
+      transition: @transition;
+
+      .ant-popconfirm-title {
+        color: @color;
+        transition: @transition;
+      }
+    }
+    .ant-popover-arrow {
+      &::before {
+        background: @bg;
+        transition: @transition;
+      }
     }
   }
   .ant-drawer {
