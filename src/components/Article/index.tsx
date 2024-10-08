@@ -14,13 +14,15 @@ interface IProps {
 }
 
 function removeMarkdownSymbols(text: string) {
+  // return text
   if (!text) return
   // 正则表达式匹配Markdown中的特殊符号和删除线
   const regex = /(```|`|[*_#\-\[\]()>~\|\\])/g
-  const regexDeleteLine = /^---\s*(.*?)\s*(.*?\s)*---/
+  // const regexDeleteLine = /^---\s*(.*?)\s*(.*?\s)*---/
+  // const regexDeleteLine = /^---\n\s*---/g
 
   // 先移除删除线及其内容
-  let result = text.replace(regexDeleteLine, '')
+  let result = text.replace(regex, '')
 
   // 再移除其他特殊符号
   result = result.replace(regex, '')
