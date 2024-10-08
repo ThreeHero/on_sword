@@ -17,7 +17,7 @@ function removeMarkdownSymbols(text: string) {
   if (!text) return
   // 正则表达式匹配Markdown中的特殊符号和删除线
   const regex = /(```|`|[*_#\-\[\]()>~\|\\])/g
-  const regexDeleteLine = /---\n?.*\n?---/g
+  const regexDeleteLine = /^---\s*(.*?)\s*(.*?\s)*---/
 
   // 先移除删除线及其内容
   let result = text.replace(regexDeleteLine, '')
