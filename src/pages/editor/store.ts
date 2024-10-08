@@ -2,7 +2,8 @@ import { makeAutoObservable } from 'mobx'
 import { FormInstance, message } from 'antd'
 import Api from './api'
 import globalStore from '@/layout/store'
-import { clearCache } from '@/utils'
+import { clearCache, md5 } from '@/utils'
+import { config } from '@/config'
 
 class Store {
   formInstance = null
@@ -47,7 +48,12 @@ class Store {
     const values = this.formInstance.getFieldsValue()
     if (!values.title) return message.error('请输入标题')
     if (!values.content) return message.error('请输入文章内容')
-    if (!values.cover) return message.error('请上传封面')
+    // if (!values.cover) return message.error('请上传封面')
+    if (!values.cover) {
+      const response = await fetch(config.defaultArticleBg)
+      const blob = await response.blob()
+      values.cover = new File([blob], 'cover.png', { type: blob.type, lastModified: Date.now() })
+    }
     if (!values.classificationId) return message.error('请选择分类')
     if (!values.tagList || values.tagList.length === 0) return message.error('请选择标签')
     if (
@@ -61,7 +67,9 @@ class Store {
       !values.password
     )
       return message.error('请输入文章访问密码')
-
+    if (values.password) {
+      values.password = md5(values.password)
+    }
     if (typeof values.cover !== 'string') {
       const formData = new FormData()
       formData.append('file', values.cover)

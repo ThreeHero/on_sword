@@ -90,7 +90,7 @@ function MdStyle(): BytemdPlugin {
     viewerEffect: ({ file, markdownBody }: any) => {
       if (typeof file !== 'object') return
       const { frontmatter } = file || {}
-      const { theme, highlight } = frontmatter || {}
+      const { theme = 'three-hero', highlight } = frontmatter || {}
       if (theme) {
         const $style = document.createElement('style')
         if (themes[theme]?.path) $style.innerHTML = require(`#/mdStyles/${themes[theme]?.path}`)

@@ -45,6 +45,8 @@ const FormRow: FC<{
                 column.render(onChange)
               ) : (
                 <Component
+                  showSearch
+                  optionFilterProp="label"
                   style={{ width: '100%' }}
                   placeholder={(column.options ? '请选择' : '请输入') + column.label}
                   allowClear

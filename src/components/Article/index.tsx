@@ -6,7 +6,7 @@ import { observer } from 'mobx-react'
 import { Input, message, Modal, Tag, Tooltip } from 'antd'
 import { useNavigate } from 'react-router'
 import moment from 'moment'
-import { detectDeviceType } from '@/utils'
+import { detectDeviceType, md5 } from '@/utils'
 
 interface IProps {
   article: any
@@ -166,7 +166,7 @@ const Article: FC<IProps> = ({ article, index }) => {
             placeholder="输入密码，回车确认"
             onPressEnter={e => {
               // @ts-ignore
-              if (e.target.value === article.password) {
+              if (md5(e.target.value) === article.password) {
                 navigate(`/article/${article.id}`)
               } else {
                 message.error('密码错误')

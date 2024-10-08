@@ -141,7 +141,7 @@ const SubmitDrawer = ({ store }) => {
         }}
       </Form.Item>
       <Form.Item name="isComment" label="评论" valuePropName="checked">
-        <Switch checkedChildren="允许评论" unCheckedChildren="禁止评论" />
+        <Switch checkedChildren="允许" unCheckedChildren="禁止" />
       </Form.Item>
       <Form.Item name="accessType" label="访问权限">
         <Radio.Group>

@@ -60,7 +60,6 @@ function Index() {
           </Tooltip>
         )
       }
-      // TODO 解析
     },
     {
       title: '地区',
