@@ -78,15 +78,6 @@ const Comments = () => {
     },
     { title: '回复数量', dataIndex: 'childCommentCount', width: 100 },
     {
-      title: '回复页数',
-      dataIndex: 'subPage',
-      width: 100,
-      render(v, r) {
-        if (v !== 0 && !v) return ''
-        return `${v} / ${Math.ceil(r.childCommentCount / 5)}`
-      }
-    },
-    {
       title: '创建时间',
       dataIndex: 'createdAt',
       width: 200
@@ -97,16 +88,6 @@ const Comments = () => {
       render: (_, r: any) => {
         return (
           <Space size={0}>
-            {r.childCommentCount > 0 && (
-              <Button type="link" onClick={() => store.showMore(r.id, r.subPage - 1)}>
-                上一页回复
-              </Button>
-            )}
-            {r.childCommentCount > 0 && (
-              <Button type="link" onClick={() => store.showMore(r.id, r.subPage + 1)}>
-                下一页回复
-              </Button>
-            )}
             <Popconfirm title="确定删除？" onConfirm={() => store.remove(r.id)}>
               <Button type="link" danger>
                 删除
@@ -118,12 +99,57 @@ const Comments = () => {
     }
   ]
 
+  const expandedRowRender = () => {
+    const map = store.subCommentMap
+    const key = store.expandedRowKeys[0]
+    return (
+      <Table
+        // bordered
+        rowKey={'id'}
+        columns={columns.map(item => {
+          if (item.dataIndex === 'childCommentCount') {
+            return {
+              width: 100,
+              title: '回复@',
+              render: (_, r) => r.parentComment.content
+            }
+          }
+          return item
+        })}
+        dataSource={map[key + '-list'] ?? []}
+        pagination={{
+          current: map[key + '-parent']?.subPage || 1,
+          pageSize: 5,
+          total: map[key + '-total'] || 0,
+          // showSizeChanger: true,
+          showTotal: total => `共 ${total} 条`,
+          onChange: page => {
+            store.showMore(key, page)
+          }
+        }}
+      />
+    )
+  }
+
   return (
     <Page>
       <Table
+        expandable={{
+          expandedRowKeys: store.expandedRowKeys,
+          expandedRowRender,
+          onExpand: store.onExpand,
+          indentSize: 0
+        }}
         columns={columns}
-        title={() => state.title}
-        bordered
+        title={() => (
+          <>
+            <Button type="link" onClick={() => navigate(-1)}>
+              返回
+            </Button>
+            {state.title}
+          </>
+        )}
+        // bordered
         rowKey={'id'}
         loading={store.loading}
         dataSource={store.dataSource}

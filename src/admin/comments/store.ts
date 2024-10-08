@@ -26,7 +26,7 @@ class Store {
     this.dataSource = res.records.map(item => ({
       ...item,
       children: item.childCommentCount > 0 ? [] : undefined,
-      subPage: 0
+      subPage: 1
     }))
     this.total = res.total
     this.loading = false
@@ -34,6 +34,8 @@ class Store {
 
   page = 1
   pageSize = 10
+
+  subCommentMap = {}
 
   changePage = (page: number, pageSize: number) => {
     this.page = page
@@ -50,28 +52,32 @@ class Store {
       pageSize: 5
     })
     const list = res.records
-    if (page > res.pages || page < 0) {
-      this.loading = false
-      return message.warning('没有更多了！')
-    }
 
     const current = this.dataSource.find(item => item.id === rootId)
-    if (page <= 0) {
-      current.children = []
-      current.subPage = 0
-      this.loading = false
-      return
-    }
-    current.children = list
+    // current.children = list
     current.subPage = page
-
+    this.subCommentMap[current.id + '-list'] = list
+    this.subCommentMap[current.id + '-total'] = res.total
+    this.subCommentMap[current.id + '-parent'] = current
     this.loading = false
   }
 
   remove = async id => {
     await Api.remove(id)
     this.getList()
+    this.expandedRowKeys = []
     message.success('删除成功！')
+  }
+
+  // 展开行
+  expandedRowKeys = []
+  onExpand = (expanded, record) => {
+    if (expanded) {
+      this.expandedRowKeys = [record.id]
+      this.showMore(record.id, record.subPage)
+    } else {
+      this.expandedRowKeys = []
+    }
   }
 }
 

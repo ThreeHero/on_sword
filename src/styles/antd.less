@@ -390,6 +390,19 @@ body {
         .ant-table-cell-row-hover {
           background: fade(@primaryColor, 30%);
         }
+
+        .ant-table-content {
+          .ant-table-tbody {
+            .ant-table-cell {
+              .ant-table-row-expand-icon {
+                background: @bg;
+                transition: @transition;
+                color: @color;
+                border-color: @border;
+              }
+            }
+          }
+        }
       }
 
       .ant-table-thead {

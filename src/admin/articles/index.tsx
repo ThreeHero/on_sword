@@ -1,8 +1,11 @@
 import { observer } from 'mobx-react'
 import { ProTable, Page } from '../components'
 import { options } from '@/utils'
+import { message } from 'antd'
+import { useNavigate } from 'react-router'
 
 const Index = () => {
+  const navigate = useNavigate()
   const columns = [
     {
       title: '文章标题',
@@ -47,6 +50,20 @@ const Index = () => {
       }
     }
   ]
+  const showComment = async ({ commentCount, id, title }) => {
+    if (!(commentCount > 0)) {
+      return message.warning('该条数据暂无评论')
+    }
+
+    navigate(`/admin/comments`, {
+      state: {
+        articleId: id,
+        type: 'ARTICLE',
+        title: title
+      }
+    })
+  }
+
   return (
     <Page>
       <ProTable
@@ -56,7 +73,13 @@ const Index = () => {
         }}
         columns={columns}
         actions={false}
-        contextMenus={[{ label: '查看文章', key: 'show' }]}
+        contextMenus={[
+          { label: '查看文章', key: 'show' },
+          { label: '查看评论', key: 'showComment' }
+        ]}
+        contextClickMap={{
+          showComment
+        }}
         searchTransform={values => {
           const timeFieldList = ['createdRange', 'updatedRange']
           let res = { ...values }

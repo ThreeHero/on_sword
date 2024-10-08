@@ -75,7 +75,6 @@ const Index = () => {
       }
     }
   ]
-  console.log(classificationList)
   return (
     <Page>
       <ProTable
