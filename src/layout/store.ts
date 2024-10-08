@@ -92,6 +92,16 @@ class Store {
     }, 0)
     this.isLogin = !!getToken()
     this.getDict()
+    // this.getUnreadNotifyCount()
+  }
+
+  /**
+   * 未读通知数量
+   */
+  unreadNotifyCount = 0
+  getUnreadNotifyCount = async () => {
+    const res = await Api.getUnreadNotifyCount()
+    this.unreadNotifyCount = res
   }
 
   /**

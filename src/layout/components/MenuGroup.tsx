@@ -3,9 +3,9 @@ import styles from './styles.less'
 import store from '../store'
 import { detectDeviceType } from '@/utils/base'
 import { useNavigate } from 'react-router'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { MenuOutlined } from '@ant-design/icons'
-import { Avatar, Drawer, Dropdown } from 'antd'
+import { Avatar, Badge, Drawer, Dropdown } from 'antd'
 import { config } from '@/config'
 import cls from 'classnames'
 
@@ -19,6 +19,12 @@ const menuList = [
     name: '📃 随笔',
     path: '/essay',
     hasLogin: false
+  },
+  {
+    name: '📢 通知',
+    path: '/notify',
+    hasLogin: true,
+    isBadge: true
   },
   {
     name: '📝 写文章',
@@ -69,6 +75,15 @@ const MobileMenu = observer(() => {
           }
           if (menu.isPC) {
             return <Fragment key={menu.path} />
+          }
+          if (menu.isBadge) {
+            return (
+              <div className={styles.menuItem} key={menu.path} onClick={() => jump(menu.path)}>
+                <Badge count={store.unreadNotifyCount} size="small" key={menu.path}>
+                  {menu.name}
+                </Badge>
+              </div>
+            )
           }
           return (
             <div className={styles.menuItem} key={menu.path} onClick={() => jump(menu.path)}>
@@ -154,6 +169,15 @@ const PCMenu = observer(() => {
         if (menu.hasLogin && !store.isLogin) {
           return <Fragment key={menu.path} />
         }
+        if (menu.isBadge) {
+          return (
+            <div className={styles.menuItem} key={menu.path} onClick={() => navigate(menu.path)}>
+              <Badge count={store.unreadNotifyCount} size="small" key={menu.path}>
+                {menu.name}
+              </Badge>
+            </div>
+          )
+        }
         return (
           <div className={styles.menuItem} key={menu.path} onClick={() => navigate(menu.path)}>
             {menu.name}
@@ -177,6 +201,9 @@ const PCMenu = observer(() => {
 })
 const MenuGroup = () => {
   const isMobile = detectDeviceType() === 'mobile'
+  useEffect(() => {
+    store.getUnreadNotifyCount()
+  }, [window.location.pathname])
 
   return <div className={styles['menu-group']}>{isMobile ? <MobileMenu /> : <PCMenu />}</div>
 }

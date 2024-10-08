@@ -67,6 +67,11 @@
     position: relative;
     letter-spacing: 2px;
     user-select: none;
+    :global {
+      .ant-badge {
+        color: @auxiliaryColor1;
+      }
+    }
 
     &::after {
       content: ' ';
@@ -134,6 +139,13 @@
     transition: @transition;
     user-select: none;
     transition-duration: 0.15s;
+
+    :global {
+      .ant-badge {
+        color: #fff;
+        font-size: 20px;
+      }
+    }
 
     &:active {
       transform: scale(0.95);
