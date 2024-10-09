@@ -14,6 +14,7 @@ const Index = () => {
 
   useEffect(() => {
     store.read()
+    globalStore.getUnreadNotifyCount()
   }, [])
 
   return (

@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import Api from './api'
+import { message } from 'antd'
 
 class Store {
   constructor() {
@@ -48,6 +49,29 @@ class Store {
     })
     this.articleList = res.records
     this.total = res.total
+  }
+
+  otherUserInfo: any = {}
+  isFollow = false
+
+  getOtherUserInfo = async id => {
+    const res = await Api.getUserInfo(id)
+    this.otherUserInfo = res
+    this.isFollow = res.isFollow
+  }
+
+  // 关注
+  follow = async id => {
+    if (!this.isFollow) {
+      // 关注
+      await Api.follow(id)
+      this.isFollow = true
+      message.success('关注成功')
+    } else {
+      await Api.unFollow(id)
+      this.isFollow = false
+      message.success('取消关注')
+    }
   }
 }
 

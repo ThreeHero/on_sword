@@ -1,9 +1,8 @@
 import { Space, Table, Avatar, Tooltip, Button, Modal, message } from 'antd'
 import styles from './styles.less'
 import { config } from '@/config'
-import { http, options } from '@/utils'
+import { options } from '@/utils'
 import { useNavigate } from 'react-router'
-import { DeleteOutlined } from '@ant-design/icons'
 
 const ArticleTable = ({ data, type }) => {
   const navigate = useNavigate()
@@ -11,13 +10,13 @@ const ArticleTable = ({ data, type }) => {
     {
       title: '标题',
       dataIndex: 'title',
-      fixed: 'left',
+      // fixed: 'left',
       width: 180
     },
     {
       title: '发布人',
       dataIndex: 'userInfo',
-      fixed: 'left',
+      // fixed: 'left',
       width: 100,
       render: val => {
         return (
@@ -66,6 +65,7 @@ const ArticleTable = ({ data, type }) => {
   ]
   return (
     <Table
+      bordered
       rowKey={'id'}
       showHeader={false}
       dataSource={data}

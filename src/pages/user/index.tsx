@@ -3,7 +3,7 @@ import { config } from '@/config'
 import { AnimationBg } from '@/components'
 import styles from './styles.less'
 import { Tabs } from 'antd'
-import { ArticleList, UserInfo } from './components'
+import { ArticleList, UserInfo, ChangePwd } from './components'
 import globalStore from '@/layout/store'
 
 const Index = () => {
@@ -12,6 +12,11 @@ const Index = () => {
       key: 'info',
       label: '用户信息',
       children: <UserInfo />
+    },
+    {
+      key: 'pwd',
+      label: '修改密码',
+      children: <ChangePwd />
     },
     {
       key: 'article',

@@ -428,8 +428,9 @@ body {
     color: @color;
     background: @bg;
     transition:
-      background 0.3s,
-      color 0.3s;
+      background 0.3s ease-in-out,
+      color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out;
     border-color: @border;
     &::placeholder {
       color: var(--text-color1);

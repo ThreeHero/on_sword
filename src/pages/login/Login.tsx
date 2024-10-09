@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import cls from 'classnames'
 
 import styles from './styles.less'
-import { Button, Form, Input } from 'antd'
+import { Button, ConfigProvider, Form, Input } from 'antd'
 import validate from '@/pages/login/validate'
 import ForgetPassword from './ForgetPassword'
 import QrCode from './QrCode'
@@ -32,7 +32,9 @@ const Login = ({ store }) => {
           </div>
         </QrCode>
       </div>
-      <ForgetPassword store={store} />
+      <ConfigProvider prefixCls="ant">
+        <ForgetPassword store={store} />
+      </ConfigProvider>
     </div>
   )
 }
