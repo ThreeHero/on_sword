@@ -5,9 +5,12 @@ import { Logo, MenuGroup } from './components'
 import { useMouseWheel, useTitle, useTranscend } from '@/hooks'
 import { useState, useEffect } from 'react'
 import { config } from '@/config'
+import store from '@/layout/store'
+import { useLocation } from 'react-router'
 
 const Header = () => {
   const [hidden, setHidden] = useState<boolean>(false)
+  const location = useLocation()
   useMouseWheel(v => setHidden(!v))
   const isBg = useTranscend()
 
@@ -31,6 +34,9 @@ const Header = () => {
       document.removeEventListener('contextmenu', shield)
     }
   }, [])
+  useEffect(() => {
+    store.getUnreadNotifyCount()
+  }, [location.pathname])
 
   return (
     <div

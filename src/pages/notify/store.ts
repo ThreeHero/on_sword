@@ -1,11 +1,12 @@
 import { makeAutoObservable } from 'mobx'
 import Api from './api'
+import { message } from 'antd'
 
 class Store {
   constructor() {
     makeAutoObservable(this)
     this.getList()
-    this.read()
+    // this.read()
   }
 
   page = 1
@@ -22,8 +23,19 @@ class Store {
     this.total = res.total
   }
 
+  changePage = (page: number) => {
+    this.page = page
+    this.getList()
+  }
+
   read = async () => {
     await Api.showNoticeTime({})
+  }
+
+  remove = async (id: number) => {
+    await Api.remove(id)
+    this.getList()
+    message.success('删除成功')
   }
 }
 

@@ -201,10 +201,6 @@ const PCMenu = observer(() => {
 })
 const MenuGroup = () => {
   const isMobile = detectDeviceType() === 'mobile'
-  useEffect(() => {
-    store.getUnreadNotifyCount()
-  }, [window.location.pathname])
-
   return <div className={styles['menu-group']}>{isMobile ? <MobileMenu /> : <PCMenu />}</div>
 }
 
