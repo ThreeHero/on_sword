@@ -1,11 +1,24 @@
 @import 'normalize.css';
 @import 'nprogress/nprogress.css';
 @import './styles/variable.less';
+@import './styles/base.less';
+@import './styles/antd.less';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'zhuziAwan';
+  -webkit-tap-highlight-color: transparent;
+}
+
+@font-face {
+  font-family: 'zhuziAwan';
+  src: url('./assets/font/zhuziawan.ttf');
+}
+@font-face {
+  font-family: 'mono';
+  src: url('./assets/font/JetBrainsMono-Medium.ttf');
 }
 
 html,
@@ -46,4 +59,8 @@ body,
     color: lighten(@primaryColor, 10%);
     // color: @primaryColor;
   }
+}
+
+.medium-zoom-image--opened {
+  z-index: 1000;
 }

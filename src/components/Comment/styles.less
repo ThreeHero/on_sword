@@ -1,0 +1,70 @@
+@import '../../styles/variable.less';
+
+@leftWidth: 32px + 16px;
+.comment {
+  margin-top: 24px;
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+
+      .userInfo {
+        .name {
+          color: @auxiliaryColor1;
+        }
+        .subtitle {
+          font-size: 12px;
+          color: var(--text-color1);
+          display: flex;
+          gap: 8px;
+        }
+      }
+    }
+  }
+  .bottom {
+    margin-top: 16px;
+    margin-left: @leftWidth;
+    background-color: var(--bg--transparent);
+    transition: @transition;
+    padding: 16px;
+    border-radius: 8px;
+
+    .content {
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: @color;
+      transition: @transition;
+      .replyName {
+        color: @primaryColor;
+        cursor: pointer;
+      }
+    }
+    .imgList {
+      display: flex;
+      gap: 16px;
+
+      .img {
+        width: 30%;
+        // flex: 1;
+        flex-shrink: 0;
+        object-fit: cover;
+        cursor: pointer;
+        transition: @transition;
+        user-select: none;
+      }
+      .darkImg {
+        filter: brightness(50%);
+      }
+    }
+  }
+  .more {
+    margin-top: 16px;
+    margin-left: @leftWidth;
+    color: @color;
+  }
+}

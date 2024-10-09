@@ -1,0 +1,74 @@
+@import '../styles/variable.less';
+
+
+
+.container {
+  position: relative;
+  color: @color;
+  min-height: 100vh;
+}
+
+.header {
+  height: @headerHeight;
+  width: 100%;
+  // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateY(0);
+  z-index: 999;
+  background: transparent;
+  transition:
+    background 0.3s ease-in-out,
+    opacity 0.3s ease-in-out 0.3s,
+    transform 0.3s ease-in-out;
+
+  &:hover {
+    background: var(--bg--transparent);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition:
+    background 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out 0.3s;
+}
+
+.has-bg {
+  background: @bg!important;
+}
+
+.tool-bar {
+  position: fixed;
+  right: 3vmax;
+  bottom: 3vmax;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1vmax;
+
+  .scroll-height {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .icon {
+    font-size: 24px;
+    color: @color;
+    cursor: pointer;
+    transition: @transition;
+
+    &:hover {
+      color: @auxiliaryColor1;
+      transform: scale(1.1);
+    }
+  }
+}

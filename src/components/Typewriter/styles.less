@@ -1,0 +1,30 @@
+.typewriter {
+  // font-family: 'zhuziAwan';
+  display: inline-block;
+  cursor: pointer;
+  padding: 16px 8px;
+  font-size: 18px;
+  border-radius: 8px;
+  background-color: var(--bg--transparent);
+  color: #fff;
+  user-select: none;
+
+  &::after {
+    content: '|';
+    display: inline-block;
+    animation: blink 1s infinite;
+  }
+
+  // 闪烁效果
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

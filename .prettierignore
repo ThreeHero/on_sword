@@ -6,5 +6,5 @@
 **/*.svg
 **/*.sh
 
-/public/*
+# /public/*
 /.DS_Store

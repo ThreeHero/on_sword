@@ -1,7 +1,8 @@
 import type { ThemeConfig } from 'antd'
+import styles from './style.json'
 
 const theme: ThemeConfig = {
-  token: {}
+  token: styles
 }
 
 /**

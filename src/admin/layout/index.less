@@ -1,0 +1,118 @@
+@import '../../styles/variable.less';
+
+.layout {
+  .header {
+    background: @bg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: @transition;
+    border-bottom: 1px solid @border;
+
+    :global {
+      .ant-space-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .logo {
+      user-select: none;
+      cursor: pointer;
+
+      &-bg {
+        color: transparent;
+        background: @primaryColor;
+        background-clip: text;
+        font-size: 24px;
+        transition: @transition;
+      }
+    }
+    .icon {
+      font-size: 24px;
+      color: @color;
+      cursor: pointer;
+      transition: @transition;
+
+      &:hover {
+        color: @auxiliaryColor1;
+        transform: scale(1.1);
+      }
+    }
+    .nickname {
+      cursor: default;
+      color: @color;
+      transition: @transition;
+      user-select: none;
+    }
+  }
+
+  .sider {
+    background: @bg;
+    transition: @transition;
+    border-right: 1px solid @border;
+
+    .menu {
+      background: @bg;
+      color: @color;
+      transition: @transition;
+      border-inline-end: none;
+      :global {
+        .ant-menu-item {
+          .ant-menu-inline-collapsed-noicon {
+            color: @color;
+            transition: @transition;
+          }
+        }
+        .ant-menu-submenu-title {
+          color: @color;
+          transition: @transition;
+        }
+        .ant-menu-title-content {
+          transition: @transition;
+          color: @color;
+        }
+        .ant-menu-item-group-title {
+          color: var(--text-color1);
+        }
+        .ant-menu-item-selected {
+          .ant-menu-title-content {
+            color: @primaryColor;
+          }
+          .ant-menu-inline-collapsed-noicon {
+            color: @primaryColor;
+          }
+        }
+      }
+    }
+  }
+
+  // .content {
+  // }
+}
+
+:global {
+  .ant-layout {
+    height: 100%;
+    background: @bg;
+    color: @color;
+    transition: @transition;
+    // &-header {
+    //   background: @bg !important;
+    // }
+
+    &-sider {
+      .ant-layout-sider-trigger {
+        background: @bg !important;
+        transition: @transition;
+        border-right: 1px solid @border;
+
+        .anticon {
+          color: @color;
+          transition: @transition;
+        }
+      }
+    }
+  }
+}

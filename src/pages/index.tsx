@@ -1,36 +1,17 @@
-import { MDEditor } from '@/components'
-import { useState } from 'react'
-
+import { useMemo } from 'react'
+import { Header, Content, Store } from './components'
+import { config } from '@/config'
+import { observer } from 'mobx-react'
+import { AnimationBg } from '@/components'
 const Home = () => {
-  const [value, setValue] = useState<string>(`---
-theme: github
----  
-  
-  
-# Markdown-Navbar Demo
- 
-## Chicken Chicken
- 
-Chicken Chicken Chicken Chicken Chicken.
- 
-* Chicken Chicken Chicken Chicken Chicken.
-* Chicken Chicken Chicken Chicken Chicken.
-* Chicken Chicken Chicken Chicken Chicken.
- 
-### Chicken Chicken Chicken
- 
-Chicken Chicken Chicken Chicken Chicken.
- 
-#### Chicken Chicken Chicken Chicken
- 
-Chicken Chicken Chicken Chicken Chicken Chicken.`)
-
+  const store = useMemo(() => new Store(), [])
   return (
-    <div style={{ width: '', display: 'flex' }}>
-      <MDEditor.Viewer value={value} onChange={setValue} />
-      <MDEditor.Navbar value={value} onChange={setValue} />
+    <div>
+      <AnimationBg src={config.homeBg} height="50vmin" />
+      <Header store={store} />
+      <Content store={store} />
     </div>
   )
 }
 
-export default Home
+export default observer(Home)

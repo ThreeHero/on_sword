@@ -1,4 +1,6 @@
 import type { BytemdPlugin } from 'bytemd'
+// @ts-ignore
+import gfmZhHans from '@bytemd/plugin-gfm/locales/zh_Hans.json'
 
 import themes, { highlights, icons, mdThemes } from './theme'
 
@@ -88,21 +90,39 @@ function MdStyle(): BytemdPlugin {
     viewerEffect: ({ file, markdownBody }: any) => {
       if (typeof file !== 'object') return
       const { frontmatter } = file || {}
-      const { theme, highlight } = frontmatter || {}
-      if (highlight) {
-        const $style = document.createElement('style')
-        $style.innerHTML = require(`#/highLightStyles/${highlight}.css`)
-        markdownBody.appendChild($style)
-      }
+      const { theme = 'three-hero', highlight } = frontmatter || {}
       if (theme) {
         const $style = document.createElement('style')
-        $style.innerHTML = require(`#/mdStyles/${themes[theme]?.path}`)
+        if (themes[theme]?.path) $style.innerHTML = require(`#/mdStyles/${themes[theme]?.path}`)
+        markdownBody.appendChild($style)
+      }
+
+      if (highlight) {
+        const $style = document.createElement('style')
+        let styleContent = ''
+        try {
+          styleContent = require(`#/highLightStyles/${highlight}.css`)
+        } catch {
+          styleContent = require(`#/highLightStyles/default.css`)
+        }
+        $style.innerHTML = `
+          .markdown-body {
+            ${styleContent}
+          }
+        `
         markdownBody.appendChild($style)
       }
     }
   }
 }
 
-export const plugins = [gfm(), frontmatter(), MdStyle(), gemoji(), highlight(), mediumZoom()]
+export const plugins = [
+  gfm({ locale: gfmZhHans }),
+  frontmatter(),
+  MdStyle(),
+  gemoji(),
+  highlight(),
+  mediumZoom()
+]
 
 // @ts-ignore

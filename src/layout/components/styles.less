@@ -1,0 +1,154 @@
+@import '../../styles/variable.less';
+
+@color: var(--current-color);
+
+.logo {
+  user-select: none;
+  cursor: pointer;
+
+  &-bg {
+    color: transparent;
+    background: @primaryColor;
+    background-clip: text;
+    font-size: 24px;
+    transition: @transition;
+  }
+
+  .is-bg {
+    background: @color;
+    background-clip: text;
+  }
+}
+
+.menu-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+
+  .loginBtn {
+    color: #fff;
+    background: @primaryColor;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    transition: @transition;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    margin-left: 16px;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  :global {
+    .ant-avatar-string {
+      transform: scale(1) !important;
+    }
+  }
+
+  .menuItem {
+    color: @auxiliaryColor1;
+    font-size: 16px;
+    cursor: pointer;
+    transform-origin: left bottom;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    letter-spacing: 2px;
+    user-select: none;
+    :global {
+      .ant-badge {
+        color: @auxiliaryColor1;
+      }
+    }
+
+    &::after {
+      content: ' ';
+      border-bottom: 5px solid @auxiliaryColor2;
+      position: absolute;
+      width: 0;
+      height: 5px;
+      bottom: 0;
+      left: 0;
+      transition: @transition;
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  .mobile {
+    .icon {
+      color: @primaryColor;
+      font-size: 24px;
+    }
+  }
+}
+
+.mobileDrawer {
+  background: transparent !important;
+  color: #fff !important;
+
+  :global {
+    .ant-drawer-header {
+      &-title {
+        .ant-drawer-title {
+          font-size: 24px;
+        }
+      }
+    }
+    .ant-drawer-body {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+  .bg {
+    width: 70vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    user-select: none;
+    transition: @transition;
+  }
+  .darkBg {
+    filter: brightness(50%);
+  }
+
+  .menuItem {
+    font-size: 20px;
+    letter-spacing: 0.5em;
+    transition: @transition;
+    user-select: none;
+    transition-duration: 0.15s;
+
+    :global {
+      .ant-badge {
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}

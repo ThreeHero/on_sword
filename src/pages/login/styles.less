@@ -1,0 +1,241 @@
+@import '../../styles/variable.less';
+
+// 基础面板宽度
+@panelWidth: 360px;
+// 容器高度
+@containerHeight: 450px;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  .box {
+    width: @panelWidth * 2;
+    height: @containerHeight;
+    background-color: fade(@primaryColor, 50%);
+    border-radius: 16px;
+    overflow: hidden;
+    // opacity: 0.8;
+  }
+
+  .slider-page {
+    width: @panelWidth * 3;
+    height: @containerHeight;
+    transition: @transition;
+    // opacity: 0.8;
+    display: flex;
+    position: relative;
+  }
+  .is-login {
+    transform: translateX(-@panelWidth);
+  }
+}
+
+@media (max-width: (2 * @panelWidth)) {
+  @panelWidth: 80vw;
+  .container {
+    .box {
+      width: @panelWidth;
+      height: @containerHeight * 1.2;
+
+      .page {
+        .form {
+          justify-content: space-evenly;
+          .title {
+            display: none;
+          }
+          :global {
+            .login {
+              margin-bottom: 0;
+            }
+          }
+          .text {
+            margin-bottom: 0;
+          }
+          .qr-box {
+            display: none;
+          }
+        }
+      }
+    }
+    .slider-page {
+      width: @panelWidth;
+      height: @containerHeight * 1.8;
+      flex-direction: column;
+    }
+    .is-login {
+      transform: translateY(-@containerHeight * 0.6);
+    }
+  }
+}
+
+.reg {
+}
+
+.middle {
+  flex: 1 0 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: fade(@auxiliaryColor1, 60%);
+  user-select: none;
+  padding-bottom: 40px;
+  // color: #fff;
+  color: mix(@primaryColor, #fff, 20%);
+  // filter: contrast(15);
+
+  .desc {
+    margin-bottom: 40px;
+  }
+  .btn {
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 32px;
+    border: 1px #fff solid;
+    color: #fff;
+    border-radius: 60px;
+    user-select: none;
+    transition:
+      transform 0.6s cubic-bezier(0.075, 1.2, 0.665, 1),
+      box-shadow 0.6s cubic-bezier(0.075, 1.2, 0.665, 1),
+      filter 0.2s;
+
+    &:active {
+      transform: scale(0.9);
+      filter: blur(4px);
+    }
+
+    &:hover {
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.login {
+  .qr-box {
+    margin-top: 8px;
+    user-select: none;
+    cursor: pointer;
+    padding: 12px 16px;
+    transition: @transition;
+  }
+}
+
+.page {
+  flex: 1 0 0;
+  overflow: hidden;
+
+  .form {
+    height: 100%;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+      margin-bottom: 16px;
+      user-select: none;
+    }
+
+    :global {
+      .login-form-item {
+        width: 100%;
+
+        .login-input {
+          background: fade(#fff, 60%);
+          border: none;
+          border-radius: 0;
+          letter-spacing: 2px;
+
+          &::placeholder {
+            color: #666;
+          }
+        }
+        .login-input-password {
+          background: fade(#fff, 60%);
+          border: none;
+          border-radius: 0;
+
+          .login-input {
+            background: transparent;
+          }
+
+          &::placeholder {
+            color: #666;
+          }
+        }
+      }
+      .login-statistic-content {
+        font-size: 14px;
+      }
+    }
+
+    .text {
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      margin-bottom: 16px;
+      transition: transform 0.6s cubic-bezier(0.075, 1.2, 0.665, 1);
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+}
+
+.forgetModal {
+  :global {
+    .login-form-item {
+      width: 100%;
+
+      .login-input {
+        background: fade(#fff, 60%);
+        border-radius: 0;
+        letter-spacing: 2px;
+
+        &::placeholder {
+          color: #666;
+        }
+      }
+      .login-input-password {
+        background: fade(#fff, 60%);
+        border-radius: 0;
+
+        .login-input {
+          background: transparent;
+        }
+
+        &::placeholder {
+          color: #666;
+        }
+      }
+    }
+    .login-statistic-content {
+      font-size: 14px;
+    }
+  }
+
+  .send-btn {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #d9d9d9;
+    user-select: none;
+    color: var(--current-color);
+  }
+
+  .submit-btn {
+    color: var(--current-color) !important;
+    background: var(--current-bg) !important;
+  }
+}

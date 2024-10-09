@@ -1,4 +1,5 @@
-$monospace-font: -apple-system-font, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", Arial, sans-serif;
+$monospace-font: -apple-system-font, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC',
+  'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', Arial, sans-serif;
 $line-space: 22px;
 $h1-color: #773098;
 $h2-color: #916dd5;
@@ -13,7 +14,8 @@ $a-hover-active-color: #773098;
   line-height: 1.75;
   font-family: $monospace-font;
   letter-spacing: 2px;
-  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%),
+    linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
   background-size: 20px 20px;
   background-position: center center;
   word-break: break-word;
@@ -93,7 +95,7 @@ $a-hover-active-color: #773098;
     position: relative;
     line-height: 1.75;
 
-    >code {
+    > code {
       display: block;
       font-family: $monospace-font;
       font-weight: normal;

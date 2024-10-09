@@ -1,0 +1,75 @@
+@import './animation.less';
+@import './variable.less';
+
+:root {
+  //亮色文字色
+  --text-color: #0a2222;
+  //暗色文字色
+  --text-color2: #c1c8c8;
+  //文字辅助色
+  --text-color1: #797979;
+
+  // 亮色背景色
+  --bg-color: #fff;
+  //暗色背景色
+  --bg-color2: #343737;
+
+  --bg--transparent: rgba(0, 0, 0, 0.1);
+  --border-color: #e1e4e8;
+  --border-color2: #1e1b1a;
+
+  --current-color: var(--text-color);
+  --current-bg: var(--bg-color);
+  --current-border: var(--border-color);
+}
+
+.img-bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  animation: 2s ease 0s 1 normal none running header-effect;
+  object-fit: cover;
+  user-select: none;
+  background: @bg;
+  transition: @transition;
+}
+.bg {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -2;
+  background: @bg;
+}
+.dark-bg {
+  filter: brightness(50%);
+}
+
+.markdown-body {
+  p {
+    color: @color;
+  }
+}
+
+.containerBox {
+  width: min(80vw, 800px);
+}
+.markdown-navigation {
+  overflow-y: auto !important;
+  max-height: 274px;
+  .title-anchor {
+    color: @color !important;
+    &:hover {
+      background: transparent !important;
+      color: @auxiliaryColor1 !important;
+      transition: @transition !important;
+    }
+  }
+  .active {
+    color: @primaryColor !important;
+    background: transparent !important;
+    transition: @transition !important;
+  }
+}

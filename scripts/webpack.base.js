@@ -7,6 +7,7 @@ const AntdMomentWebpackPlugin = require('@ant-design/moment-webpack-plugin')
 const loaders = require('./loaders.js')
 
 module.exports = {
+  target: 'web',
   entry: path.join(__dirname, '../src/index.tsx'),
   output: {
     filename: 'static/js/[name].[hash:8].js',
