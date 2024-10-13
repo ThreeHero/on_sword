@@ -5,8 +5,11 @@ import styles from './styles.less'
 import { Tabs } from 'antd'
 import { ArticleList, UserInfo, ChangePwd } from './components'
 import globalStore from '@/layout/store'
+import Store from './store'
+import { useMemo } from 'react'
 
 const Index = () => {
+  const store = useMemo(() => new Store(), [])
   const items = [
     {
       key: 'info',
@@ -38,7 +41,14 @@ const Index = () => {
     <div className={styles.container}>
       <AnimationBg src={config.userBg} />
       <div className={styles.content}>
-        <Tabs items={items} centered tabPosition="top" className={styles.tabs} />
+        <Tabs
+          activeKey={store.active}
+          onChange={store.changeActive}
+          items={items}
+          centered
+          tabPosition="top"
+          className={styles.tabs}
+        />
       </div>
     </div>
   )

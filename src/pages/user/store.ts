@@ -12,6 +12,11 @@ class Store {
   total = 0
   articleList = []
 
+  changePage = (page: number, pageSize: number) => {
+    this.page = page
+    this.pageSize = pageSize
+  }
+
   getArticleList = async ({ type, publisherId }) => {
     const params: { [props: string]: any } = {
       page: this.page,
@@ -72,6 +77,12 @@ class Store {
       this.isFollow = false
       message.success('取消关注')
     }
+  }
+
+  active = 'article'
+
+  changeActive = (active: string) => {
+    this.active = active
   }
 }
 

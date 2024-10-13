@@ -81,17 +81,18 @@ class Store {
 
     values.tagList = values.tagList.join(',')
     values.isComment = Number(values.isComment)
+    let jumpId = ''
     if (values.id) {
-      await Api.edit(values)
+      jumpId = await Api.edit(values)
     } else {
-      await Api.publish(values)
+      jumpId = await Api.publish(values)
     }
     message.success('发布成功')
     this.submitDrawer = false
     clearCache(globalStore.currentUser?.id + '_article', false)
 
     this.formInstance.resetFields()
-    this.router('/user')
+    this.router('/article/' + jumpId)
   }
 }
 

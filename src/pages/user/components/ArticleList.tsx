@@ -48,7 +48,16 @@ const ArticleList: FC<IProps> = ({ type, userId }) => {
           <div>{userInfo.introduction}</div>
         </div>
       )}
-      <ArticleTable data={store.articleList} type={type} />
+      <ArticleTable
+        data={store.articleList}
+        type={type}
+        search={store.getArticleList}
+        changePage={store.changePage}
+        page={store.page}
+        pageSize={store.pageSize}
+        total={store.total}
+        userId={userId}
+      />
     </>
   )
 }
