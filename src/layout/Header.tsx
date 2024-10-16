@@ -35,7 +35,7 @@ const Header = () => {
     }
   }, [])
   useEffect(() => {
-    store.getUnreadNotifyCount()
+    store.isLogin && store.getUnreadNotifyCount()
   }, [location.pathname])
 
   return (

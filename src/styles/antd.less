@@ -57,6 +57,21 @@ body {
         color: @color;
         transition: @transition;
       }
+      .ant-modal-body {
+        .ant-input-affix-wrapper {
+          background: @bg;
+          color: @color;
+          transition: @transition;
+          .ant-input-suffix {
+            color: @color;
+            transition: @transition;
+            .ant-input-password-icon {
+              color: @color;
+              transition: @transition;
+            }
+          }
+        }
+      }
     }
     .ant-modal-confirm-btns,
     .ant-modal-footer {

@@ -201,7 +201,7 @@ class Store {
       WAIT_SCAN: () => {},
       WAIT_CONFIRM: () => (this.qrStatus = 'scanned'),
       CONFIRMED: () => {
-        const { token, ...userInfo } = res || {}
+        const { token, ...userInfo } = res.user || {}
         setToken(token)
         setUserinfo(userInfo)
         this.qrCancel()
