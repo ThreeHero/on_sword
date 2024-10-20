@@ -104,7 +104,7 @@ const Comment: FC<IProps> = ({ comment, type, callback, isRoot = true }) => {
         <div className={styles.imgList}>
           {imgList.length > 0 &&
             (imgList as any).map((img, index) => {
-              if (index > 3) return null
+              if (index >= 3) return null
               return (
                 <img
                   src={img.url}
