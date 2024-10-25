@@ -35,7 +35,7 @@ module.exports = {
       }
     ],
     [
-      '@babel/preset-typeScript',
+      '@babel/preset-typescript',
       {
         isTSX: true,
         allExtensions: true
